@@ -20,18 +20,8 @@ var port = process.env.PORT || 4242;        // set our port
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-
-// middleware to use for all requests -- will be used for security check
-router.use(function(req, res, next) {
-    // do logging
-    console.log('Security check');
-    next(); // make sure we go to the next routes and don't stop here
-});
-
-router.get('/', function(req, res) {
-    res.json({ message: 'API is up !' });   
-});
-
+// loading our routes
+require('./routes.js')(router);
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api/v0
