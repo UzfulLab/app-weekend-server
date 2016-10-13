@@ -23,12 +23,15 @@
 ### APP AUTHENTICATION
 
 #### Header
-Header must contain:
+Header must contains:
 `authToken: "safetoken123"` *(temporary)*
 
 ### APP DETAILS
 
 ##### Routes
+```
+Still filling up
+```
 
 
 
