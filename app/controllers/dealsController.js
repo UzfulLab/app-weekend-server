@@ -1,4 +1,5 @@
 var deal = require("../models/deal.js")
+var skyscannerAPI = require("../lib/skyscannerAPI.js")
 
 module.exports = {
 	listDeals: function(){
@@ -6,7 +7,7 @@ module.exports = {
 	},
 	customDeal: function(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity){
 		originCity = originCity || "PARI-sky"
-		//supposingly calling skyscanner API and choosing best deal
-		//calling also image API and adding illustration to json return
+		// calling arguments verification function
+		return skyscannerAPI.createDeal(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity)
 	}
 }
