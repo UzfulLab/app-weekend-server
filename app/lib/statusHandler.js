@@ -1,19 +1,24 @@
 module.exports = {
-  unauthorized: function(res){
-    res
-      .header("status", ["401"])
-      .json({error: "Unauthorized, bad access token"})
-  },
   success: function(res, data){
     res
       .header("status", ["200"])
       .json(data)
   },
+  unauthorized: function(res){
+    res
+      .header("status", ["401"])
+      .json({error: "Unauthorized, bad access token"})
+  },
+  notFound: function(res){
+    res
+      .header("status", ["404"])
+      .json({error: "Route not found"})
+  },
   unprocessable: function(res, data){
     res
       .header("status", ["422"])
       .json({error: "Unprocessable Entity"})
-  },
+  },  
   fatalError: function(res){
     res
       .header("status", ["500"])
