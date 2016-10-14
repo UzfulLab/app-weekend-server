@@ -32,6 +32,8 @@ Header must contains:
 
 All routes begin with `/api/v0`
 
+***
+
 `GET /deals` => Returns a json of all current deals
 
 ###### RETURN
