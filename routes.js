@@ -26,11 +26,7 @@ module.exports = function(router) {
 	})
 
 	router.get('/deals', function(req, res){
-		//TODO decide of a format for response like
-		// var rep = deals.listDeals();
-		// status.autoStatus(rep, res)
-		// Adding a new method to status called autoStatus and checking rep.status number
-		// autoStatus should also return rep.data 
-		res.json(deals.listDeals())
+		rep = deals.listDeals();
+		status.autoStatus(res, rep)
 	})
 }
