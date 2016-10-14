@@ -29,11 +29,27 @@ Header must contains:
 ### APP DETAILS
 
 ##### Routes
-```
-Still filling up
-```
 
+All routes begin with `/api/v0`
 
+`GET /deals` => Returns a json of all current deals
+
+`POST /deal` => Create and Returns a json of a specific deals
+
+###### REQUEST
+
+|     ARGUMENTS    |  TYPE  | OPTIONAL |     POSSIBLE VALUES    | DEFAULT VALUE |     DESCRIPTION     |
+|:---------------:|:------:|:--------:|:----------------------:|:-------------:|:-------------------:|
+|   departureDay  | string |    no    |    thu - fri - sat   |               |   Day of departure  |
+| departureMoment | string |    no    |   morning - evening   |               | Moment of departure |
+|    returnDay    | string |    no    |    sun - mon - tue   |               |    Day of return    |
+|   returnMoment  | string |    no    |   morning - evening   |               |   Moment of return  |
+| destinationCity | string |    no    | *Skyscanner city values* |               |    City to fly to   |
+|    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from  |
+
+###### RETURN
+
+`doing return`
 
 ##### App structure :
 

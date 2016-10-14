@@ -18,7 +18,7 @@ module.exports = {
     res
       .header("status", ["422"])
       .json({error: "Unprocessable Entity"})
-  },  
+  },
   fatalError: function(res){
     res
       .header("status", ["500"])
@@ -33,7 +33,7 @@ module.exports = {
         this.unauthorized(res)
         break
       case 422:
-        this.unprocessable(res)
+        this.unprocessable(res, rep.data)
         break
       case 500:
         this.fatalError(res)
