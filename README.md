@@ -28,7 +28,7 @@ Header must contains:
 
 ### APP DETAILS
 
-##### Routes
+#### Routes
 
 All routes begin with `/api/v0`
 
@@ -58,7 +58,7 @@ All routes begin with `/api/v0`
 
 ```
 
-*returns the day of inbound, day of outbound, number of passenger and deal corresponding*
+*returns the day of inbound(thu => thursday), day of outbound(sun => sunday), number of passenger(one => deal for 1 passenger) and deal corresponding*
 
 ***
 
