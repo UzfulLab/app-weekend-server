@@ -46,6 +46,7 @@ All routes begin with `/api/v0`
 |   returnMoment  | string |    no    |   morning - evening   |               |   Moment of return  |
 | destinationCity | string |    no    | *Skyscanner city values* |               |    City to fly to   |
 |    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from  |
+|    withPicture  | bool   |    yes   | 0 - 1 |    0   |   If you need a picture to illustrate your deal  |
 
 ###### RETURN
 

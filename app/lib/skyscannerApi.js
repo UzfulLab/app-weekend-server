@@ -17,7 +17,7 @@ module.exports = {
     // algorithm to select best deal among skyscanner return
     return {city: "Dublin", price: "42.42", deal: "http://google.fr"}
   },
-  createDeal: function(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity){
+  createDeal: function(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity, withPicture){
     //supposingly calling skyscanner API and choosing best deal
     var session = this.createSession()
     if (this.checkErrors(session))
@@ -26,8 +26,9 @@ module.exports = {
     if (this.checkErrors(tmpDeal))
       return {data: session, status: session.status}
     var deal = this.selectBestDeal(tmpDeal)
+    if (!withPicture)
+      return {data: deal, status: 200}
     var picture = imagesApi.findPhoto(destinationCity)
-    console.log(picture)
     var data = Object.assign(deal, {picture: picture})
     return {data: deal, status: 200}
   }

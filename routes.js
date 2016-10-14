@@ -31,7 +31,7 @@ module.exports = function(router) {
 	})
 
 	router.post('/deal', function(req, res){
-		rep = deals.customDeal();
+		rep = deals.customDeal(req.body.departureDay, req.body.departureMoment, req.body.returnDay, req.body.returnMoment, req.body.destinationCity, req.body.originCity, req.body.withPicture);
 		status.autoStatus(res, rep)
 	})
 
