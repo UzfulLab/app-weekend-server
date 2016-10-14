@@ -22,7 +22,7 @@ module.exports = function(router) {
 
 	// Routing
 	router.get('/', function(req, res) {
-		status.success(res, {toto: req.query.toto})
+		status.success(res, {message: "API is up !"})
 	})
 
 	router.get('/deals', function(req, res){
