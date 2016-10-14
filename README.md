@@ -34,6 +34,29 @@ All routes begin with `/api/v0`
 
 `GET /deals` => Returns a json of all current deals
 
+###### RETURN
+
+```json
+
+{
+  "thu": {
+    "sun": {
+      "one": {
+        "firstDeal": {
+          "city": "Amsterdam",
+          "picture": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
+          "price": 74.32,
+          "deal": "http://google.fr"
+        }
+      }
+    }
+  }
+}
+
+```
+
+returns the day of inbound, day of outbound, number of passenger and deal corresponding
+
 `POST /deal` => Create and Returns a json of a specific deals
 
 ###### REQUEST
@@ -50,7 +73,17 @@ All routes begin with `/api/v0`
 
 ###### RETURN
 
-`doing return`
+A json is returned
+
+```json
+{
+  "city": "Dublin",
+  "price": "42.42",
+  "deal": "http://google.fr",
+  "picture": "https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=3b921acce5c55d802d64d31d081e80bb"
+}
+
+```
 
 ##### App structure :
 
