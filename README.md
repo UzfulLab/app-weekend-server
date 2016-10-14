@@ -92,6 +92,15 @@ A json is returned
 
 `PUT /deal/:id` => returns the new price of a deal
 
+A json is returned with the new price
+
+```json
+{
+  "price": "42.42"
+}
+
+```
+
 ***
 
 ###### DEV -> TEST ERRORS
