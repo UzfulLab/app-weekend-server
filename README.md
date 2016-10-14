@@ -85,6 +85,10 @@ A json is returned
 
 ```
 
+###### DEV -> TEST ERRORS
+
+If you need to simulate a skyscanner API down, you can pass `departureDay = 'createError'`
+
 ##### App structure :
 
 - app/ (contains all code logic)

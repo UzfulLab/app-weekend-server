@@ -17,7 +17,7 @@ module.exports = {
   unprocessable: function(res, data){
     res
       .header("status", ["422"])
-      .json({error: "Unprocessable Entity"})
+      .json(data)
   },
   fatalError: function(res){
     res

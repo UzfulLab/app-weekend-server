@@ -25,6 +25,12 @@ module.exports = {
     var tmpDeal = this.pollingSession(session)
     if (this.checkErrors(tmpDeal))
       return {data: session, status: session.status}
+
+    // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
+
+    if (departureDay == "createError")
+      return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
+
     var deal = this.selectBestDeal(tmpDeal)
     if (!withPicture)
       return {data: deal, status: 200}
