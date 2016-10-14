@@ -90,9 +90,15 @@ A json is returned
 
 ```
 
+###### DEV -> TEST ERRORS
+
+If you need to simulate a skyscanner API down, you can pass `departureDay = 'createError'`
+
 ***
 
 `PUT /deal/:id` => returns the new price of a deal
+
+###### RETURN
 
 A json is returned with the new price
 
@@ -104,10 +110,6 @@ A json is returned with the new price
 ```
 
 ***
-
-###### DEV -> TEST ERRORS
-
-If you need to simulate a skyscanner API down, you can pass `departureDay = 'createError'`
 
 ##### App structure :
 
