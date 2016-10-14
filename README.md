@@ -46,7 +46,8 @@ All routes begin with `/api/v0`
           "city": "Amsterdam",
           "picture": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
           "price": 74.32,
-          "deal": "http://google.fr"
+          "deal": "http://google.fr",
+          "id": "f4k3id23123"
         }
       }
     }
@@ -55,7 +56,9 @@ All routes begin with `/api/v0`
 
 ```
 
-returns the day of inbound, day of outbound, number of passenger and deal corresponding
+*returns the day of inbound, day of outbound, number of passenger and deal corresponding*
+
+***
 
 `POST /deal` => Create and Returns a json of a specific deals
 
@@ -84,6 +87,12 @@ A json is returned
 }
 
 ```
+
+***
+
+`PUT /deal/:id` => returns the new price of a deal
+
+***
 
 ###### DEV -> TEST ERRORS
 

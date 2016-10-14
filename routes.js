@@ -35,6 +35,12 @@ module.exports = function(router) {
 		status.autoStatus(res, rep)
 	})
 
+	router.put('/deal/:id', function(req, res){
+		console.log(req.params.id)
+		rep = deals.updateDeal(req.params.id)
+		status.autoStatus(res, rep)
+	})
+
 	// 404 route, should be kept at the end of routing
 	router.get('*', function(req, res){
 		status.notFound(res)

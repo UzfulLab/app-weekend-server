@@ -10,5 +10,9 @@ module.exports = {
 		withPicture = withPicture || false
 		// calling arguments verification function
 		return skyscannerAPI.createDeal(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity, withPicture)
+	},
+	updateDeal: function(id){
+		// calling arguments verification function
+		return skyscannerAPI.updateDeal(id)
 	}
 }
