@@ -17,7 +17,7 @@
 ##### Working on dev :
 
 ```shell
-  node server.js
+  npm start
 ```
 
 ### APP AUTHENTICATION
