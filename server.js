@@ -7,6 +7,25 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var cors = require('cors');
+
+// ====== Cors module config - Fix to accept request from localhost,
+// seems to only be needed when developing from localhost in the front, and not useful when app is deploy as an extension
+// probably needs improvements when production deployment =====
+var whitelist = [
+    'http://localhost:3000',
+];
+var corsOptions = {
+    origin: function(origin, callback){
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    credentials: true
+};
+app.use(cors(corsOptions));
+// ====== End cors module config
+
+var time = new Date();
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -30,4 +49,4 @@ app.use('/api/v0', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('API Ready on port ' + port);
+console.log(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ' API Ready on port ' + port);
