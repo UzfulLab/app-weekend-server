@@ -46,9 +46,9 @@ All routes begin with `/api/v0`
       "one": {
         "firstDeal": {
           "city": "Amsterdam",
-          "picture": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
-          "price": 74.32,
-          "deal": "http://google.fr",
+          "picture_url": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
+          "price": "74,32",
+          "deal_url": "http://google.fr",
           "id": "f4k3id23123"
         }
       }
