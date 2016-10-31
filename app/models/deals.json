@@ -29,21 +29,21 @@
         [
           {
           "city": "Monte Redondo",
-          "picture_url": "http://lorempixel.com/400/200/city/",
+          "picture_url": "https://images.unsplash.com/photo-1465077135029-626d853c33dc",
           "price": "94,60",
           "deal_url": "http://google.co.jp/praesent/blandit/lacinia.jpg",
           "id": "560717bf-9e9f-4840-bc6b-b86bc611654d"
         },
          {
           "city": "Inya",
-          "picture_url": "http://lorempixel.com/400/200/city/",
+          "picture_url": "https://images.unsplash.com/photo-1465644714440-4c572259ce2d",
           "price": "241,97",
           "deal_url": "https://issuu.com/nisi/venenatis/tristique/fusce.json",
           "id": "f3bb7c0c-ac10-48b2-b30f-a2163e12b41e"
         },
          {
           "city": "Pingba",
-          "picture_url": "http://lorempixel.com/400/200/city/",
+          "picture_url": "https://images.unsplash.com/photo-1465929639680-64ee080eb3ed",
           "price": "66,88",
           "deal_url": "http://hibu.com/vel/augue/vestibulum.xml",
           "id": "add844ff-4c8b-42eb-93dd-ba683bedd860"
