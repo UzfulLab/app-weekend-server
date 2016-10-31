@@ -1,854 +1,889 @@
 {
   "thu": {
     "sun": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Amsterdam",
           "picture_url": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
           "price": "74.32",
           "deal_url": "http://google.fr",
           "id": "f4k3id23123"
         },
-        "secondDeal": {
+         {
           "city": "Londres",
           "picture_url": "https://hd.unsplash.com/photo-1468407161946-009af5afe6a6",
           "price": "150,3",
           "deal_url": "http://google.fr",
           "id": "f4k3id23123"
         },
-        "thirdDeal": {
+         {
           "city": "Milan",
           "picture_url": "https://hd.unsplash.com/photo-1464938769256-c01dc51fc983",
           "price": "275.32",
           "deal_url": "http://google.fr",
           "id": "f4k3id23123"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Monte Redondo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "94,60",
           "deal_url": "http://google.co.jp/praesent/blandit/lacinia.jpg",
           "id": "560717bf-9e9f-4840-bc6b-b86bc611654d"
         },
-        "secondDeal": {
+         {
           "city": "Inya",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "241,97",
           "deal_url": "https://issuu.com/nisi/venenatis/tristique/fusce.json",
           "id": "f3bb7c0c-ac10-48b2-b30f-a2163e12b41e"
         },
-        "thirdDeal": {
+         {
           "city": "Pingba",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "66,88",
           "deal_url": "http://hibu.com/vel/augue/vestibulum.xml",
           "id": "add844ff-4c8b-42eb-93dd-ba683bedd860"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "General Emilio Aguinaldo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "220,67",
           "deal_url": "https://moonfruit.com/leo/odio/porttitor/id/consequat.js",
           "id": "dd7a133a-bd51-4eb4-b167-786145b48182"
         },
-        "secondDeal": {
+         {
           "city": "El Arañado",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "260,38",
           "deal_url": "https://hatena.ne.jp/molestie/lorem/quisque.aspx",
           "id": "e61dc6ba-b9ec-4314-8e02-78a65edc6f79"
         },
-        "thirdDeal": {
+         {
           "city": "San Miguel",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "119,66",
           "deal_url": "https://jiathis.com/quam/fringilla/rhoncus.html",
           "id": "8429f118-8353-4adb-87b4-0e2d8983fb4a"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Jorf",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "232,04",
           "deal_url": "http://ehow.com/massa/tempor/convallis/nulla/neque/libero.json",
           "id": "e7921927-0286-4b32-853a-0a00c0cfdb4f"
         },
-        "secondDeal": {
+         {
           "city": "Kalety",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "98,27",
           "deal_url": "http://reddit.com/ridiculus/mus/etiam/vel/augue/vestibulum.json",
           "id": "8fae1b1d-55c8-40c1-9480-6d21938577ba"
         },
-        "thirdDeal": {
+         {
           "city": "Abaca",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "70,80",
           "deal_url": "https://redcross.org/nullam/orci.xml",
           "id": "04ca7246-698c-460e-9f9b-11dc56c5b873"
         }
-      }
+      ]
     },
     "mon": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Yuxi",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "267,93",
           "deal_url": "https://buzzfeed.com/nam/dui/proin/leo/odio.html",
           "id": "39103b0c-cc85-41e8-8128-52e556cbe6c9"
         },
-        "secondDeal": {
+         {
           "city": "Sobinka",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "153,42",
           "deal_url": "http://sogou.com/placerat/praesent/blandit/nam/nulla.json",
           "id": "98942271-0c70-4fc4-b8e6-049d026e7ba1"
         },
-        "thirdDeal": {
+         {
           "city": "Stockholm",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "112,86",
           "deal_url": "http://github.com/lobortis.aspx",
           "id": "1d54770e-3cc4-4ca1-b60f-ca316c41bc3c"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Kedungharjo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "83,46",
           "deal_url": "http://pbs.org/tortor/eu/pede.js",
           "id": "a2da3328-ff90-49f3-af09-49f4708d5fcb"
         },
-        "secondDeal": {
+         {
           "city": "El Capulin",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "121,04",
           "deal_url": "https://yale.edu/quisque/ut/erat/curabitur/gravida.jpg",
           "id": "400c8a38-906d-45e6-92aa-a0e0b5cf2558"
         },
-        "thirdDeal": {
+         {
           "city": "Hepo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "248,31",
           "deal_url": "https://ameblo.jp/posuere.json",
           "id": "d074d606-56f3-497f-81cc-705efd9e9160"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Salerno",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "257,48",
           "deal_url": "https://wiley.com/sagittis/sapien/cum/sociis/natoque.json",
           "id": "6e311293-49e7-40c3-b49d-64aeee55fd75"
         },
-        "secondDeal": {
+         {
           "city": "Kalutara",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "207,49",
           "deal_url": "https://histats.com/morbi/non/lectus/aliquam/sit/amet/diam.html",
           "id": "fd695d2c-dcca-4619-96d2-85e2761dff0e"
         },
-        "thirdDeal": {
+         {
           "city": "Bakung Utara",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "299,97",
           "deal_url": "http://cocolog-nifty.com/sagittis/dui/vel/nisl.xml",
           "id": "b99ac3c1-91e9-4237-8969-a7dab83e5336"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Badovinci",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "185,83",
           "deal_url": "https://symantec.com/lobortis/ligula/sit/amet/eleifend/pede/libero.xml",
           "id": "308dee19-8476-4b25-b772-66538f485c6c"
         },
-        "secondDeal": {
+         {
           "city": "Honglin",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "82,64",
           "deal_url": "http://nature.com/cubilia/curae/mauris/viverra/diam/vitae/quam.jsp",
           "id": "d7dbc703-774e-452e-9eb6-c10174504cff"
         },
-        "thirdDeal": {
+         {
           "city": "Staten Island",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "77,47",
           "deal_url": "https://tinyurl.com/non.json",
           "id": "ab14f8e6-8769-42c4-b945-89372e9ee4ea"
         }
-      }
+      ]
     },
     "tue": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Fernando Gutierrez Barrios",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "249,91",
           "deal_url": "https://booking.com/curae.json",
           "id": "70773ef2-5906-4d20-88f0-617a14e65070"
         },
-        "secondDeal": {
+         {
           "city": "Phonphisai",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "41,36",
           "deal_url": "https://yahoo.co.jp/in/faucibus/orci/luctus/et.jsp",
           "id": "2f1975d8-6d12-41a1-bfee-c5b21dc6b029"
         },
-        "thirdDeal": {
+         {
           "city": "Cambanay",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "293,38",
           "deal_url": "http://nydailynews.com/lacus/at/velit/vivamus/vel/nulla/eget.aspx",
           "id": "0f0261df-1250-4264-9423-faaa59b0bc21"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Guaçuí",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "299,59",
           "deal_url": "https://engadget.com/id/justo/sit.js",
           "id": "b0a23d9e-f61f-451d-a668-6b6cc02ce95d"
         },
-        "secondDeal": {
+         {
           "city": "Chirkey",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "86,71",
           "deal_url": "https://un.org/in/quis.json",
           "id": "bd2b36ce-a167-4bc6-9e64-7785328358e5"
         },
-        "thirdDeal": {
+         {
           "city": "Bolilao",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "195,92",
           "deal_url": "http://nature.com/pellentesque/ultrices/phasellus/id/sapien.js",
           "id": "c6edf988-db2f-410f-bd3e-bd830a25b0a4"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Savran’",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "43,28",
           "deal_url": "https://sina.com.cn/vehicula.jpg",
           "id": "0d011bf5-bad0-4a88-875c-2ea3f5c2dfad"
         },
-        "secondDeal": {
+         {
           "city": "Harrison",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "42,40",
           "deal_url": "https://dell.com/lobortis/convallis/tortor/risus/dapibus.png",
           "id": "2978fae2-b660-4b03-ba32-0b799650b2af"
         },
-        "thirdDeal": {
+         {
           "city": "Sepekov",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "77,98",
           "deal_url": "http://trellian.com/a/nibh/in.aspx",
           "id": "027bcf1e-7729-4605-ac9e-c7826a51fb28"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Pandean",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "111,23",
           "deal_url": "https://creativecommons.org/consequat.html",
           "id": "ae5a02c0-11fa-49e4-860b-91a5a2c89531"
         },
-        "secondDeal": {
+         {
           "city": "Oslob",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "233,03",
           "deal_url": "http://answers.com/pede/morbi/porttitor/lorem/id.aspx",
           "id": "12fb10dc-28aa-4e8c-8111-2dd301dc2dfb"
         },
-        "thirdDeal": {
+         {
           "city": "Rayevskiy",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "228,12",
           "deal_url": "https://phpbb.com/sed/lacus/morbi/sem/mauris.html",
           "id": "185e99c1-4f9c-4940-a76b-9dceb12ab41c"
         }
-      }
+      ]
     }
   },
   "fri": {
     "sun": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Roubaix",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "55,27",
           "deal_url": "https://comsenz.com/id/luctus/nec.jpg",
           "id": "4789ae6c-13bb-4011-9a7c-e8cd70155c4f"
         },
-        "secondDeal": {
+         {
           "city": "Bogoroditsk",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "77,53",
           "deal_url": "https://facebook.com/congue/vivamus/metus.html",
           "id": "f5639a0b-0eef-4ee5-80b1-5c04742c75b8"
         },
-        "thirdDeal": {
+         {
           "city": "Satita",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "237,78",
           "deal_url": "https://constantcontact.com/amet/sapien/dignissim.png",
           "id": "785bc288-b6e0-4146-aad1-061643402fd8"
         }
-      },
-      "two": {
-        "firstDeal": {
-          "city": "Khorixas",
-          "picture_url": "http://lorempixel.com/400/200/city/",
-          "price": "270,40",
-          "deal_url": "https://unicef.org/id.html",
-          "id": "25d20814-2783-4db5-bbe8-146e698b8255"
-        },
-        "secondDeal": {
+      ],
+      "two":
+        [
+          {
+            "city": "Khorixas",
+            "picture_url": "http://lorempixel.com/400/200/city/",
+            "price": "270,40",
+            "deal_url": "https://unicef.org/id.html",
+            "id": "25d20814-2783-4db5-bbe8-146e698b8255"
+          },
+          {
           "city": "Sulahan",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "231,55",
           "deal_url": "http://etsy.com/ac/enim/in/tempor/turpis/nec.html",
           "id": "93d2ccc6-ab5e-48f5-ae50-a9d11af4d82f"
-        },
-        "thirdDeal": {
-          "city": "Longquan",
-          "picture_url": "http://lorempixel.com/400/200/city/",
-          "price": "85,78",
-          "deal_url": "https://goo.gl/sed/vel/enim/sit/amet/nunc/viverra.png",
-          "id": "366d5de3-6021-48cf-988e-22995153f358"
-        }
-      },
-      "three": {
-        "firstDeal": {
+          },
+          {
+            "city": "Longquan",
+            "picture_url": "http://lorempixel.com/400/200/city/",
+            "price": "85,78",
+            "deal_url": "https://goo.gl/sed/vel/enim/sit/amet/nunc/viverra.png",
+            "id": "366d5de3-6021-48cf-988e-22995153f358"
+          }
+        ],
+      "three":
+        [
+          {
           "city": "Créteil",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "97,58",
           "deal_url": "https://gmpg.org/sociis.png",
           "id": "d0171fa1-e1ef-4d5c-ae63-2fd3d40faa2a"
         },
-        "secondDeal": {
+         {
           "city": "Grand-Bassam",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "190,27",
           "deal_url": "https://friendfeed.com/phasellus/id.html",
           "id": "f1b453e9-2865-4dd4-81d5-e681922b9973"
         },
-        "thirdDeal": {
+         {
           "city": "Naberezhnyye Chelny",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "211,80",
           "deal_url": "http://plala.or.jp/platea/dictumst/aliquam/augue/quam.png",
           "id": "edf02f1c-ad98-408f-accf-bbbc63c7adef"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Plato",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "154,54",
           "deal_url": "https://dot.gov/rhoncus.html",
           "id": "b2552d76-4e11-40a7-ad92-dda114dc95b5"
         },
-        "secondDeal": {
+         {
           "city": "Xinqiaohe",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "140,43",
           "deal_url": "http://sphinn.com/id/ornare.jpg",
           "id": "c4a9b052-a66f-4279-9990-d572386f0d5e"
         },
-        "thirdDeal": {
+         {
           "city": "Yag La",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "158,07",
           "deal_url": "http://cnet.com/etiam/faucibus.js",
           "id": "5ffd7bdb-fcf7-48a4-bc84-630e7a82ee8a"
         }
-      }
+      ]
     },
     "mon": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [ {
           "city": "Al Maşdūr",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "83,03",
           "deal_url": "http://reddit.com/neque.aspx",
           "id": "3e83b4e4-72c9-4106-86a6-8bdd955fc4c9"
         },
-        "secondDeal": {
+        {
           "city": "Klampis",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "216,24",
           "deal_url": "https://posterous.com/velit/eu/est/congue/elementum/in/hac.png",
           "id": "5ee0f28b-c9c7-4cde-b482-03d9d65ee371"
         },
-        "thirdDeal": {
+         {
           "city": "Coruripe",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "87,10",
           "deal_url": "https://tuttocitta.it/rhoncus.png",
           "id": "c572bdb2-0bc9-434f-8ac8-8af9c1afdadf"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "New Orleans",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "155,26",
           "deal_url": "https://hibu.com/pulvinar/lobortis/est.aspx",
           "id": "008293d7-279f-40ad-aac4-20a6df4b08a6"
         },
-        "secondDeal": {
+         {
           "city": "Tuen Mun",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "267,79",
           "deal_url": "http://hao123.com/ut/blandit/non/interdum/in/ante/vestibulum.xml",
           "id": "bf64531a-7f59-4cfa-af1f-c8552f14d399"
         },
-        "thirdDeal": {
+         {
           "city": "Baojia",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "265,54",
           "deal_url": "https://weebly.com/praesent/id/massa.js",
           "id": "5f3cb581-d95b-414c-b1ed-0aa5895d80d5"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Ishikawa",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "79,11",
           "deal_url": "https://studiopress.com/cras/mi/pede/malesuada/in/imperdiet/et.jsp",
           "id": "6f79eb9f-9c54-46e3-b92b-f6602f098d92"
         },
-        "secondDeal": {
+         {
           "city": "Borabue",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "167,42",
           "deal_url": "https://aboutads.info/placerat/praesent/blandit/nam/nulla.js",
           "id": "74891757-ed6d-4ed1-a535-8c914ccb036d"
         },
-        "thirdDeal": {
+         {
           "city": "Baturité",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "77,80",
           "deal_url": "https://github.com/in/hac/habitasse/platea/dictumst/morbi.json",
           "id": "f365593e-8fc7-42bb-aad5-782a8a84b400"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Froly",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "198,24",
           "deal_url": "http://howstuffworks.com/id/massa.js",
           "id": "28bde185-7698-41bf-97b1-73bb77be53df"
         },
-        "secondDeal": {
+         {
           "city": "Ziyang",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "258,59",
           "deal_url": "https://twitter.com/diam/neque.jsp",
           "id": "be244d72-c198-45ff-b761-cc2e9b4f92d8"
         },
-        "thirdDeal": {
+         {
           "city": "Santa Rita",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "76,47",
           "deal_url": "https://google.nl/at.png",
           "id": "5d90027d-4579-43af-929d-880311d88a1d"
         }
-      }
+      ]
     },
     "tue": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Qalaikhumb",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "46,19",
           "deal_url": "https://de.vu/consequat/metus/sapien/ut/nunc.html",
           "id": "42e99741-2e38-40be-abb5-b7f547dbca1d"
         },
-        "secondDeal": {
+         {
           "city": "Dzerzhinsk",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "52,92",
           "deal_url": "https://macromedia.com/justo/sit/amet/sapien/dignissim/vestibulum.jsp",
           "id": "98aad37d-5413-4334-a7d5-b744e885ff60"
         },
-        "thirdDeal": {
+         {
           "city": "Wolomarang",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "253,94",
           "deal_url": "https://tinypic.com/vel/ipsum/praesent/blandit/lacinia/erat.jpg",
           "id": "01f40e9a-d395-4968-8e8d-134de053426f"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Saverne",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "235,42",
           "deal_url": "http://microsoft.com/eros/viverra/eget/congue/eget/semper/rutrum.js",
           "id": "84da34e5-0d09-4160-80a5-b47bc4e98e1f"
         },
-        "secondDeal": {
+         {
           "city": "Wugong",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "242,99",
           "deal_url": "https://discuz.net/quam/turpis/adipiscing/lorem.xml",
           "id": "42402989-c602-4486-badb-d110f99ceba3"
         },
-        "thirdDeal": {
+         {
           "city": "Port Erin",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "289,00",
           "deal_url": "http://patch.com/in/sagittis/dui/vel/nisl.jsp",
           "id": "effc3f48-17dd-4216-b5d6-a7818c95193c"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Pohang",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "246,41",
           "deal_url": "https://indiatimes.com/ornare/consequat/lectus.png",
           "id": "9cbcc0d6-6d39-4d0a-bb56-998da67a1674"
         },
-        "secondDeal": {
+         {
           "city": "Iles",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "88,67",
           "deal_url": "https://domainmarket.com/eros.xml",
           "id": "5e6613c4-4d7c-4d12-9466-23b9fca1a63f"
         },
-        "thirdDeal": {
+         {
           "city": "Sapucaia",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "200,49",
           "deal_url": "https://mozilla.org/nam/ultrices/libero/non/mattis/pulvinar.json",
           "id": "cba97534-e4b0-4736-afd4-6ce90769d32f"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Sangari",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "202,23",
           "deal_url": "https://t.co/donec/odio/justo/sollicitudin/ut/suscipit/a.json",
           "id": "c38d0b95-1667-4fec-9b43-56c7fcaa2065"
         },
-        "secondDeal": {
+         {
           "city": "Tagana-an",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "92,46",
           "deal_url": "https://apache.org/quis/lectus/suspendisse.jpg",
           "id": "f0867a96-1a05-495d-b256-42856d0a39b0"
         },
-        "thirdDeal": {
+         {
           "city": "Bojonegoro",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "120,36",
           "deal_url": "https://tripod.com/felis/donec/semper/sapien/a/libero.xml",
           "id": "f01d687f-a187-45b7-b93e-27dda319b0e6"
         }
-      }
+      ]
     }
   },
   "sat": {
     "sun": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Xiaopu",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "237,90",
           "deal_url": "http://eepurl.com/turpis/eget.jpg",
           "id": "7129ea37-3784-46d1-8e07-4fe0d9dee271"
         },
-        "secondDeal": {
+         {
           "city": "Lolotique",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "214,61",
           "deal_url": "https://sphinn.com/ligula.aspx",
           "id": "66a202ef-3bd2-48ec-84c2-307f89f47c63"
         },
-        "thirdDeal": {
+         {
           "city": "Rana",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "150,41",
           "deal_url": "http://merriam-webster.com/nullam/sit/amet/turpis.js",
           "id": "af336c48-3223-40ce-93c4-9fe1480a8a16"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Oyo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "266,22",
           "deal_url": "https://cocolog-nifty.com/vestibulum/quam/sapien/varius/ut/blandit.png",
           "id": "7d9cad2d-98c1-4c02-b67d-de791c84dc96"
         },
-        "secondDeal": {
+         {
           "city": "Oral",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "240,47",
           "deal_url": "http://imageshack.us/tortor/duis/mattis/egestas/metus/aenean.html",
           "id": "e647a394-b9ce-4a76-8ba7-9bea38961bca"
         },
-        "thirdDeal": {
+         {
           "city": "Belle-Anse",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "291,65",
           "deal_url": "http://unesco.org/et/ultrices/posuere/cubilia/curae/mauris.jpg",
           "id": "f3aef2cc-2763-4d91-9ba5-6faae13f2f92"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Concórdia",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "255,16",
           "deal_url": "http://theglobeandmail.com/scelerisque/quam/turpis/adipiscing/lorem.html",
           "id": "dd334d3f-137d-4315-a67a-f2ad584d24c3"
         },
-        "secondDeal": {
+         {
           "city": "Pérama",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "153,73",
           "deal_url": "http://nyu.edu/lacus/curabitur/at.json",
           "id": "8ecebb78-2e1b-4666-82dc-ba9076567e47"
         },
-        "thirdDeal": {
+         {
           "city": "Rumoi",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "79,54",
           "deal_url": "https://abc.net.au/placerat/ante/nulla/justo.json",
           "id": "7bdd3576-7764-45b7-ac07-0a9874455deb"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Longtang",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "41,51",
           "deal_url": "https://auda.org.au/amet/diam/in/magna/bibendum.html",
           "id": "af5fefe1-472e-4646-bb86-8da2914f6fbc"
         },
-        "secondDeal": {
+         {
           "city": "Kesugihan",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "147,96",
           "deal_url": "https://narod.ru/vel/enim/sit/amet/nunc/viverra.aspx",
           "id": "8f68ea82-397d-4b4c-be86-7be01e0fc834"
         },
-        "thirdDeal": {
+         {
           "city": "Pyhäsalmi",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "253,72",
           "deal_url": "http://seesaa.net/lorem/vitae.js",
           "id": "286035c2-907a-4eb2-a6af-609ddb1795c9"
         }
-      }
+      ]
     },
     "mon": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Fortuna",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "246,22",
           "deal_url": "https://google.cn/libero.html",
           "id": "a572fec3-193f-4146-ae40-7a20161101af"
         },
-        "secondDeal": {
+         {
           "city": "Alvarães",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "108,77",
           "deal_url": "https://eepurl.com/hac/habitasse/platea/dictumst.jpg",
           "id": "def60319-1ad7-4bdf-be8a-5ff5a7678a27"
         },
-        "thirdDeal": {
+         {
           "city": "Liuhao",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "82,50",
           "deal_url": "http://phpbb.com/vestibulum/sit/amet/cursus/id/turpis.html",
           "id": "2598ce24-4816-43ea-8815-5f5843d66170"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Ramada",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "180,26",
           "deal_url": "http://xinhuanet.com/sit/amet/eleifend/pede.html",
           "id": "5a7ad929-7954-44cb-89b5-b46df2b03a5e"
         },
-        "secondDeal": {
+         {
           "city": "Jinchang",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "251,44",
           "deal_url": "http://youtube.com/interdum/mauris.png",
           "id": "b9312fec-f3cb-4025-8d4e-466f19d883a4"
         },
-        "thirdDeal": {
+         {
           "city": "Santa Cruz das Palmeiras",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "244,03",
           "deal_url": "https://reddit.com/enim/lorem/ipsum/dolor.jpg",
           "id": "7245a9fa-a180-4f62-8283-bda3c8d0d0d7"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Galleh Manda",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "153,67",
           "deal_url": "http://ucsd.edu/fusce/lacus/purus.html",
           "id": "8f2c663d-8d9c-4fea-89ec-36ee1921f2a8"
         },
-        "secondDeal": {
+         {
           "city": "Limoeiro do Norte",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "209,04",
           "deal_url": "http://mozilla.com/eu/magna/vulputate/luctus/cum/sociis/natoque.html",
           "id": "78ea6c68-d44f-4fe3-a778-6a0365d7644e"
         },
-        "thirdDeal": {
+         {
           "city": "Immātīn",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "100,04",
           "deal_url": "http://usatoday.com/vel/est/donec.xml",
           "id": "4b096967-c7a3-4be4-ab7e-485b45f27b7d"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Harrisburg",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "55,22",
           "deal_url": "http://parallels.com/sit/amet/nulla.png",
           "id": "da24bf4d-8cf3-4702-a47d-37d2e6855dff"
         },
-        "secondDeal": {
+         {
           "city": "San Jerónimo",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "96,28",
           "deal_url": "https://g.co/velit.jpg",
           "id": "5880b2ff-1083-45f5-b17a-b61a1a483d82"
         },
-        "thirdDeal": {
+         {
           "city": "Boshchorbogh",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "70,86",
           "deal_url": "https://vistaprint.com/lectus/vestibulum.png",
           "id": "d485fa3e-543c-4223-8b6c-46d31dba7b26"
         }
-      }
+      ]
     },
     "tue": {
-      "one": {
-        "firstDeal": {
+      "one":
+        [
+          {
           "city": "Naikoten Dua",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "293,32",
           "deal_url": "http://scribd.com/sollicitudin.png",
           "id": "c7dd68c3-6956-46d4-9656-7371d410d429"
         },
-        "secondDeal": {
+         {
           "city": "Borovikha",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "109,27",
           "deal_url": "http://eepurl.com/amet/sapien.jsp",
           "id": "34f1c40e-f4a9-4ecc-97fc-10979e5b2ead"
         },
-        "thirdDeal": {
+         {
           "city": "Sŭngho 1-tong",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "99,17",
           "deal_url": "https://a8.net/velit/donec/diam/neque/vestibulum.jsp",
           "id": "3bd657ef-d75a-442f-a68d-a08c1f069ca8"
         }
-      },
-      "two": {
-        "firstDeal": {
+      ],
+      "two":
+        [
+          {
           "city": "Divača",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "232,23",
           "deal_url": "https://51.la/aliquam/augue/quam/sollicitudin/vitae/consectetuer/eget.json",
           "id": "df90e961-aca7-4872-a858-eab5674d12cd"
         },
-        "secondDeal": {
+         {
           "city": "Novomyshastovskaya",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "92,53",
           "deal_url": "https://epa.gov/in/faucibus/orci/luctus/et/ultrices.js",
           "id": "d156e9a2-0286-45e7-a018-b1a95f88d3b2"
         },
-        "thirdDeal": {
+         {
           "city": "Songshan",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "177,75",
           "deal_url": "https://squarespace.com/eleifend/quam.html",
           "id": "e22cfe43-99df-4016-8076-dd601bd60bdc"
         }
-      },
-      "three": {
-        "firstDeal": {
+      ],
+      "three":
+        [
+          {
           "city": "Yangdu",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "75,57",
           "deal_url": "https://amazonaws.com/ac.js",
           "id": "f2ac048e-178b-44d9-bd3a-c94f11af9226"
         },
-        "secondDeal": {
+         {
           "city": "Iwaki",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "58,18",
           "deal_url": "https://un.org/ultrices/posuere/cubilia/curae/mauris.png",
           "id": "82dc13ed-5d13-41cc-9563-43f4713bad37"
         },
-        "thirdDeal": {
+         {
           "city": "San Antonio",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "153,55",
           "deal_url": "https://yandex.ru/fusce/lacus/purus/aliquet/at/feugiat/non.js",
           "id": "aa1282ce-0cd7-4052-9d99-96086c34dc2a"
         }
-      },
-      "four": {
-        "firstDeal": {
+      ],
+      "four":
+        [
+          {
           "city": "Laval",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "253,32",
           "deal_url": "https://google.com.hk/metus/sapien/ut/nunc.js",
           "id": "ff784c3c-d49b-42d6-9694-2328819598d0"
         },
-        "secondDeal": {
+         {
           "city": "Bacuyangan",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "237,53",
           "deal_url": "http://taobao.com/luctus/ultricies.json",
           "id": "9eae7327-4592-4b0c-bf89-516b097ea67e"
         },
-        "thirdDeal": {
+         {
           "city": "Chamlykskaya",
           "picture_url": "http://lorempixel.com/400/200/city/",
           "price": "156,07",
           "deal_url": "http://people.com.cn/ligula/vehicula/consequat/morbi/a/ipsum.png",
           "id": "a3c2fded-2da9-4ded-83a7-13d24b1ee2dd"
         }
-      }
+      ]
     }
   }
 }
