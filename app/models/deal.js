@@ -1,4 +1,4 @@
-//Will be used with mongoose and get the info on the database
+var Deal = require('./dealSchema.js');
 
 module.exports = {
 	// It is supposed to connect to Database and fetch all current deals
@@ -7,4 +7,4 @@ module.exports = {
 		deals = require("./deals.json")
 		return {data: deals, status: 200}
 	}
-}
+};

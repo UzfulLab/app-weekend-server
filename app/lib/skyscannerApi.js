@@ -15,12 +15,12 @@ module.exports = {
   },
   selectBestDeal: function(deal){
     // algorithm to select best deal among skyscanner return
-    return {city: "Dublin", price: "42.42", deal: "http://google.fr", id: "f4k3id23123"}
+    return {city: "Dublin", price: "42,42", deal: "http://google.fr", id: "f4k3id23123"}
   },
   updateDeal: function(id){
     // function to update a deal's price
     // call to skyscanner API and getting new price
-    return {data:{newPrice: "142.21"}, status: 200}
+    return {data:{newPrice: "142,21"}, status: 200}
   },
   createDeal: function(departureDay, departureMoment, returnDay, returnMoment, destinationCity, originCity, withPicture){
     //supposingly calling skyscanner API and choosing best deal

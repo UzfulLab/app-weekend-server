@@ -8,6 +8,10 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var cors = require('cors');
+// Database setup
+//Will need to be changed when in production
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/app-weekend')
 
 // ====== Cors module config - Fix to accept request from localhost,
 // seems to only be needed when developing from localhost in the front, and not useful when app is deploy as an extension
