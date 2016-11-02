@@ -9,7 +9,8 @@ var dealStruct = {
 	"id": String,
   "passengers": Number,
   "inboundDate": Date,
-  "outboundDate": Date
+  "outboundDate": Date,
+	"id": Number
 };
 
 var DealSchema = new Schema(dealStruct);
