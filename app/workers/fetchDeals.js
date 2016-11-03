@@ -110,6 +110,8 @@ var apiKey = "uz497893624968959685836267896543"
 
 var http = require('http');
 var moment = require('moment');
+var debug = require('debug')('worker');
+
 // var options;
 var inbound = [];
 var outbound = [];
@@ -138,43 +140,8 @@ var findGoodDate = function(daysToAdd){
 var uzfulLogs = function(){
   console.log("WFT???????")
   console.log(limiter.nbRunning())
+  next()
   // console.log(Deal.findById(1))
-}
-
-var skyScannerApiCall = function(options){
-  var req = http.get(options, function(res) {
-    // console.log('STATUS: ' + res.statusCode);
-    // console.log('HEADERS: ' + JSON.stringify(res.headers));
-
-    // Buffer the body entirely for processing as a whole.
-    var bodyChunks = [];
-    res.on('data', function(chunk) {
-      // You can process streamed parts here...
-      bodyChunks.push(chunk);
-    }).on('end', function() {
-      var body = Buffer.concat(bodyChunks);
-      var quotes = JSON.parse(body)["Quotes"];
-      // console.log('BODY: ' + body);
-      quotes.push(quotes);
-
-      var deal = new Deal();
-      deal.id = counter
-      deal.price = String(quotes[0].MinPrice)
-
-      deal.save(function(err){
-        if (err)
-          console.log("ERROR DEAL SAVE ==> "+err)
-
-        console.log("DEAL SAVED ==> "+counter)
-      })
-
-      counter++
-    })
-  });
-
-  req.on('error', function(e) {
-    console.log('ERROR: ' + e.message + '\n' + counter);
-  });
 }
 
 for (var i = 0; i < 3; i++){
@@ -188,16 +155,19 @@ for (var i = 0; i < 3; i++){
   outbound[i] = findGoodDate(3);
 }
 //
-// console.log(inbound)
-// console.log(outbound)
+console.log(inbound)
+console.log(outbound)
 
 //First loop for all destinations
-for (var i = 0; i < SkyUECountries.length; i++){
+// for (var i = 0; i < SkyUECountries.length; i++){
+for (var i = 0; i < 1; i++){
   jsonString[i] = '';
   //Second loop for inbound days
-  for (var j = 0; j < inbound.length; j++){
+  // for (var j = 0; j < inbound.length; j++){
+  for (var j = 0; j < 1; j++){
     //Third loop for outbound days
-    for (var k = 0; k < outbound.length; k++){
+    // for (var k = 0; k < outbound.length; k++){
+    for (var k = 0; k < 2; k++){
       //preparing API call
 
 
@@ -207,8 +177,57 @@ for (var i = 0; i < SkyUECountries.length; i++){
         // method: 'GET',
         timeout: 2000
       }
-      console.log("limiter.nbRunning ", limiter.nbRunning())
-      limiter.submit(skyScannerApiCall, options, uzfulLogs);
+      // console.log("limiter.nbRunning ", limiter.nbRunning())
+      // limiter.submit(skyScannerApiCall, options, console.log);
+
+
+      limiter.submit(function(options, cb){
+        var req = http.get(options, function(res) {
+          // console.log('STATUS: ' + res.statusCode);
+          // console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+          // Buffer the body entirely for processing as a whole.
+          var bodyChunks = "";
+          res.on('data', function(chunk) {
+            // You can process streamed parts here...
+            bodyChunks += chunk.toString('utf-8');
+          }).on('end', function() {
+            // var body = Buffer.concat(bodyChunks);
+            var body = bodyChunks
+            // console.log(body)
+            var currentQuotes = JSON.parse(body)["Quotes"];
+            debug(body)
+            // console.log('BODY: ' + body);
+            quotes.push(currentQuotes);
+
+            var deal = new Deal();
+            deal.id = counter
+            deal.price = String(quotes[0].MinPrice)
+
+            deal.save(function(err){
+              if (err)
+                debug("ERROR DEAL SAVE ==> "+err)
+
+              debug("DEAL SAVED ==> "+counter+'\n\n\n\n')
+              counter++
+              debug('RES.ON.END');
+              cb()
+            })
+          })
+        });
+        req.on('error', function(e) {
+          debug('ERROR: ' + e.message + '\n' + counter);
+          debug('FUNCTION ERROR');
+          cb()
+        });
+        req.end()
+      }, options, function(){
+        return console.log("COUCOU")
+      })
+
+
+
+
 
       // var req = http.request(options, function(res) {
       //   // console.log('STATUS: ' + res.statusCode);
@@ -249,7 +268,8 @@ for (var i = 0; i < SkyUECountries.length; i++){
       // req.end()
     }
   }
-
   //Second loop for departures day
   //Verification to know what day it is and if travel needs to be on next week
 }
+
+console.log("\n\n\n\n\n\nHELLO WORLD\n\n\n\n\n\n")
