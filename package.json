@@ -31,6 +31,7 @@
     "mongoose": "^4.6.3"
   },
   "devDependencies": {
+    "node-schedule": "^1.2.0",
     "nodemon": "^1.11.0"
   }
 }

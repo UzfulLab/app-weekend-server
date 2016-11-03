@@ -111,6 +111,8 @@ var apiKey = "uz497893624968959685836267896543"
 var http = require('http');
 var moment = require('moment');
 var debug = require('debug')('worker');
+var schedule = require('node-schedule');
+
 
 // var options;
 var inbound = [];
@@ -137,139 +139,111 @@ var findGoodDate = function(daysToAdd){
   return year+'-'+month+'-'+day;
 }
 
-var uzfulLogs = function(){
-  console.log("WFT???????")
-  console.log(limiter.nbRunning())
-  next()
-  // console.log(Deal.findById(1))
+var toto = "pouet";
+
+
+var dummyFunc = function(param) {
+  debug("toto ", param)
 }
 
-for (var i = 0; i < 3; i++){
-  var nextWeek = (today.dayNumber >= (4 + i)) ? true : false;
-  var nextWeekToAdd = nextWeek ? 7 : 0;
-  var daysToAdd = (4 + i) - moment().day() + nextWeekToAdd;
-  momentDate = moment().add(daysToAdd, 'day');
-  inbound[i] = findGoodDate(daysToAdd);
+var scheduleRefreshDeals = function(){
+  j = schedule.scheduleJob('* * * * *', dummyFunc);
+  // j = schedule.scheduleJob('* * * * *', refreshDeals).bind(null, toto);
+}()
 
-  momentDate = momentDate.add(3, 'day');
-  outbound[i] = findGoodDate(3);
-}
-//
-console.log(inbound)
-console.log(outbound)
+toto = "pouet pouet"
 
-//First loop for all destinations
-// for (var i = 0; i < SkyUECountries.length; i++){
-for (var i = 0; i < 1; i++){
-  jsonString[i] = '';
-  //Second loop for inbound days
-  // for (var j = 0; j < inbound.length; j++){
-  for (var j = 0; j < 1; j++){
-    //Third loop for outbound days
-    // for (var k = 0; k < outbound.length; k++){
-    for (var k = 0; k < 2; k++){
-      //preparing API call
+debug("toto ", toto)
 
+var reqDealData = function(options, cb){
+  var req = http.get(options, function(res) {
+    // debug('STATUS: ' + res.statusCode);
+    // debug('HEADERS: ' + JSON.stringify(res.headers));
 
-      var options = {
-        hostname: 'partners.api.skyscanner.net',
-        path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+inbound[j]+"/"+outbound[k]+"?apiKey="+apiKey,
-        // method: 'GET',
-        timeout: 2000
-      }
-      // console.log("limiter.nbRunning ", limiter.nbRunning())
-      // limiter.submit(skyScannerApiCall, options, console.log);
+    // Buffer the body entirely for processing as a whole.
+    var bodyChunks = "";
+    res.on('data', function(chunk) {
+      // You can process streamed parts here...
+      bodyChunks += chunk.toString('utf-8');
+    }).on('end', function() {
+      // var body = Buffer.concat(bodyChunks);
+      var body = bodyChunks
+      // debug(body)
+      var currentQuotes = JSON.parse(body)["Quotes"];
+      // debug(body)
+      // debug('BODY: ' + body);
+      quotes.push(currentQuotes);
 
+      var deal = new Deal();
+      deal.id = counter
+      deal.price = String(quotes[0].MinPrice)
 
-      limiter.submit(function(options, cb){
-        var req = http.get(options, function(res) {
-          // console.log('STATUS: ' + res.statusCode);
-          // console.log('HEADERS: ' + JSON.stringify(res.headers));
+      deal.save(function(err){
+        if (err)
+          debug("ERROR DEAL SAVE ==> "+err)
 
-          // Buffer the body entirely for processing as a whole.
-          var bodyChunks = "";
-          res.on('data', function(chunk) {
-            // You can process streamed parts here...
-            bodyChunks += chunk.toString('utf-8');
-          }).on('end', function() {
-            // var body = Buffer.concat(bodyChunks);
-            var body = bodyChunks
-            // console.log(body)
-            var currentQuotes = JSON.parse(body)["Quotes"];
-            debug(body)
-            // console.log('BODY: ' + body);
-            quotes.push(currentQuotes);
-
-            var deal = new Deal();
-            deal.id = counter
-            deal.price = String(quotes[0].MinPrice)
-
-            deal.save(function(err){
-              if (err)
-                debug("ERROR DEAL SAVE ==> "+err)
-
-              debug("DEAL SAVED ==> "+counter+'\n\n\n\n')
-              counter++
-              debug('RES.ON.END');
-              cb()
-            })
-          })
-        });
-        req.on('error', function(e) {
-          debug('ERROR: ' + e.message + '\n' + counter);
-          debug('FUNCTION ERROR');
-          cb()
-        });
-        req.end()
-      }, options, function(){
-        return console.log("COUCOU")
+        debug("DEAL SAVED ==> "+counter+'\n\n\n\n')
+        counter++
+        debug('RES.ON.END');
+        cb()
       })
-
-
-
-
-
-      // var req = http.request(options, function(res) {
-      //   // console.log('STATUS: ' + res.statusCode);
-      //   // console.log('HEADERS: ' + JSON.stringify(res.headers));
-      //   var jsonString = ''
-      //   res.setEncoding('utf8');
-      //   res.on('data', function (chunk) {
-      //     if (typeof(chunk) !== "undefined"){
-      //       if (counter == 1) console.log(jsonString)
-      //       if (counter == 1) console.log("\n\n\n\n\n COUNTER == 1 =============\n\n\n\n\n")
-      //
-      //       if (counter == 10) console.log(jsonString)
-      //       if (counter == 10) console.log("\n\n\n\n\n COUNTER == 10 =============\n\n\n\n\n")
-      //       jsonString += chunk
-      //     }
-      //   });
-      //   res.on('end', () => {
-      //     // console.log('No more data in response. =>'+counter);
-      //     // console.log(JSON.parse(jsonString[i])['Quotes'])
-      //     // console.log(JSON.parse(jsonString)['Quotes'])
-      //     quotes.push(jsonString['Quotes']);
-      //     toto.push(counter)
-      //     // console.log(counter);
-      //     // if (counter == 430) console.log(quotes);
-      //     // if (counter == 430) console.log(toto);
-      //     counter++
-      //     // quotes.push(JSON.parse(jsonString)['Quotes'])
-      //   });
-      // })
-      //
-      // req.on('error', (e) => {
-      //   counter++
-      //   console.log("-------- ERREUR ------")
-      //   console.log(`problem with request: ${e.message}`);
-      // });
-      //
-      // req.write(toto)
-      // req.end()
-    }
-  }
-  //Second loop for departures day
-  //Verification to know what day it is and if travel needs to be on next week
+    })
+  });
+  req.on('error', function(e) {
+    debug('ERROR: ' + e.message + '\n' + counter);
+    debug('FUNCTION ERROR');
+    cb()
+  });
 }
 
-console.log("\n\n\n\n\n\nHELLO WORLD\n\n\n\n\n\n")
+var refreshDeals = function(){
+
+  for (var i = 0; i < 3; i++){
+    var nextWeek = (today.dayNumber >= (4 + i)) ? true : false;
+    var nextWeekToAdd = nextWeek ? 7 : 0;
+    var daysToAdd = (4 + i) - moment().day() + nextWeekToAdd;
+    momentDate = moment().add(daysToAdd, 'day');
+    inbound[i] = findGoodDate(daysToAdd);
+
+    momentDate = momentDate.add(3, 'day');
+    outbound[i] = findGoodDate(3);
+  }
+  //
+  debug(inbound)
+  debug(outbound)
+
+  //First loop for all destinations
+  for (var i = 0; i < SkyUECountries.length; i++){
+  // for (var i = 0; i < 1; i++){
+    jsonString[i] = '';
+    //Second loop for inbound days
+    for (var j = 0; j < inbound.length; j++){
+    // for (var j = 0; j < 1; j++){
+      //Third loop for outbound days
+      for (var k = 0; k < outbound.length; k++){
+      // for (var k = 0; k < 2; k++){
+        //preparing API call
+        var options = {
+          hostname: 'partners.api.skyscanner.net',
+          path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+inbound[j]+"/"+outbound[k]+"?apiKey="+apiKey,
+          // method: 'GET',
+          timeout: 2000
+        }
+        // debug("limiter.nbRunning ", limiter.nbRunning())
+        var l = limiter.submit(reqDealData, options, function(){
+          debug("reqDealData limited callback")
+        })
+        // var l = limiter.submit(dummyFunc, options, function(){
+        //   debug("reqDealData limited callback")
+        // })
+
+        debug('submitted to limiter, has strategy been executed ? ', l);
+      }
+    }
+    //Second loop for departures day
+    //Verification to know what day it is and if travel needs to be on next week
+  }
+  limiter.on('empty', function () {
+    debug("limiter has launched all its queued tasks")
+  })
+}
