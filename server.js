@@ -9,9 +9,13 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var config = require('./config.js')
+
 var fetchAllDeals = require('./app/workers/updateAllDeals.js')
-var j = schedule.scheduleJob('* * * * *', fetchAllDeals.fetchDeals());
-// fetchAllDeals.fetchDeals()
+
+// var j = schedule.scheduleJob('01 * * * * *', function(){
+//   fetchAllDeals.fetchDeals();
+// });
+fetchAllDeals.fetchDeals()
 // Database setup
 //Will need to be changed when in production
 
