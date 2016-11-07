@@ -1,3 +1,5 @@
+var skyscannerController = require("../lib/skyscannerApi.js")
+
 module.exports = {
   fetchDeals: function(){
 
@@ -7,9 +9,10 @@ module.exports = {
     var inbound = []
     var outbound = []
     var momentDate
-    var quotes = []
+    var finalDeals = []
+    var ids = []
     var counter = 0
-    var bestDeals = {prices: [], destinations: []}
+    var bestDeals = {prices: [], destinations: [], ids: []}
     // fetching infos about current day to know what date to choose for deals
     var today = {dayNumber: moment().day(), hour: moment().hour()}
 
@@ -23,33 +26,35 @@ module.exports = {
       return year+'-'+month+'-'+day
     }
 
-    var sortValues = function(prices, destinations, destinationName, valuePrice){
+    var sortValues = function(prices, destinations, ids, destinationName, valuePrice, id){
       prices.push(valuePrice)
       destinations.push(destinationName)
+      ids.push(id)
       var destPric = []
-      var ob = {}
       for (var l = 0; l < prices.length; l++){
-        if (typeof(ob[prices[l]]) !== "undefined" ){
-          ob[prices[l]] = destinations[l]
-          destPric[l] = ob
-        }
-        else{
-          ob[prices[l] + '1'] = destinations[l]
-          destPric[l] = ob
-        }
+        destPric.push({dest: destinations[l], price: prices[l], id: ids[l]})
       }
-      prices.sort(function(a, b){
-        return a - b
+
+      destPric.sort(function(a, b){
+        return (a.price - b.price)
       })
-      if (prices.length > 3)
-        prices.pop()
-      var finalObj = {}
-      for (var l = 0; l < prices.length; l++){
-        // prices[l]
-        debug("OREIWOPRIWPOREI", ob[prices[l]])
-        // destinations[l] = ob[prices[l]]
+
+      for (var l = 0; l < destPric.length; l++){
+        prices[l] = destPric[l].price
+        destinations[l] = destPric[l].dest
+        ids[l] = destPric[l].id
       }
-      debug("OBJECT TEST\n\n", destinations)
+
+      while (destPric.length > 3)
+        destPric.pop()
+      while (prices.length > 3)
+        prices.pop()
+      while (destinations.length > 3)
+        destinations.pop()
+      while (ids.length > 3)
+        ids.pop()
+
+      return destPric
     }
 
     for (var i = 0; i < 3; i++){
@@ -71,23 +76,17 @@ module.exports = {
     for (var i = 0; i < inbound.length; i++){
       bestDeals.prices[i] = []
       bestDeals.destinations[i] = []
+      bestDeals.ids[i] = []
+      finalDeals[i] = []
       for (var j = 0; j < outbound.length; j++){
         bestDeals.prices[i][j] = []
         bestDeals.destinations[i][j] = []
+        bestDeals.ids[i][j] = []
+        finalDeals[i][j] = []
       }
     }
 
-    // debug(bestDeals.prices[0][0])
-    // debug(bestDeals.prices[0][1])
-    // debug(bestDeals.prices[0][2])
-    // debug(bestDeals.prices[1][0])
-    // debug(bestDeals.prices[1][1])
-    // debug(bestDeals.prices[1][2])
-    // debug(bestDeals.prices[2][0])
-    // debug(bestDeals.prices[2][1])
-    // debug(bestDeals.prices[2][2])
-
-
+    debug("WORKER", "Lunching deal seaking")
     //First loop for all destinations
     for (var i = 0; i < SkyUECountries.length; i++){
       //Second loop for inbound days
@@ -105,44 +104,49 @@ module.exports = {
           limiter.submit(function(options, cb){
             var req = http.get(options, function(res) {
               var body = ""
-              // debug("INBOUND DAY", options.inboundDay)
-              // debug("OUTBOUND DAY", options.outboundDay)
               res.on('data', function(chunk) {
                 body += chunk.toString('utf-8')
               })
               res.on('end', function() {
                 var currentQuotes = JSON.parse(body)["Quotes"]
+                var places = JSON.parse(body)["Places"]
                 if (currentQuotes.length > 0){
                   currentQuotes.sort(function(a,b){
                     return a.MinPrice - b.MinPrice
                   })
-                  quotes.push(currentQuotes[0])
                   if (typeof(currentQuotes[0].OutboundLeg) !== "undefined" && typeof(currentQuotes[0].OutboundLeg.DestinationId) !== "undefined"){
-                    // debug("QUOTE", quotes[quotes.length - 1])
-                    // debug("QUOTE", quotes[quotes.length - 1])
-                    debug("\n\n\n\n====BUG BESTDEALS====", bestDeals.prices)
-                    // debug("====BUG OPTIONS INBOUND DAY====", options.inboundDay)
-                    // debug("====BUG OPTIONS OUTBOUND DAY====", options.outboundDay)
-                    // debug("CURRENT QUOTES", currentQuotes[0])
-                    sortValues(bestDeals.prices[options.inboundDay][options.outboundDay], bestDeals.destinations[options.inboundDay][options.outboundDay],currentQuotes[0].OutboundLeg.DestinationId, currentQuotes[0].MinPrice)
+                    var prices = bestDeals.prices[options.inboundDay][options.outboundDay]
+                    var destinations = bestDeals.destinations[options.inboundDay][options.outboundDay]
+                    var destinationName = currentQuotes[0].OutboundLeg.DestinationId
+                    var valuePrice = currentQuotes[0].MinPrice
+                    var ids = bestDeals.ids[options.inboundDay][options.outboundDay]
+                    var id
+                    // var
+                    for (place in places){
+                      if (places[place]["PlaceId"] == destinationName){
+                        id = places[place]["SkyscannerCode"] + '-sky'
+                        destinationName = places[place]['CityName']
+                        break
+                      }
+                    }
+                    finalDeals[options.inboundDay][options.outboundDay] = sortValues(prices, destinations, ids, destinationName, valuePrice, id)
                   }
                 }
-                // debug("\n\n\nDEAL VALUE", bestDeals.prices)
                 counter++
                 cb()
               })
             })
             req.on('error', function(e) {
-              debug('ERROR: ' + e.message + '\n' + counter)
-              debug('FUNCTION ERROR')
               cb()
               counter++
             })
           }, options, function(){
-            // debug("BESTDEAL TAB", j)
-            // sortValues(bestDeals.prices[j], quotes[quotes.length - 1].price)
-            // debug("DEAL VALUE", bestDeals.prices)
-            // debug("CALLBACK", `NEED TO SORT DEALS + IF COUNTER ${counter} IS EQUAL TO 3*3*50 TO PASS TO SECOND algorithm`)
+            if (counter == ((SkyUECountries.length *  inbound.length * outbound.length) - 1)){
+              for (var l = 0; l < finalDeals.length; l++){
+                debug("\n\n\nNEW LOOP FOR FINAL DEALS", l)
+                debug("FINAL DEALS", finalDeals[l])
+              }
+            }
           })
         }
       }
