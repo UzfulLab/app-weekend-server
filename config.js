@@ -115,3 +115,5 @@ mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/app-weekend')
 
 schedule = require('node-schedule');
+
+TOTALDEALS = 3
