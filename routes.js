@@ -31,7 +31,9 @@ module.exports = function(router) {
 	})
 
 	router.post('/deal', function(req, res){
-		rep = deals.customDeal(req.body.departureDay, req.body.departureMoment, req.body.returnDay, req.body.returnMoment, req.body.destinationCity, req.body.originCity, req.body.withPicture);
+		//(departureDay, returnDay, destinationCity, passengers, withPicture, departureMoment, returnMoment, originCity)
+
+		rep = deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity);
 		status.autoStatus(res, rep)
 	})
 

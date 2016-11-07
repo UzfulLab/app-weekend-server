@@ -15,7 +15,7 @@ var fetchAllDeals = require('./app/workers/updateAllDeals.js')
 // var j = schedule.scheduleJob('01 * * * * *', function(){
 //   fetchAllDeals.fetchDeals();
 // });
-fetchAllDeals.fetchDeals()
+// fetchAllDeals.fetchDeals()
 // Database setup
 //Will need to be changed when in production
 

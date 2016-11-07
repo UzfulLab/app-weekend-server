@@ -1,4 +1,4 @@
-var skyscannerController = require("../lib/skyscannerApi.js")
+var skyscannerAPI = require("../lib/skyscannerApi.js")
 
 module.exports = {
   fetchDeals: function(){
@@ -170,11 +170,29 @@ module.exports = {
           }, options, function(){
             //Limiter callback
             //We calculate if all requests to skyscanner have been done
+            debug("CALLBACK", counter)
             if (counter == ((SkyUECountries.length *  inbound.length * outbound.length) - 1)){
               //Then we send requests to skyscanner to get a link to deal
-              for (var l = 0; l < finalDeals.length; l++){
-                debug("\n\n\nNEW LOOP FOR FINAL DEALS", l)
-                debug("FINAL DEALS", finalDeals[l])
+              for (var i = 0; i < finalDeals.length; i++){
+                debug("\n\n\nNEW LOOP FOR FINAL DEALS", i)
+                debug("FINAL DEALS", finalDeals[i])
+                //Second loop for inbound days
+                for (var j = 0; j < inbound.length; j++){
+                  //Third loop for outbound days
+                  for (var k = 0; k < outbound.length; k++){
+                    //Fourth loop for number of passengers
+                    for (var l = 0; l < MAXPASSENGERS; l++){
+                      var departureDay = inbound[j]
+                      var returnDay = outbound[j][k]
+                      var destinationCity = finalDeals[i][j][k].id
+                      var withPicture = true
+                      debug("DEPARTURE DAY", departureDay)
+                      debug("RETURN DAY", returnDay)
+                      debug("DESTINATION CITY", destinationCity)
+                      debug("WITH PICTURE", withPicture)
+                    }
+                  }
+                }
               }
             }
           })

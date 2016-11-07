@@ -69,12 +69,13 @@ All routes begin with `/api/v0`
 |     ARGUMENTS    |  TYPE  | OPTIONAL |     POSSIBLE VALUES    | DEFAULT VALUE |     DESCRIPTION     |
 |:---------------:|:------:|:--------:|:----------------------:|:-------------:|:-------------------:|
 |   departureDay  | string |    no    |    thu - fri - sat   |               |   Day of departure (not operational) |
-| departureMoment | string |    no    |   morning - evening   |               | Moment of departure (not operational) |
+| departureMoment | string |    yes    |   morning - evening   |               | Moment of departure (not operational) |
 |    returnDay    | string |    no    |    sun - mon - tue   |               |    Day of return  (not operational)  |
-|   returnMoment  | string |    no    |   morning - evening   |               |   Moment of return (not operational) |
+|   returnMoment  | string |    yes    |   morning - evening   |               |   Moment of return (not operational) |
 | destinationCity | string |    no    | *Skyscanner city values* |               |    City to fly to (not operational)  |
 |    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from (not operational) |
 |    withPicture  | bool   |    yes   | 0 - 1 |    0   |   If you need a picture to illustrate your deal (operational) |
+|    passengers  | int   |    no   | 1 - (..) - 4 |    0   |   How many people are traveling (operational) |
 
 * operational => Your value influences API return
 * not operational => Your value will influence API return on futures commits
