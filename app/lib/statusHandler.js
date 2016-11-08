@@ -29,6 +29,9 @@ module.exports = {
       case 200:
         this.success(res, rep.data)
         break
+      case 201:
+        this.success(res, rep.data)
+        break
       case 401:
         this.unauthorized(res)
         break

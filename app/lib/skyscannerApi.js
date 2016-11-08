@@ -1,10 +1,21 @@
 var imagesApi = require("../lib/imagesApi.js")
 var http = require("http")
+var statusHandler = require("./statusHandler.js")
 
 module.exports = {
   checkErrors: function(rep){
     //algorithm to check if no errors had been found
-    return false //if no errors are found, return false
+    if (rep.status >= 200 && rep.status < 300){
+      debug("SUCCESS MAGGLE", rep)
+      var rep =  {data: rep.location, status: rep.status}
+      rep.nextStep(rep)
+      // statusHandler.autoStatus(response, rep)
+    }
+    else{
+      // return {data: rep.error, status: rep.status}
+      statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
+    }
+      return false //if no errors are found, return false
   },
   createSession: function(departureDay, returnDay, destinationCity, adults){
     // var url //API call for creating session
@@ -17,8 +28,8 @@ module.exports = {
       'locale': 'fr-FR',
       'originplace': 'PARI-sky',
       'destinationplace': destinationCity,
-      'outbounddate': returnDay,
-      'inbounddate': departureDay,
+      'outbounddate': departureDay,
+      'inbounddate': returnDay,
       'adults': adults
     })
 
@@ -27,37 +38,38 @@ module.exports = {
       path: "/apiservices/pricing/v1.0",
       method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Accept': "application/json",
         'Content-Length': Buffer.byteLength(postData)
       }
     }
 
     limiter.submit(function(options, cb){
-      debug("\n\n\n\n\nHELLO WORLD ?\n\n\n\n", options)
+      var location
+      var status
       var req = http.request(options, (res) => {
-        debug("\n\n\n\n\nREQUEST ",`STATUS: ${res.statusCode}`);
-        debug("\n\n\n\n\nREQUEST ",`HEADERS: ${JSON.stringify(res.headers)}`);
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => {
-          debug("\n\n\n\n\nREQUEST ",`BODY: ${chunk}`);
-        });
+        status = res.statusCode
+        location = res.headers.location
+        res.setEncoding('utf8')
+        res.on('data', (chunk) => {})
         res.on('end', () => {
-          debug("\n\n\n\n\nREQUEST ",'No more data in response.');
-          debug("CALLBACK CALLING")
-          cb()
-          // return "url"
-        });
-      });
+          cb(location + "?apiKey=" + SkyScannerApiKey, status)
+        })
+      })
 
       req.on('error', (e) => {
         debug("REQUEST ",`problem with request: ${e.message}`);
-        debug("CALLBACK CALLING")
-        cb()
-      });
+        debug("CALLBACK CALLING ON ERROR")
+        cb("error", status, e.message)
+      })
 
-      req.end()
-    }, options, function(){
-      debug("!!!!!!!CALLBACK!!!!!!!")
+      req.end(postData)
+
+    }, options, function(location, status, error){
+      error = error || ''
+      debug(location)
+      debug(status)
+      self.checkErrors({location: location, status: status, error: error, nextStep: self.pollingSession})
     })
 
   },
@@ -76,23 +88,27 @@ module.exports = {
   },
   createDeal: function(departureDay, returnDay, destinationCity, passengers, withPicture, departureMoment, returnMoment, originCity){
     //supposingly calling skyscanner API and choosing best deal
-    var session = this.createSession(departureDay, returnDay, destinationCity, passengers)
-    if (this.checkErrors(session))
-      return {data: session, status: session.status}
-    var tmpDeal = this.pollingSession(session)
-    if (this.checkErrors(tmpDeal))
-      return {data: session, status: session.status}
+    self = this
+    this.createSession(departureDay, returnDay, destinationCity, passengers)
+    // if (this.checkErrors(session))
+    //   return {data: session, status: session.status}
+
+    // var tmpDeal = this.pollingSession(session)
+
+
+    // if (this.checkErrors(tmpDeal))
+    //   return {data: session, status: session.status}
 
     // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
 
     if (departureDay == "createError")
       return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
 
-    var deal = this.selectBestDeal(tmpDeal)
-    if (!withPicture)
-      return {data: deal, status: 200}
-    var picture = imagesApi.findPhoto(destinationCity)
-    var data = Object.assign(deal, {picture: picture})
-    return {data: deal, status: 200}
+    // var deal = this.selectBestDeal(tmpDeal)
+    // if (!withPicture)
+    //   return {data: deal, status: 200}
+    // var picture = imagesApi.findPhoto(destinationCity)
+    // var data = Object.assign(deal, {picture: picture})
+    // return {data: deal, status: 200}
   }
 }
