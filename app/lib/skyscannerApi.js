@@ -1,21 +1,58 @@
 var imagesApi = require("../lib/imagesApi.js")
 var http = require("http")
 var statusHandler = require("./statusHandler.js")
+var httpCalls = require("./httpCalls.js")
+var Deal = require("../models/dealSchema.js")
 
 module.exports = {
   checkErrors: function(rep){
     //algorithm to check if no errors had been found
     if (rep.status >= 200 && rep.status < 300){
-      debug("SUCCESS MAGGLE", rep)
-      var rep =  {data: rep.location, status: rep.status}
-      rep.nextStep(rep)
-      // statusHandler.autoStatus(response, rep)
+      debug("\n\nSUCCESS CHECK ERRORS\n\n")
+      var object =  {data: rep, status: rep.status}
+      rep.nextStep(object)
     }
     else{
-      // return {data: rep.error, status: rep.status}
+      debug("\n\nFAILURE CHECK ERRORS\n\n", rep)
       statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
     }
-      return false //if no errors are found, return false
+  },
+  createDealFinalReturn: function(data){
+
+    // debug("DATA", data)
+    // debug("DATADATADATA", data.data.data)
+    var data = data.data.data
+    var bestQuote = data.Itineraries[0]
+    var price = String(bestQuote.PricingOptions.Price).replace('.', ',')
+    if (price[2] != '.') price += '.'
+    while(price.length < 5)
+      price += '0'
+    // var city = data.city
+    var city = "NANTES"
+    var passengers = data.Query.Adults
+    var inboundDate = data.Query.InboundDate
+    var outboundDate = data.Query.OutboundDate
+    var deal_url = bestQuote.PricingOptions.DeepLinkUrl
+    var deal = new Deal()
+    deal.city = city
+    deal.price = price
+    deal.deal_url = deal_url
+    deal.passengers = passengers
+    deal.inboundDate = inboundDate
+    deal.outboundDate = outboundDate
+
+    deal.save((err) =>{
+      if (err){
+        debug("ERROR DEAL SAVE", err)
+        data.status = 422
+        statusHandler.autoStatus(response, data)
+      }
+      else{
+        debug("DEAL SAVED")
+        data.status = 200
+        statusHandler.autoStatus(response, data)
+      }
+    })
   },
   createSession: function(departureDay, returnDay, destinationCity, adults){
     // var url //API call for creating session
@@ -74,6 +111,52 @@ module.exports = {
 
   },
   pollingSession: function(session){
+    debug("\n\nPolling Session\n\n")
+
+    var path = session.data.location.split("http://partners.api.skyscanner.net")[1]
+
+    var options = {
+      hostname: "partners.api.skyscanner.net",
+      path: path,
+      method: "GET",
+      headers: {
+        'Content-Type': "application/x-www-form-urlencoded"
+      }
+    }
+
+    setTimeout(() => {
+      limiter.submit(function(options, cb){
+        debug("OPTIONS", options)
+        var status
+        var req = http.get(options, function(res) {
+          var body = ""
+          status = res.statusCode
+          res.setEncoding('utf8')
+          //response is too long so we need to concatenate it
+          res.on('data', (chunk) => {
+            body += chunk.toString('utf-8')
+          })
+          res.on('end', () => {
+            debug("\n\n\n\nBODY RETURN !!!!\n\n\n", JSON.parse(body))
+            cb(JSON.parse(body), status)
+          })
+        })
+
+        req.on('error', (e) => {
+          debug("REQUEST ",`problem with request: ${e.message}`);
+          debug("CALLBACK CALLING ON ERROR")
+          cb({data: {body: "error"}}, status, e.message)
+        })
+
+        req.end()
+
+      }, options, (data, status, error) => {
+        error = error || ''
+        debug(status)
+        self.checkErrors({data, status: status, nextStep: self.createDealFinalReturn})
+      })
+    }, 10000)
+
     var deals //API call for polling session
     return deals
   },

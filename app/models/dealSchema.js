@@ -6,7 +6,7 @@ var dealStruct = {
 	"picture_url": String,
 	"price": String,
 	"deal_url": String,
-	"id": String,
+	"skyID": String,
   "passengers": Number,
   "inboundDate": Date,
   "outboundDate": Date,
