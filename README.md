@@ -76,6 +76,8 @@ All routes begin with `/api/v0`
 |    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from (not operational) |
 |    withPicture  | bool   |    yes   | 0 - 1 |    0   |   If you need a picture to illustrate your deal (operational) |
 |    passengers  | int   |    no   | 1 - (..) - 4 |    0   |   How many people are traveling (operational) |
+|    cityFR  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in french (operational) |
+|    cityEN  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in english (operational) |
 
 * operational => Your value influences API return
 * not operational => Your value will influence API return on futures commits

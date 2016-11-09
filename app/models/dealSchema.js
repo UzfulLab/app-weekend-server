@@ -2,11 +2,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var dealStruct = {
-	"city": String,
 	"picture_url": String,
 	"price": String,
 	"deal_url": String,
 	"skyID": String,
+	"cityFR": String,
+	"cityEN": String,
   "passengers": Number,
   "inboundDate": Date,
   "outboundDate": Date,

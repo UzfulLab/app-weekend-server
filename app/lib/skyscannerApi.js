@@ -17,24 +17,25 @@ module.exports = {
       statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
     }
   },
-  createDealFinalReturn: function(data){
+  createDealFinalReturn: function(sessionData){
 
-    // debug("DATA", data)
+    debug("\n\n\n\nDATA\n\n\n\n", sessionData)
     // debug("DATADATADATA", data.data.data)
-    var data = data.data.data
-    var bestQuote = data.Itineraries[0]
+    var skyData = sessionData.data.data
+    var bestQuote = skyData.Itineraries[0]
     var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
-    if (price[2] != '.') price += '.'
+    if (price[2] != ',') price += ','
     while(price.length < 5)
       price += '0'
-    // var city = data.city
-    var city = "NANTES"
-    var passengers = data.Query.Adults
-    var inboundDate = data.Query.InboundDate
-    var outboundDate = data.Query.OutboundDate
+    var cityFR = sessionData.data.cityFR
+    var cityEN = sessionData.data.cityEN
+    var passengers = skyData.Query.Adults
+    var inboundDate = skyData.Query.InboundDate
+    var outboundDate = skyData.Query.OutboundDate
     var deal_url = bestQuote.PricingOptions[0].DeeplinkUrl
     var deal = new Deal()
-    deal.city = city
+    deal.cityFR = cityFR
+    deal.cityEN = cityEN
     deal.price = price
     deal.deal_url = deal_url
     deal.passengers = passengers
@@ -44,7 +45,7 @@ module.exports = {
     deal.save((err) =>{
       if (err){
         debug("ERROR DEAL SAVE", err)
-        statusHandler.autoStatus(response, Object.assign({data: data}, {status: 422}))
+        statusHandler.autoStatus(response, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
       }
       else{
         debug("DEAL SAVED")
@@ -52,7 +53,7 @@ module.exports = {
       }
     })
   },
-  createSession: function(departureDay, returnDay, destinationCity, adults){
+  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity){
     // var url //API call for creating session
     var querystring = require('querystring');
 
@@ -65,7 +66,7 @@ module.exports = {
       'destinationplace': destinationCity,
       'outbounddate': departureDay,
       'inbounddate': returnDay,
-      'adults': adults
+      'adults': passengers
     })
 
     var options = {
@@ -104,7 +105,7 @@ module.exports = {
       error = error || ''
       debug(location)
       debug(status)
-      self.checkErrors({location: location, status: status, error: error, nextStep: self.pollingSession})
+      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, withPicture: withPicture, nextStep: self.pollingSession})
     })
 
   },
@@ -124,7 +125,6 @@ module.exports = {
 
     setTimeout(() => {
       limiter.submit(function(options, cb){
-        debug("OPTIONS", options)
         var status
         var req = http.get(options, function(res) {
           var body = ""
@@ -150,7 +150,7 @@ module.exports = {
       }, options, (data, status, error) => {
         error = error || ''
         debug(status)
-        self.checkErrors({data, status: status, nextStep: self.createDealFinalReturn})
+        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, nextStep: self.createDealFinalReturn})
       })
     }, 10000)
 
@@ -166,29 +166,12 @@ module.exports = {
     // call to skyscanner API and getting new price
     return {data:{newPrice: "142,21"}, status: 200}
   },
-  createDeal: function(departureDay, returnDay, destinationCity, passengers, withPicture, departureMoment, returnMoment, originCity){
-    //supposingly calling skyscanner API and choosing best deal
-    self = this
-    this.createSession(departureDay, returnDay, destinationCity, passengers)
-    // if (this.checkErrors(session))
-    //   return {data: session, status: session.status}
-
-    // var tmpDeal = this.pollingSession(session)
-
-
-    // if (this.checkErrors(tmpDeal))
-    //   return {data: session, status: session.status}
-
+  createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity){
     // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
-
     if (departureDay == "createError")
       return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
 
-    // var deal = this.selectBestDeal(tmpDeal)
-    // if (!withPicture)
-    //   return {data: deal, status: 200}
-    // var picture = imagesApi.findPhoto(destinationCity)
-    // var data = Object.assign(deal, {picture: picture})
-    // return {data: deal, status: 200}
+    self = this
+    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity)
   }
 }

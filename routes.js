@@ -32,10 +32,7 @@ module.exports = function(router) {
 	})
 
 	router.post('/deal', function(req, res){
-		//(departureDay, returnDay, destinationCity, passengers, withPicture, departureMoment, returnMoment, originCity)
-		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity)
-		// rep = deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity);
-		// status.autoStatus(res, rep)
+		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity)
 	})
 
 	router.put('/deal/:id', function(req, res){
