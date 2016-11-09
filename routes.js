@@ -4,6 +4,7 @@ var securityChecks = require("./app/lib/securityChecks.js")
 
 //Importing our controllers
 var deals = require("./app/controllers/dealsController.js")
+var Deal = require('./app/models/dealSchema.js')
 
 module.exports = function(router) {
 
@@ -24,6 +25,25 @@ module.exports = function(router) {
 	// Routing
 	router.get('/', function(req, res) {
 		status.success(res, {message: "API is up !"})
+	})
+
+	router.get('/testModel', function(req, res){
+		inbound = new Date(Date.parse("2016-11-13T00:00:00Z"))
+		outbound = new Date(Date.parse("2016-11-10T00:00:00Z"))
+		// Deal.find().byDates(outbound, inbound).exec(function(err, deals){
+		// 	debug("!!!!! DEALS !!!!!", deals)
+		// 	debug("!!!!! ERROR !!!!!", err)
+		// })
+		// Deal.find().byOutBoundThursday().exec(function(err, deals){
+		// 	debug("!!!!! DEALS !!!!!", deals)
+		// 	debug("!!!!! ERROR !!!!!", err)
+		// 	deals.byInboundSunday().exec(function(err, deals){
+		// 		debug("\n\n\n!!!!! DEALS BIS!!!!!", deals)
+		// 		debug("!!!!! ERROR BIS!!!!!", err)
+		// 	})
+		// })
+		//TODO CHAIN QUERIES !
+		status.success(res, {message: Deal.fetchDealsByDate})
 	})
 
 	router.get('/deals', function(req, res){

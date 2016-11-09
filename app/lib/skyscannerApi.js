@@ -3,6 +3,7 @@ var http = require("http")
 var statusHandler = require("./statusHandler.js")
 var httpCalls = require("./httpCalls.js")
 var Deal = require("../models/dealSchema.js")
+var moment = require('moment')
 
 module.exports = {
   checkErrors: function(rep){
@@ -45,7 +46,9 @@ module.exports = {
     deal.deal_url = deal_url
     deal.passengers = passengers
     deal.inboundDate = inboundDate
+    deal.inboundDay = moment(deal.inboundDate).day()
     deal.outboundDate = outboundDate
+    deal.outboundDay = moment(deal.outboundDate).day()
 
     deal.save((err) =>{
       if (err){
