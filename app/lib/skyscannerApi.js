@@ -23,7 +23,7 @@ module.exports = {
     // debug("DATADATADATA", data.data.data)
     var data = data.data.data
     var bestQuote = data.Itineraries[0]
-    var price = String(bestQuote.PricingOptions.Price).replace('.', ',')
+    var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
     if (price[2] != '.') price += '.'
     while(price.length < 5)
       price += '0'
@@ -32,7 +32,7 @@ module.exports = {
     var passengers = data.Query.Adults
     var inboundDate = data.Query.InboundDate
     var outboundDate = data.Query.OutboundDate
-    var deal_url = bestQuote.PricingOptions.DeepLinkUrl
+    var deal_url = bestQuote.PricingOptions[0].DeeplinkUrl
     var deal = new Deal()
     deal.city = city
     deal.price = price
@@ -44,13 +44,11 @@ module.exports = {
     deal.save((err) =>{
       if (err){
         debug("ERROR DEAL SAVE", err)
-        data.status = 422
-        statusHandler.autoStatus(response, data)
+        statusHandler.autoStatus(response, Object.assign({data: data}, {status: 422}))
       }
       else{
         debug("DEAL SAVED")
-        data.status = 200
-        statusHandler.autoStatus(response, data)
+        statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
       }
     })
   },
@@ -137,7 +135,6 @@ module.exports = {
             body += chunk.toString('utf-8')
           })
           res.on('end', () => {
-            debug("\n\n\n\nBODY RETURN !!!!\n\n\n", JSON.parse(body))
             cb(JSON.parse(body), status)
           })
         })
