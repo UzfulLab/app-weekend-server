@@ -18,9 +18,6 @@ module.exports = {
     }
   },
   createDealFinalReturn: function(sessionData){
-
-    debug("\n\n\n\nDATA\n\n\n\n", sessionData)
-    // debug("DATADATADATA", data.data.data)
     var skyData = sessionData.data.data
     var bestQuote = skyData.Itineraries[0]
     var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
@@ -29,14 +26,22 @@ module.exports = {
       price += '0'
     var cityFR = sessionData.data.cityFR
     var cityEN = sessionData.data.cityEN
+    var destinationCountry = sessionData.data.destinationCountry
     var passengers = skyData.Query.Adults
     var inboundDate = skyData.Query.InboundDate
     var outboundDate = skyData.Query.OutboundDate
     var deal_url = bestQuote.PricingOptions[0].DeeplinkUrl
+    var picture_url = countryPictures[destinationCountry].pictureUrl
+    var author_name = countryPictures[destinationCountry].authorName
+    var author_link = countryPictures[destinationCountry].authorLink
     var deal = new Deal()
     deal.cityFR = cityFR
     deal.cityEN = cityEN
+    deal.destinationCountry = destinationCountry
     deal.price = price
+    deal.picture_url = picture_url
+    deal.author_name = author_name
+    deal.author_link = author_link
     deal.deal_url = deal_url
     deal.passengers = passengers
     deal.inboundDate = inboundDate
@@ -53,7 +58,7 @@ module.exports = {
       }
     })
   },
-  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity){
+  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity){
     // var url //API call for creating session
     var querystring = require('querystring');
 
@@ -105,7 +110,7 @@ module.exports = {
       error = error || ''
       debug(location)
       debug(status)
-      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, withPicture: withPicture, nextStep: self.pollingSession})
+      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, withPicture: withPicture, nextStep: self.pollingSession})
     })
 
   },
@@ -150,7 +155,7 @@ module.exports = {
       }, options, (data, status, error) => {
         error = error || ''
         debug(status)
-        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, nextStep: self.createDealFinalReturn})
+        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, destinationCountry: session.data.destinationCountry, nextStep: self.createDealFinalReturn})
       })
     }, 10000)
 

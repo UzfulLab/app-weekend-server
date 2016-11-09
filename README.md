@@ -78,6 +78,7 @@ All routes begin with `/api/v0`
 |    passengers  | int   |    no   | 1 - (..) - 4 |    0   |   How many people are traveling (operational) |
 |    cityFR  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in french (operational) |
 |    cityEN  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in english (operational) |
+|    destinationCountry  | string   |    no   |  *Skyscanner country values* |    0   | Skyscanner country code (ex: FR-sky) (operational) |
 
 * operational => Your value influences API return
 * not operational => Your value will influence API return on futures commits

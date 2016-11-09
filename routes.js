@@ -32,7 +32,7 @@ module.exports = function(router) {
 	})
 
 	router.post('/deal', function(req, res){
-		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity)
+		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.destinationCountry, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity)
 	})
 
 	router.put('/deal/:id', function(req, res){
