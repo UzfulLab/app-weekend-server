@@ -11,8 +11,9 @@ module.exports = {
     var momentDate
     var finalDeals = []
     var ids = []
+    var countries = []
     var counter = 0
-    var bestDeals = {prices: [], destinations: [], ids: []}
+    var bestDeals = {prices: [], destinations: [], ids: [], countries: []}
 
     // fetching infos about current day to know what date to choose for deals
     var today = {dayNumber: moment().day(), hour: moment().hour()}
@@ -29,16 +30,17 @@ module.exports = {
     }
 
     //function to sort deals and give the 3 bests
-    var sortValues = function(prices, destinations, ids, destinationName, valuePrice, id){
+    var sortValues = function(prices, destinations, ids, countries, destinationName, valuePrice, id, country){
       //adding new deal to infos arrays
       prices.push(valuePrice)
       destinations.push(destinationName)
       ids.push(id)
+      countries.push(country)
 
       //creating deal array
       var destPric = []
       for (var l = 0; l < prices.length; l++){
-        destPric.push({dest: destinations[l], price: prices[l], id: ids[l]})
+        destPric.push({dest: destinations[l], price: prices[l], id: ids[l], country: countries[l]})
       }
 
       //sorting our deals array
@@ -51,6 +53,7 @@ module.exports = {
         prices[l] = destPric[l].price
         destinations[l] = destPric[l].dest
         ids[l] = destPric[l].id
+        countries[l] = destPric[l].country
       }
 
       //keeping only deals that we need
@@ -62,6 +65,8 @@ module.exports = {
         destinations.pop()
       while (ids.length > TOTALDEALS)
         ids.pop()
+      while (countries.length > TOTALDEALS)
+        countries.pop()
 
       return destPric
     }
@@ -90,11 +95,13 @@ module.exports = {
       bestDeals.prices[i] = []
       bestDeals.destinations[i] = []
       bestDeals.ids[i] = []
+      bestDeals.countries[i] = []
       finalDeals[i] = []
       for (var j = 0; j < outbound.length; j++){
         bestDeals.prices[i][j] = []
         bestDeals.destinations[i][j] = []
         bestDeals.ids[i][j] = []
+        bestDeals.countries[i][j] = []
         finalDeals[i][j] = []
       }
     }
@@ -113,7 +120,8 @@ module.exports = {
             hostname: 'partners.api.skyscanner.net',
             path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+inbound[j]+"/"+outbound[j][k]+"?apiKey="+SkyScannerApiKey,
             inboundDay: j,
-            outboundDay: k
+            outboundDay: k,
+            skyEuCountry: SkyUECountries[i]
           }
 
           //lunching our request through a limiter so we don't get banned by Skyscanner
@@ -142,6 +150,8 @@ module.exports = {
                     var destinationName = currentQuotes[0].OutboundLeg.DestinationId
                     var valuePrice = currentQuotes[0].MinPrice
                     var ids = bestDeals.ids[options.inboundDay][options.outboundDay]
+                    var countries = bestDeals.countries[options.inboundDay][options.outboundDay]
+                    var country = options.skyEuCountry
                     var id
                     for (place in places){
                       if (places[place]["PlaceId"] == destinationName){
@@ -151,7 +161,7 @@ module.exports = {
                       }
                     }
                     //Sorting algorithm
-                    finalDeals[options.inboundDay][options.outboundDay] = sortValues(prices, destinations, ids, destinationName, valuePrice, id)
+                    finalDeals[options.inboundDay][options.outboundDay] = sortValues(prices, destinations, ids, countries, destinationName, valuePrice, id, country)
                   }
                 }
                 //our counter to know how many request were sent
@@ -185,11 +195,16 @@ module.exports = {
                       var departureDay = inbound[j]
                       var returnDay = outbound[j][k]
                       var destinationCity = finalDeals[i][j][k].id
+                      var skyCountry = finalDeals[i][j][k].country
+                      var passengers = l
+                      var cityFR = finalDeals[i][j][k].dest
+                      var cityEN = finalDeals[i][j][k].dest
                       var withPicture = true
                       debug("DEPARTURE DAY", departureDay)
                       debug("RETURN DAY", returnDay)
                       debug("DESTINATION CITY", destinationCity)
                       debug("WITH PICTURE", withPicture)
+                      debug("/////SKY COUNTRY/////", skyCountry)
                     }
                   }
                 }
@@ -201,24 +216,3 @@ module.exports = {
     }
   }
 }
-
-
-/* ==== FUNCTION FOR DATABASE ==== */
-/*
-
-var deal = new Deal()
-deal.id = counter
-deal.price = String(quotes[0].MinPrice)
-
-deal.save(function(err){
-  if (err)
-    debug("ERROR DEAL SAVE ==> "+err)
-
-  debug("DEAL SAVED ==> "+counter+'\n\n\n\n')
-  debug('RES.ON.END')
-  cb()
-  counter++;
-})
-
-
-*/

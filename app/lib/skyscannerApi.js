@@ -35,6 +35,9 @@ module.exports = {
     var picture_url = countryPictures[destinationCountry].pictureUrl
     var author_name = countryPictures[destinationCountry].authorName
     var author_link = countryPictures[destinationCountry].authorLink
+    var outboundLegId = bestQuote.OutboundLegId
+    var inboundLegId = bestQuote.InboundLegId
+    var sessionKey = skyData.SessionKey
     var deal = new Deal()
     deal.cityFR = cityFR
     deal.cityEN = cityEN
@@ -47,9 +50,11 @@ module.exports = {
     deal.passengers = passengers
     deal.inboundDate = inboundDate
     deal.inboundDay = moment(deal.inboundDate).day()
+    deal.inboundLegId = inboundLegId
     deal.outboundDate = outboundDate
     deal.outboundDay = moment(deal.outboundDate).day()
-
+    deal.outboundLegId = outboundLegId
+    deal.sessionKey = sessionKey
     deal.save((err) =>{
       if (err){
         debug("ERROR DEAL SAVE", err)
