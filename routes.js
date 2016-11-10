@@ -63,8 +63,7 @@ module.exports = function(router) {
 	})
 
 	router.get('/deals', function(req, res){
-		rep = deals.listDeals();
-		status.autoStatus(res, rep)
+		deals.listDeals();
 	})
 
 	router.post('/deal', function(req, res){
