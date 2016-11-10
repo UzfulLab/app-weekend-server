@@ -79,25 +79,25 @@ module.exports = {
       var nextWeekToAdd = nextWeek ? 7 : 0
       var daysToAdd = (4 + i) - moment().day() + nextWeekToAdd
       momentDate = moment().add(daysToAdd, 'day')
-      inbound[i] = findGoodDate()
+      outbound[i] = findGoodDate()
 
-      outbound[i] = []
+      inbound[i] = []
       momentDate = momentDate.add(7 - 1 - momentDate.day(), 'day')
       //minus one corresponds to the first momentDate.add(1, 'day') on the for loop
       for (var j = 0; j < 3; j++){
         momentDate = momentDate.add(1, 'day')
-        outbound[i][j] = findGoodDate()
+        inbound[i][j] = findGoodDate()
       }
     }
 
     //creating here our arrays because of asynchronous
-    for (var i = 0; i < inbound.length; i++){
+    for (var i = 0; i < outbound.length; i++){
       bestDeals.prices[i] = []
       bestDeals.destinations[i] = []
       bestDeals.ids[i] = []
       bestDeals.countries[i] = []
       finalDeals[i] = []
-      for (var j = 0; j < outbound.length; j++){
+      for (var j = 0; j < inbound.length; j++){
         bestDeals.prices[i][j] = []
         bestDeals.destinations[i][j] = []
         bestDeals.ids[i][j] = []
@@ -110,17 +110,17 @@ module.exports = {
     //First loop for all destinations
     for (var i = 0; i < SkyUECountries.length; i++){
       //Second loop for inbound days
-      for (var j = 0; j < inbound.length; j++){
+      for (var j = 0; j < outbound.length; j++){
         //Third loop for outbound days
-        for (var k = 0; k < outbound.length; k++){
+        for (var k = 0; k < inbound.length; k++){
 
           //conserving j and k into options because of asynchronous
           //setting our get request to fetch best prices for destinations
           var options = {
             hostname: 'partners.api.skyscanner.net',
-            path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+inbound[j]+"/"+outbound[j][k]+"?apiKey="+SkyScannerApiKey,
-            inboundDay: j,
-            outboundDay: k,
+            path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+outbound[j]+"/"+inbound[j][k]+"?apiKey="+SkyScannerApiKey,
+            outboundDay: j,
+            inboundDay: k,
             skyEuCountry: SkyUECountries[i]
           }
 
@@ -145,12 +145,12 @@ module.exports = {
                   //If the request gave us imperative infos, we can proceed
                   if (typeof(currentQuotes[0].OutboundLeg) !== "undefined" && typeof(currentQuotes[0].OutboundLeg.DestinationId) !== "undefined"){
                     //Setting variables for sorting algorithm
-                    var prices = bestDeals.prices[options.inboundDay][options.outboundDay]
-                    var destinations = bestDeals.destinations[options.inboundDay][options.outboundDay]
+                    var prices = bestDeals.prices[options.outboundDay][options.inboundDay]
+                    var destinations = bestDeals.destinations[options.outboundDay][options.inboundDay]
                     var destinationName = currentQuotes[0].OutboundLeg.DestinationId
                     var valuePrice = currentQuotes[0].MinPrice
-                    var ids = bestDeals.ids[options.inboundDay][options.outboundDay]
-                    var countries = bestDeals.countries[options.inboundDay][options.outboundDay]
+                    var ids = bestDeals.ids[options.outboundDay][options.inboundDay]
+                    var countries = bestDeals.countries[options.outboundDay][options.inboundDay]
                     var country = options.skyEuCountry
                     var id
                     for (place in places){
@@ -161,7 +161,7 @@ module.exports = {
                       }
                     }
                     //Sorting algorithm
-                    finalDeals[options.inboundDay][options.outboundDay] = sortValues(prices, destinations, ids, countries, destinationName, valuePrice, id, country)
+                    finalDeals[options.outboundDay][options.inboundDay] = sortValues(prices, destinations, ids, countries, destinationName, valuePrice, id, country)
                   }
                 }
                 //our counter to know how many request were sent
@@ -187,13 +187,13 @@ module.exports = {
                 debug("\n\n\nNEW LOOP FOR FINAL DEALS", i)
                 debug("FINAL DEALS", finalDeals[i])
                 //Second loop for inbound days
-                for (var j = 0; j < inbound.length; j++){
+                for (var j = 0; j < outbound.length; j++){
                   //Third loop for outbound days
-                  for (var k = 0; k < outbound.length; k++){
+                  for (var k = 0; k < inbound.length; k++){
                     //Fourth loop for number of passengers
                     for (var l = 0; l < MAXPASSENGERS; l++){
-                      var departureDay = inbound[j]
-                      var returnDay = outbound[j][k]
+                      var departureDay = outbound[j]
+                      var returnDay = inbound[j][k]
                       var destinationCity = finalDeals[i][j][k].id
                       var skyCountry = finalDeals[i][j][k].country
                       var passengers = l

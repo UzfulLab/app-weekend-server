@@ -9,12 +9,12 @@ module.exports = {
   checkErrors: function(rep){
     //algorithm to check if no errors had been found
     if (rep.status >= 200 && rep.status < 300){
-      debug("\n\nSUCCESS CHECK ERRORS\n\n")
+      debug("\n\nNO ERRORS\n\n")
       var object =  {data: rep, status: rep.status}
       rep.nextStep(object)
     }
     else{
-      debug("\n\nFAILURE CHECK ERRORS\n\n", rep)
+      debug("\n\nERRORS\n\n", rep)
       statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
     }
   },
@@ -62,7 +62,10 @@ module.exports = {
       }
       else{
         debug("DEAL SAVED")
-        statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
+        if (internCall)
+          debug("INTERN CALLLL")
+        else
+          statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
       }
     })
   },
@@ -179,12 +182,13 @@ module.exports = {
     // call to skyscanner API and getting new price
     return {data:{newPrice: "142,21"}, status: 200}
   },
-  createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity){
+  createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
     // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
+    internCall = internalCall || false
     if (departureDay == "createError")
       return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
 
     self = this
-    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, withPicture, departureMoment, returnMoment, originCity)
+    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity)
   }
 }
