@@ -2,25 +2,23 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var dealStruct = {
-	"picture_url": String,
-	"author_url": String,
-	"author_link": String,
-	"author_name": String,
-	"outboundLegId": String,
-	"inboundLegId": String,
-	"sessionKey": String,
-	"price": String,
-	"deal_url": String,
-	"skyID": String,
-	"cityFR": String,
-	"cityEN": String,
-	"destinationCountry": String,
-  "passengers": Number,
-  "inboundDate": Date,
-  "inboundDay": Number,
-  "outboundDate": Date,
-  "outboundDay": Number,
-	"id": Number
+	"picture_url": {type: String, required: true},
+	"author_link": {type: String, required: true},
+	"author_name": {type: String, required: true},
+	"outboundLegId": {type: String, required: true},
+	"inboundLegId": {type: String, required: true},
+	"sessionKey": {type: String, required: true},
+	"price": {type: String, required: true},
+	"deal_url": {type: String, required: true},
+	"cityFR": {type: String, required: true},
+	"cityEN": {type: String, required: true},
+	"destinationCountry": {type: String, required: true},
+  "passengers": {type: Number, required: true},
+  "inboundDate": {type: Date, required: true},
+  "inboundDay": {type: Number, required: true},
+  "outboundDate": {type: Date, required: true},
+  "outboundDay": {type: Number, required: true},
+	"created_at": Date
 };
 
 var DealSchema = new Schema(dealStruct);
@@ -66,6 +64,44 @@ DealSchema.query.byInBoundMonday = function(d){
 
 DealSchema.query.byInBoundTuesday = function(d){
 	return this.find({inboundDay: 2})
+}
+
+
+
+DealSchema.query.byThuSun = function(){
+	return this.find({outboundDay: 4, inboundDay: 0})
+}
+
+DealSchema.query.byThuMon = function(){
+	return this.find({outboundDay: 4, inboundDay: 1})
+}
+
+DealSchema.query.byThuTue = function(){
+	return this.find({outboundDay: 4, inboundDay: 2})
+}
+
+DealSchema.query.byFriSun = function(){
+	return this.find({outboundDay: 5, inboundDay: 0})
+}
+
+DealSchema.query.byFriMon = function(){
+	return this.find({outboundDay: 5, inboundDay: 1})
+}
+
+DealSchema.query.byFriTue = function(){
+	return this.find({outboundDay: 5, inboundDay: 2})
+}
+
+DealSchema.query.bySatSun = function(){
+	return this.find({outboundDay: 6, inboundDay: 0})
+}
+
+DealSchema.query.bySatMon = function(){
+	return this.find({outboundDay: 6, inboundDay: 1})
+}
+
+DealSchema.query.bySatTue = function(){
+	return this.find({outboundDay: 6, inboundDay: 2})
 }
 
 module.exports = mongoose.model('Deal', DealSchema);

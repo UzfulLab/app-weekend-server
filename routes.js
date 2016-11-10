@@ -43,7 +43,23 @@ module.exports = function(router) {
 		// 	})
 		// })
 		//TODO CHAIN QUERIES !
-		status.success(res, {message: Deal.fetchDealsByDate})
+		Deal.find().byFriMon().exec(function(err, deals){
+				debug("!!!!! DEALS !!!!!", deals)
+				debug("!!!!! ERROR !!!!!", err)
+				debug("===TYPEOF===", typeof(Deal))
+				status.success(res, {data: deals})
+		})
+
+		// var cursor = Deal.find().byFriMon().cursor()
+		// cursor.on('data', function(doc){
+		// 	debug("\nDATA", doc)
+		// })
+		// cursor.on('close', function(){
+		// 	debug("\nC FINI")
+		// 	status.success(res, {message: "HEllo WOrld"})
+		// })
+
+		// status.success(res, {message: Deal.fetchDealsByDate})
 	})
 
 	router.get('/deals', function(req, res){

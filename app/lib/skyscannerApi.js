@@ -15,61 +15,64 @@ module.exports = {
     }
     else{
       debug("\n\nERRORS\n\n", rep)
-      statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
+      if (typeof(response) !== 'undefined' )
+        statusHandler.autoStatus(response, {data: {error: rep.error}, status: 422})
     }
   },
   createDealFinalReturn: function(sessionData){
     var skyData = sessionData.data.data
     var bestQuote = skyData.Itineraries[0]
-    var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
-    if (price[2] != ',') price += ','
-    while(price.length < 5)
-      price += '0'
-    var cityFR = sessionData.data.cityFR
-    var cityEN = sessionData.data.cityEN
-    var destinationCountry = sessionData.data.destinationCountry
-    var passengers = skyData.Query.Adults
-    var inboundDate = skyData.Query.InboundDate
-    var outboundDate = skyData.Query.OutboundDate
-    var deal_url = bestQuote.PricingOptions[0].DeeplinkUrl
-    var picture_url = countryPictures[destinationCountry].pictureUrl
-    var author_name = countryPictures[destinationCountry].authorName
-    var author_link = countryPictures[destinationCountry].authorLink
-    var outboundLegId = bestQuote.OutboundLegId
-    var inboundLegId = bestQuote.InboundLegId
-    var sessionKey = skyData.SessionKey
-    var deal = new Deal()
-    deal.cityFR = cityFR
-    deal.cityEN = cityEN
-    deal.destinationCountry = destinationCountry
-    deal.price = price
-    deal.picture_url = picture_url
-    deal.author_name = author_name
-    deal.author_link = author_link
-    deal.deal_url = deal_url
-    deal.passengers = passengers
-    deal.inboundDate = inboundDate
-    deal.inboundDay = moment(deal.inboundDate).day()
-    deal.inboundLegId = inboundLegId
-    deal.outboundDate = outboundDate
-    deal.outboundDay = moment(deal.outboundDate).day()
-    deal.outboundLegId = outboundLegId
-    deal.sessionKey = sessionKey
-    deal.save((err) =>{
-      if (err){
-        debug("ERROR DEAL SAVE", err)
-        statusHandler.autoStatus(response, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
-      }
-      else{
-        debug("DEAL SAVED")
-        if (internCall)
-          debug("INTERN CALLLL")
-        else
-          statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
-      }
-    })
+    if (!sessionData.data.internalCall && typeof(bestQuote) !== 'undefined')
+      statusHandler.autoStatus(response, Object.assign({data: {error: "NO deals found"}}, {status: 422}))
+    if (typeof(bestQuote) !== 'undefined'){
+      var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
+      var cityFR = sessionData.data.cityFR
+      var cityEN = sessionData.data.cityEN
+      var destinationCountry = sessionData.data.destinationCountry
+      var passengers = skyData.Query.Adults
+      var inboundDate = skyData.Query.InboundDate
+      var outboundDate = skyData.Query.OutboundDate
+      var deal_url = bestQuote.PricingOptions[0].DeeplinkUrl
+      var picture_url = countryPictures[destinationCountry].pictureUrl
+      var author_name = countryPictures[destinationCountry].authorName
+      var author_link = countryPictures[destinationCountry].authorLink
+      var outboundLegId = bestQuote.OutboundLegId
+      var inboundLegId = bestQuote.InboundLegId
+      var sessionKey = skyData.SessionKey
+      var deal = new Deal()
+      deal.cityFR = cityFR
+      deal.cityEN = cityEN
+      deal.destinationCountry = destinationCountry
+      deal.price = price
+      deal.picture_url = picture_url
+      deal.author_name = author_name
+      deal.author_link = author_link
+      deal.deal_url = deal_url
+      deal.passengers = passengers
+      deal.inboundDate = inboundDate
+      deal.inboundDay = moment(deal.inboundDate).day()
+      deal.inboundLegId = inboundLegId
+      deal.outboundDate = outboundDate
+      deal.outboundDay = moment(deal.outboundDate).day()
+      deal.outboundLegId = outboundLegId
+      deal.sessionKey = sessionKey
+      deal.created_at = new Date()
+      deal.save((err) =>{
+        if (err){
+          debug("\n\n\n==========================ERROR DEAL SAVE===================================", err)
+          if (!sessionData.data.internalCall)
+            statusHandler.autoStatus(response, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
+        }
+        else{
+          debug("DEAL SAVED")
+          debug("\n\nINTERNAL CALL ????????????", sessionData.data.internalCall)
+          if (!sessionData.data.internalCall)
+            statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
+        }
+      })
+    }
   },
-  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity){
+  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
     // var url //API call for creating session
     var querystring = require('querystring');
 
@@ -121,7 +124,7 @@ module.exports = {
       error = error || ''
       debug(location)
       debug(status)
-      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, withPicture: withPicture, nextStep: self.pollingSession})
+      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withPicture: withPicture, nextStep: self.pollingSession})
     })
 
   },
@@ -140,7 +143,7 @@ module.exports = {
     }
 
     setTimeout(() => {
-      limiter.submit(function(options, cb){
+      limiterPollSession.submit(function(options, cb){
         var status
         var req = http.get(options, function(res) {
           var body = ""
@@ -165,8 +168,8 @@ module.exports = {
 
       }, options, (data, status, error) => {
         error = error || ''
-        debug(status)
-        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, destinationCountry: session.data.destinationCountry, nextStep: self.createDealFinalReturn})
+        debug('POLING STATUS', status)
+        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, nextStep: self.createDealFinalReturn})
       })
     }, 10000)
 
@@ -184,11 +187,11 @@ module.exports = {
   },
   createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
     // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
-    internCall = internalCall || false
+    internalCall = internalCall || false
     if (departureDay == "createError")
       return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
 
     self = this
-    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity)
+    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity)
   }
 }

@@ -43,14 +43,15 @@ All routes begin with `/api/v0`
 {
   "thu": {
     "sun": {
-      "one": {
-        "firstDeal": {
-          "city": "Amsterdam",
-          "picture_url": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
-          "price": "74,32",
-          "deal_url": "http://google.fr",
-          "id": "f4k3id23123"
-        }
+      "1": [
+          {
+            "city": "Amsterdam",
+            "picture_url": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
+            "price": "74,32",
+            "deal_url": "http://google.fr",
+            "id": "f4k3id23123"
+          }
+        ]
       }
     }
   }

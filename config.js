@@ -161,6 +161,7 @@ SkyScannerApiKey = "uz497893624968959685836267896543"
 
 var Bottleneck = require("bottleneck");
 limiter = new Bottleneck(1, 100);
+limiterPollSession = new Bottleneck(5, 100);
 
 debug = require('debug')('worker');
 

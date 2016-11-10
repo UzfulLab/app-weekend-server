@@ -191,7 +191,7 @@ module.exports = {
                   //Third loop for outbound days
                   for (var k = 0; k < inbound.length; k++){
                     //Fourth loop for number of passengers
-                    for (var l = 0; l < MAXPASSENGERS; l++){
+                    for (var l = 1; l <= MAXPASSENGERS; l++){
                       var departureDay = outbound[j]
                       var returnDay = inbound[j][k]
                       var destinationCity = finalDeals[i][j][k].id
@@ -200,11 +200,19 @@ module.exports = {
                       var cityFR = finalDeals[i][j][k].dest
                       var cityEN = finalDeals[i][j][k].dest
                       var withPicture = true
-                      debug("DEPARTURE DAY", departureDay)
-                      debug("RETURN DAY", returnDay)
-                      debug("DESTINATION CITY", destinationCity)
-                      debug("WITH PICTURE", withPicture)
-                      debug("/////SKY COUNTRY/////", skyCountry)
+
+                      if (l == 1) debug("CALL FOR", cityFR)
+                      skyscannerAPI.createDeal(
+                        departureDay,
+                        returnDay,
+                        destinationCity,
+                        passengers,
+                        cityFR,
+                        cityEN,
+                        skyCountry,
+                        true,
+                        withPicture
+                      )
                     }
                   }
                 }
