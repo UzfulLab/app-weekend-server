@@ -43,13 +43,27 @@ All routes begin with `/api/v0`
 {
   "thu": {
     "sun": {
-      "1": [
+      "one": [
           {
-            "city": "Amsterdam",
-            "picture_url": "https://hd.unsplash.com/photo-1447877980755-c3c642760061",
-            "price": "74,32",
-            "deal_url": "http://google.fr",
-            "id": "f4k3id23123"
+            "_id": "5824abe8a2ec3c11b0a2184e",
+            "created_at": "2016-11-10T17:18:32.942Z",
+            "sessionKey": "646bdc74a16642d08c8e294bdf857a16_ecilpojl_C91F0D35CE575DFE49D9B2FE1C6ED94C",
+            "outboundLegId": "10413-1611171000--32356-0-13771-1611171015",
+            "outboundDay": 4,
+            "outboundDate": "2016-11-17T00:00:00.000Z",
+            "inboundLegId": "13771-1611200900--32356-0-10413-1611201120",
+            "inboundDay": 0,
+            "inboundDate": "2016-11-20T00:00:00.000Z",
+            "passengers": 1,
+            "deal_url": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=nrpnZ%2f4hktHebjvBq9AkxaYaLU%2bGNdcAX3UOATmaM4iRIz85kld%2fLwmLuVzlZk95&url=http%3a%2f%2fwww.apideeplink.com%2ftransport_deeplink%2f4.0%2fFR%2ffr-fr%2fEUR%2feasy%2f2%2f10413.13771.2016-11-17%2c13771.10413.2016-11-20%2fair%2fairli%2fflights%3fitinerary%3dflight%7c-32356%7c2432%7c10413%7c2016-11-17T10%3a00%7c13771%7c2016-11-17T10%3a15%2cflight%7c-32356%7c2435%7c13771%7c2016-11-20T09%3a00%7c10413%7c2016-11-20T11%3a20%26carriers%3d-32356%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d75.50%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26request_id%3dde5df2ed-33e0-4c84-86e5-31e6de98b98e%26commercial_filters%3dfalse%26q_datetime_utc%3d2016-11-10T15%3a18%3a28",
+            "author_link": "https://unsplash.com/@willvanw",
+            "author_name": "Will van Wingerden",
+            "picture_url": "https://images.unsplash.com/photo-1456490585048-f4a7348766f7?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+            "price": "75,5",
+            "destinationCountry": "UK-sky",
+            "cityEN": "Londres",
+            "cityFR": "Londres",
+            "__v": 0
           }
         ]
       }

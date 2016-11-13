@@ -1,6 +1,32 @@
 var Deal = require('./dealSchema.js');
 var status = require("../lib/statusHandler.js")
 
+var sortByPassengers = function(tab){
+	var one = []
+	var two = []
+	var thr = []
+	var fou = []
+	for (entrie of tab){
+		switch (entrie.passengers) {
+			case 1:
+				one.push(entrie)
+				break;
+			case 2:
+				two.push(entrie)
+				break;
+			case 3:
+				thr.push(entrie)
+				break;
+			case 4:
+				fou.push(entrie)
+				break;
+			default:
+				one.push(entrie)
+		}
+	}
+	return ({one: one, two: two, thr: thr, fou: fou})
+}
+
 module.exports = {
 	getAllDeals: function(){
 		deals = require("./deals.json")
@@ -25,42 +51,41 @@ module.exports = {
 												var rep = {data:
 													{
 														thu:{
-															sun:{
-																byThuSun
-															},
-															mon:{
-																byThuMon
-															},
-															tue:{
-																byThuTue
-															}
+															sun:
+																sortByPassengers(byThuSun)
+															,
+															mon:
+																sortByPassengers(byThuMon)
+															,
+															tue:
+																sortByPassengers(byThuTue)
+
 														},
 														fri:{
-															sun:{
-																byFriSun
-															},
-															mon:{
-																byFriMon
-															},
-															tue:{
-																byFriTue
-															}
+															sun:
+																sortByPassengers(byFriSun)
+															,
+															mon:
+																sortByPassengers(byFriMon)
+															,
+															tue:
+																sortByPassengers(byFriTue)
+
 														},
 														sat:{
-															sun:{
-																bySatSun
-															},
-															mon:{
-																bySatMon
-															},
-															tue:{
-																bySatTue
-															}
+															sun:
+																sortByPassengers(bySatSun)
+															,
+															mon:
+																sortByPassengers(bySatMon)
+															,
+															tue:
+																sortByPassengers(bySatTue)
+
 														}
 													},
 													status: 200
 												}
-												debug("REEEP", rep)
 												status.autoStatus(response, rep)
 											})
 										})
