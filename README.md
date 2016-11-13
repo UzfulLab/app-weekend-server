@@ -77,6 +77,26 @@ All routes begin with `/api/v0`
 
 ***
 
+`POST /deals` => Fetch all deals for the next weekend, and saves them into database.
+
+###### REQUEST
+
+|     ARGUMENTS    |  TYPE  | OPTIONAL |     POSSIBLE VALUES    | DEFAULT VALUE |     DESCRIPTION     |
+|:---------------:|:------:|:--------:|:----------------------:|:-------------:|:-------------------:|
+|   dropDB  | boolean |    yes    |    true - false   |      false         |   If set to true, will drop database so you will only have fresh deals on database |
+
+A json is returned
+
+```json
+{
+  "message": "Deals are updating now",
+  "database": "Database was (not) dropped"
+}
+```
+
+
+***
+
 `POST /deal` => Create and Returns a json of a specific deals
 
 ###### REQUEST

@@ -5,6 +5,7 @@ var securityChecks = require("./app/lib/securityChecks.js")
 //Importing our controllers
 var deals = require("./app/controllers/dealsController.js")
 var Deal = require('./app/models/dealSchema.js')
+var dealWorker = require('./app/workers/updateAllDeals.js')
 
 module.exports = function(router) {
 
@@ -27,43 +28,28 @@ module.exports = function(router) {
 		status.success(res, {message: "API is up !"})
 	})
 
-	router.get('/testModel', function(req, res){
-		inbound = new Date(Date.parse("2016-11-13T00:00:00Z"))
-		outbound = new Date(Date.parse("2016-11-10T00:00:00Z"))
-		// Deal.find().byDates(outbound, inbound).exec(function(err, deals){
-		// 	debug("!!!!! DEALS !!!!!", deals)
-		// 	debug("!!!!! ERROR !!!!!", err)
-		// })
-		// Deal.find().byOutBoundThursday().exec(function(err, deals){
-		// 	debug("!!!!! DEALS !!!!!", deals)
-		// 	debug("!!!!! ERROR !!!!!", err)
-		// 	deals.byInboundSunday().exec(function(err, deals){
-		// 		debug("\n\n\n!!!!! DEALS BIS!!!!!", deals)
-		// 		debug("!!!!! ERROR BIS!!!!!", err)
-		// 	})
-		// })
-		//TODO CHAIN QUERIES !
-		Deal.find().byFriMon().exec(function(err, deals){
-				debug("!!!!! DEALS !!!!!", deals)
-				debug("!!!!! ERROR !!!!!", err)
-				debug("===TYPEOF===", typeof(Deal))
-				status.success(res, {data: deals})
-		})
-
-		// var cursor = Deal.find().byFriMon().cursor()
-		// cursor.on('data', function(doc){
-		// 	debug("\nDATA", doc)
-		// })
-		// cursor.on('close', function(){
-		// 	debug("\nC FINI")
-		// 	status.success(res, {message: "HEllo WOrld"})
-		// })
-
-		// status.success(res, {message: Deal.fetchDealsByDate})
-	})
-
 	router.get('/deals', function(req, res){
 		deals.listDeals();
+	})
+
+	router.post('/deals', function(req, res){
+		var dropDB = req.body.dropDB || false
+		if (typeof(dropDB) !== 'undefined') dropDB = JSON.parse(dropDB)
+		var databaseMessage = "Database was not dropped"
+		var statusCode = 200
+		dealWorker.fetchDeals()
+		if (dropDB){
+			databaseMessage = "Database was dropped"
+			Deal.remove({}, function(err){
+				if (!err)
+					databaseMessage = "Database was dropped"
+				else{
+					databaseMessage = "ERROR while dropping database"
+					status = 422
+				}
+			})
+		}
+		status.autoStatus(res, {status: statusCode, data: {message: "Deals are updating now", database: databaseMessage}})
 	})
 
 	router.post('/deal', function(req, res){

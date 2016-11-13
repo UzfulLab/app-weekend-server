@@ -81,7 +81,6 @@ module.exports = {
 															,
 															tue:
 																sortByPassengers(bySatTue)
-
 														}
 													},
 													status: 200
