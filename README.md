@@ -103,16 +103,16 @@ A json is returned
 
 |     ARGUMENTS    |  TYPE  | OPTIONAL |     POSSIBLE VALUES    | DEFAULT VALUE |     DESCRIPTION     |
 |:---------------:|:------:|:--------:|:----------------------:|:-------------:|:-------------------:|
-|   departureDay  | string |    no    |    thu - fri - sat   |               |   Day of departure (not operational) |
+|   departureDay  | string |    no    |    2016-11-18 (YYYY-MM-DD)   |               |   Day of departure (operational) |
 | departureMoment | string |    yes    |   morning - evening   |               | Moment of departure (not operational) |
-|    returnDay    | string |    no    |    sun - mon - tue   |               |    Day of return  (not operational)  |
+|    returnDay    | string |    no    |    2016-11-21 (YYYY-MM-DD)    |               |    Day of return  (operational)  |
 |   returnMoment  | string |    yes    |   morning - evening   |               |   Moment of return (not operational) |
-| destinationCity | string |    no    | *Skyscanner city values* |               |    City to fly to (not operational)  |
-|    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from (not operational) |
+| destinationCity | string |    no    | *Skyscanner city values* |               |    City to fly to (operational)  |
+|    originCity   | string |    yes   | *Skyscanner city values* |    PARI-sky   |   City to fly from (operational) |
 |    withPicture  | bool   |    yes   | 0 - 1 |    0   |   If you need a picture to illustrate your deal (operational) |
 |    passengers  | int   |    no   | 1 - (..) - 4 |    0   |   How many people are traveling (operational) |
 |    cityFR  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in french (operational) |
-|    cityEN  | string   |    no   | "Londres" - etc.. |    0   |   Name of the destination in english (operational) |
+|    cityEN  | string   |    no   | "London" - etc.. |    0   |   Name of the destination in english (operational) |
 |    destinationCountry  | string   |    no   |  *Skyscanner country values* |    0   | Skyscanner country code (ex: FR-sky) (operational) |
 
 * operational => Your value influences API return
@@ -124,10 +124,25 @@ A json is returned
 
 ```json
 {
-  "city": "Dublin",
-  "price": "42.42",
-  "deal": "http://google.fr",
-  "picture": "https://images.unsplash.com/photo-1476158085676-e67f57ed9ed7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=3b921acce5c55d802d64d31d081e80bb"
+  "_id": "5828b8f57eaed3203b03bd00",
+  "created_at": "2016-11-13T19:03:17.343Z",
+  "sessionKey": "5540b4d117ee4cfba48ead427baa949b_ecilpojl_4D15485B57F281B0C05670EFD32B0BCE",
+  "outboundLegId": "10413-1611170655--31685-0-13542-1611170655",
+  "outboundDay": 4,
+  "outboundDate": "2016-11-17T00:00:00.000Z",
+  "inboundLegId": "13542-1611200735--31685-0-10413-1611200940",
+  "inboundDay": 0,
+  "inboundDate": "2016-11-20T00:00:00.000Z",
+  "passengers": 1,
+  "deal_url": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=nrpnZ%2f4hktHebjvBq9AkxaYaLU%2bGNdcAX3UOATmaM4iRIz85kld%2fLwmLuVzlZk95&url=http%3a%2f%2fwww.apideeplink.com%2ftransport_deeplink%2f4.0%2fFR%2ffr-fr%2fEUR%2fvuel%2f2%2f10413.13542.2016-11-17%2c13542.10413.2016-11-20%2fair%2fairli%2fflights%3fitinerary%3dflight%7c-31685%7c8770%7c10413%7c2016-11-17T06%3a55%7c13542%7c2016-11-17T06%3a55%2cflight%7c-31685%7c8771%7c13542%7c2016-11-20T07%3a35%7c10413%7c2016-11-20T09%3a40%26carriers%3d-31685%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d74.98%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26request_id%3d9d7630c3-3f8e-4cb5-92a1-575d2cdb385c%26commercial_filters%3dfalse%26q_datetime_utc%3d2016-11-13T15%3a00%3a08",
+  "author_link": "https://unsplash.com/@willvanw",
+  "author_name": "Will van Wingerden",
+  "picture_url": "https://images.unsplash.com/photo-1456490585048-f4a7348766f7?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+  "price": "74,98",
+  "destinationCountry": "UK-sky",
+  "cityEN": "Londres",
+  "cityFR": "Londres",
+  "__v": 0
 }
 
 ```
