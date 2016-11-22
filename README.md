@@ -13,11 +13,52 @@
   npm install
 ```
 
+##### First launch :
+
+[install mongodb](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-os-x/) :
+```shell
+  brew install mongodb
+```
+
+Create the default /data/db directory :
+```shell
+  mkdir -p /data/db
+```
+
+Access mongo shell :
+```shell
+  mongo
+```
+
+Then create database :
+```shell
+ use app-weekend
+```
+
+Now to populate datas on the database, you need to make a POST request on this endpoint (using postman for example) :
+```
+ http://localhost:4242/api/v0/deals
+```
+
+Exit mongo shell and run mongod (might needs sudo) :
+```shell
+  mongod
+```
+
+Open an other terminal and run :
+```shell
+  DEBUG=* npm start
+```
 
 ##### Working on dev :
 
+run mongod (might needs sudo) :
 ```shell
-  npm start
+  mongod
+```
+start server :
+```shell
+  DEBUG=* npm start
 ```
 
 ### APP AUTHENTICATION
