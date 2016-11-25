@@ -24,6 +24,8 @@ var fetchAllDeals = require('./app/workers/updateAllDeals.js')
 // probably needs improvements when production deployment =====
 var whitelist = [
     'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://0.0.0.1:3000',
 ];
 var corsOptions = {
     origin: function(origin, callback){
