@@ -22,13 +22,15 @@ module.exports = {
   createDealFinalReturn: function(sessionData){
     var skyData = sessionData.data.data
     var bestQuote = skyData.Itineraries[0]
-    if (!sessionData.data.internalCall && typeof(bestQuote) !== 'undefined')
+    if (!sessionData.data.internalCall && typeof(bestQuote) === 'undefined')
       statusHandler.autoStatus(response, Object.assign({data: {error: "NO deals found"}}, {status: 422}))
     if (typeof(bestQuote) !== 'undefined'){
       var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
       var cityFR = sessionData.data.cityFR
       var cityEN = sessionData.data.cityEN
       var destinationCountry = sessionData.data.destinationCountry
+      var countryFR = UECountries[destinationCountry]
+      var countryEN = UECountries[destinationCountry]
       var passengers = skyData.Query.Adults
       var inboundDate = skyData.Query.InboundDate
       var outboundDate = skyData.Query.OutboundDate
@@ -43,6 +45,8 @@ module.exports = {
       deal.cityFR = cityFR
       deal.cityEN = cityEN
       deal.destinationCountry = destinationCountry
+      deal.countryFR = countryFR
+      deal.countryEN = countryEN
       deal.price = price
       deal.picture_url = picture_url
       deal.author_name = author_name
@@ -65,9 +69,11 @@ module.exports = {
         }
         else{
           debug("DEAL SAVED")
-          debug("\n\nINTERNAL CALL ????????????", sessionData.data.internalCall)
-          if (!sessionData.data.internalCall)
+          debug("INTERN CALL ?", sessionData.data.internalCall)
+          if (!sessionData.data.internalCall){
+            debug("RESPONSE", "External Response")
             statusHandler.autoStatus(response, Object.assign({data: deal}, {status: 200}))
+          }
         }
       })
     }

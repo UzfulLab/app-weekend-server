@@ -45,7 +45,7 @@ module.exports = function(router) {
 					databaseMessage = "Database was dropped"
 				else{
 					databaseMessage = "ERROR while dropping database"
-					status = 422
+					statusCode = 422
 				}
 			})
 		}

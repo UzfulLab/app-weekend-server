@@ -201,7 +201,6 @@ module.exports = {
                       var cityEN = finalDeals[i][j][k].dest
                       var withPicture = true
 
-                      if (l == 1) debug("CALL FOR", cityFR)
                       skyscannerAPI.createDeal(
                         departureDay,
                         returnDay,

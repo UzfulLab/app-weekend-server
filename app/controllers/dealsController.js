@@ -5,11 +5,11 @@ module.exports = {
 	listDeals: function(){
 		return deal.getAllDeals();
 	},
-	customDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity){
+	customDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
 		originCity = originCity || "PARI-sky"
 		withPicture = withPicture || false
 		// calling arguments verification function
-		return skyscannerAPI.createDeal(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, withPicture, departureMoment, returnMoment, originCity)
+		skyscannerAPI.createDeal(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity)
 	},
 	updateDeal: function(id){
 		// calling arguments verification function
