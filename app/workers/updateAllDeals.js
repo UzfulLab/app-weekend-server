@@ -6,6 +6,7 @@ module.exports = {
     var http = require('http')
     var moment = require('moment')
 
+    var moments = ['M', 'A', 'E']
     var inbound = []
     var outbound = []
     var momentDate
