@@ -28,6 +28,8 @@ module.exports = {
       var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
       var cityFR = sessionData.data.cityFR
       var cityEN = sessionData.data.cityEN
+      var outboundMoment = sessionData.data.outboundMoment
+      var inboundMoment = sessionData.data.inboundMoment
       var destinationCountry = sessionData.data.destinationCountry
       var countryFR = UECountries[destinationCountry]
       var countryEN = UECountries[destinationCountry]
@@ -47,6 +49,8 @@ module.exports = {
       deal.destinationCountry = destinationCountry
       deal.countryFR = countryFR
       deal.countryEN = countryEN
+      deal.outboundMoment = outboundMoment
+      deal.inboundMoment = inboundMoment
       deal.price = price
       deal.picture_url = picture_url
       deal.author_name = author_name
@@ -78,7 +82,7 @@ module.exports = {
       })
     }
   },
-  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
+  createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity){
     // var url //API call for creating session
     var querystring = require('querystring');
 
@@ -130,57 +134,71 @@ module.exports = {
       error = error || ''
       debug(location)
       debug(status)
-      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withPicture: withPicture, nextStep: self.pollingSession})
+      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, nextStep: self.pollingSession})
     })
 
   },
   pollingSession: function(session){
     debug("\n\nPolling Session\n\n")
 
-    var path = session.data.location.split("http://partners.api.skyscanner.net")[1]
+    var departureMoments
+    if (session.data.withMoment)
+      departureMoments = ['M', 'A', 'E']
+    else
+      departureMoments = ['M;A;E']
 
-    var options = {
-      hostname: "partners.api.skyscanner.net",
-      path: path,
-      method: "GET",
-      headers: {
-        'Content-Type': "application/x-www-form-urlencoded"
+    for (var i = 0; i < departureMoments.length; i++){
+      for (var j = 0; j < departureMoments.length; j++){
+        var path = session.data.location.split("http://partners.api.skyscanner.net")[1]
+        path += `&outbounddeparttime=${departureMoments[i]}`
+        path += `&inbounddeparttime=${departureMoments[j]}`
+        path += "&sortype=price"
+
+        var options = {
+          hostname: "partners.api.skyscanner.net",
+          path: path,
+          method: "GET",
+          headers: {
+            'Content-Type': "application/x-www-form-urlencoded"
+          },
+          outboundMoment: departureMoments[i],
+          inboundMoment: departureMoments[j]
+        }
+
+        setTimeout((options) => {
+          limiterPollSession.submit(function(options, cb){
+            debug("============OPTIONS============", options.outboundMoment)
+            debug("============OPTIONS============", options.inboundMoment)
+            var status
+            var req = http.get(options, function(res) {
+              var body = ""
+              status = res.statusCode
+              res.setEncoding('utf8')
+              //response is too long so we need to concatenate it
+              res.on('data', (chunk) => {
+                body += chunk.toString('utf-8')
+              })
+              res.on('end', () => {
+                cb(JSON.parse(body), status, "", options.outboundMoment, options.inboundMoment)
+              })
+            })
+
+            req.on('error', (e) => {
+              debug("REQUEST ",`problem with request: ${e.message}`);
+              debug("CALLBACK CALLING ON ERROR")
+              cb({data: {body: "error"}}, status, e.message, '', '')
+            })
+
+            req.end()
+
+          }, options, (data, status, error, outboundMoment, inboundMoment) => {
+            error = error || ''
+            debug('POLING STATUS', status)
+            self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: outboundMoment, inboundMoment: inboundMoment, nextStep: self.createDealFinalReturn})
+          })
+        }, 10000, options)
       }
     }
-
-    setTimeout(() => {
-      limiterPollSession.submit(function(options, cb){
-        var status
-        var req = http.get(options, function(res) {
-          var body = ""
-          status = res.statusCode
-          res.setEncoding('utf8')
-          //response is too long so we need to concatenate it
-          res.on('data', (chunk) => {
-            body += chunk.toString('utf-8')
-          })
-          res.on('end', () => {
-            cb(JSON.parse(body), status)
-          })
-        })
-
-        req.on('error', (e) => {
-          debug("REQUEST ",`problem with request: ${e.message}`);
-          debug("CALLBACK CALLING ON ERROR")
-          cb({data: {body: "error"}}, status, e.message)
-        })
-
-        req.end()
-
-      }, options, (data, status, error) => {
-        error = error || ''
-        debug('POLING STATUS', status)
-        self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, nextStep: self.createDealFinalReturn})
-      })
-    }, 10000)
-
-    var deals //API call for polling session
-    return deals
   },
   selectBestDeal: function(deal){
     // algorithm to select best deal among skyscanner return
@@ -191,13 +209,13 @@ module.exports = {
     // call to skyscanner API and getting new price
     return {data:{newPrice: "142,21"}, status: 200}
   },
-  createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity){
+  createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity){
     // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
     internalCall = internalCall || false
     if (departureDay == "createError")
       return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
 
     self = this
-    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withPicture, departureMoment, returnMoment, originCity)
+    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity)
   }
 }

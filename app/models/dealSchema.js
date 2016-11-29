@@ -12,6 +12,8 @@ var dealStruct = {
 	"deal_url": {type: String, required: true},
 	"cityFR": {type: String, required: true},
 	"cityEN": {type: String, required: true},
+	"outboundMoment": {type: String, required: true},
+	"inboundMoment": {type: String, required: true},
 	"countryFR": {type: String, required: true},
 	"countryEN": {type: String, required: true},
 	"destinationCountry": {type: String, required: true},
@@ -105,5 +107,30 @@ DealSchema.query.bySatMon = function(){
 DealSchema.query.bySatTue = function(){
 	return this.find({outboundDay: 6, inboundDay: 2})
 }
+
+DealSchema.query.byOutboundMorning = function(){
+	return this.find({outboundMoment: 'M'})
+}
+
+DealSchema.query.byOutboundAfternoon = function(){
+	return this.find({outboundMoment: 'A'})
+}
+
+DealSchema.query.byOutboundEvening = function(){
+	return this.find({outboundMoment: 'E'})
+}
+
+DealSchema.query.byInboundMorning = function(){
+	return this.find({inboundMoment: 'M'})
+}
+
+DealSchema.query.byInboundAfternoon = function(){
+	return this.find({inboundMoment: 'A'})
+}
+
+DealSchema.query.byInboundEvening = function(){
+	return this.find({inboundMoment: 'E'})
+}
+
 
 module.exports = mongoose.model('Deal', DealSchema);

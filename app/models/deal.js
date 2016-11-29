@@ -1,6 +1,50 @@
 var Deal = require('./dealSchema.js');
 var status = require("../lib/statusHandler.js")
 
+var sortByOutboundMoment = function(deals){
+	var mor = []
+	var aft = []
+	var eve = []
+	for (deal of deals){
+		switch (deal.outboundMoment) {
+			case 'M':
+				mor.push(deal)
+				break
+			case 'A':
+				aft.push(deal)
+				break
+			case 'E':
+				eve.push(deal)
+				break
+			default:
+				mor.push(deal)
+		}
+	}
+	return {mor: sortByInboundMoment(mor), aft: sortByInboundMoment(aft), eve: sortByInboundMoment(eve)}
+}
+
+var sortByInboundMoment = function(deals){
+	var mor = []
+	var aft = []
+	var eve = []
+	for (deal of deals){
+		switch (deal.inboundMoment) {
+			case 'M':
+				mor.push(deal)
+				break
+			case 'A':
+				aft.push(deal)
+				break
+			case 'E':
+				eve.push(deal)
+				break
+			default:
+				mor.push(deal)
+		}
+	}
+	return {mor: mor, aft: aft, eve: eve}
+}
+
 var sortByPassengers = function(tab){
 	var one = []
 	var two = []
@@ -24,7 +68,7 @@ var sortByPassengers = function(tab){
 				one.push(entrie)
 		}
 	}
-	return ({one: one, two: two, thr: thr, fou: fou})
+	return ({one: sortByOutboundMoment(one), two: sortByOutboundMoment(two), thr: sortByOutboundMoment(thr), fou: sortByInboundMoment(fou)})
 }
 
 module.exports = {

@@ -6,7 +6,6 @@ module.exports = {
     var http = require('http')
     var moment = require('moment')
 
-    var moments = ['M', 'A', 'E']
     var inbound = []
     var outbound = []
     var momentDate
@@ -200,6 +199,8 @@ module.exports = {
                       var passengers = l
                       var cityFR = finalDeals[i][j][k].dest
                       var cityEN = finalDeals[i][j][k].dest
+                      var internalCall = true
+                      var withMoment = true
                       var withPicture = true
 
                       skyscannerAPI.createDeal(
@@ -210,7 +211,8 @@ module.exports = {
                         cityFR,
                         cityEN,
                         skyCountry,
-                        true,
+                        internalCall,
+                        withMoment,
                         withPicture
                       )
                     }
