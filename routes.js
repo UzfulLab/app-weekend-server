@@ -11,7 +11,7 @@ module.exports = function(router) {
 
 	// middleware to use for all requests
 	router.use(function(req, res, next) {
-			response = res
+			// response = res
 			//checking if a good authToken was sent in header during request.
 			if (!securityChecks.validAuthToken(req.get("authToken"))){
 				status.unauthorized(res)
@@ -29,7 +29,7 @@ module.exports = function(router) {
 	})
 
 	router.get('/deals', function(req, res){
-		deals.listDeals();
+		deals.listDeals(res);
 	})
 
 	router.post('/deals', function(req, res){
@@ -53,7 +53,7 @@ module.exports = function(router) {
 	})
 
 	router.post('/deal', function(req, res){
-		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.destinationCountry, false, req.body.withMoment, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity)
+		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.destinationCountry, false, req.body.withMoment, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity, res)
 	})
 
 	router.put('/deal/:id', function(req, res){

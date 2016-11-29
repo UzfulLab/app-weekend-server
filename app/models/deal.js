@@ -72,7 +72,7 @@ var sortByPassengers = function(tab){
 }
 
 module.exports = {
-	getAllDeals: function(){
+	getAllDeals: function(res){
 		deals = require("./deals.json")
 		Deal.find().byThuSun().exec(function(err, deals){
 				byThuSun = deals
@@ -129,7 +129,7 @@ module.exports = {
 													},
 													status: 200
 												}
-												status.autoStatus(response, rep)
+												status.autoStatus(res, rep)
 											})
 										})
 									})
