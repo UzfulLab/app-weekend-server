@@ -1,25 +1,12 @@
 var imagesApi = require("../lib/imagesApi.js")
-var http = require("http")
 var statusHandler = require("./statusHandler.js")
 var httpCalls = require("./httpCalls.js")
 var Deal = require("../models/dealSchema.js")
 var moment = require('moment')
-
-var emptyCheck = function(data){
-  if (!data)
-    return false
-  if (!data.Itineraries)
-    return false
-  if (!data.Itineraries[0])
-    return false
-  if (!data.Itineraries[0].PricingOptions)
-    return false
-  if (!data.Itineraries[0].PricingOptions[0])
-    return false
-  if (!data.Itineraries[0].PricingOptions[0].DeeplinkUrl)
-    return false
-  return true
-}
+var createDeal = require('./helpers/createDeal.js')
+var createSession = require('./helpers/createSession.js')
+var pollingSession = require('./helpers/pollingSession.js')
+var curlPollSession = require('./helpers/curlPollSession.js')
 
 module.exports = {
   checkErrors: function(rep){
@@ -90,8 +77,8 @@ module.exports = {
             statusHandler.autoStatus(sessionData.data.res, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
         }
         else{
-          var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId) } ).where("created_at").ne(created_at)
-          query.exec()
+          // var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
+          // query.exec()
           debug("5 - DEAL SAVED", deal.countryFR)
           debug("6 - INTERN CALL ?", sessionData.data.internalCall)
           // Deal.remove({outboundLegId: outboundLegId, inboundLegId: inboundLegId})
@@ -105,139 +92,17 @@ module.exports = {
   },
   createSession: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res){
     // var url //API call for creating session
-    var querystring = require('querystring');
-
-    var postData = querystring.stringify({
-      'apiKey' : SkyScannerApiKey,
-      'country': 'FR',
-      'currency': 'EUR',
-      'locale': 'fr-FR',
-      'originplace': 'PARI-sky',
-      'destinationplace': destinationCity,
-      'outbounddate': departureDay,
-      'inbounddate': returnDay,
-      'adults': passengers
-    })
-
-    var options = {
-      hostname: "partners.api.skyscanner.net",
-      path: "/apiservices/pricing/v1.0",
-      method: "POST",
-      headers: {
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Accept': "application/json",
-        'Content-Length': Buffer.byteLength(postData)
-      }
-    }
-
-    limiter.submit(function(options, cb){
-      var location
-      var status
-      var req = http.request(options, (res) => {
-        status = res.statusCode
-        location = res.headers.location
-        res.setEncoding('utf8')
-        res.on('data', (chunk) => {})
-        res.on('end', () => {
-          cb(location + "?apiKey=" + SkyScannerApiKey, status)
-        })
-      })
-
-      req.on('error', (e) => {
-        debug("REQUEST ",`problem with request: ${e.message}`);
-        debug("CALLBACK CALLING ON ERROR")
-        cb("error", status, e.message)
-      })
-
-      req.end(postData)
-
-    }, options, function(location, status, error){
-      error = error || ''
-      debug("location", location)
-      debug("status", status)
-      self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, res: res, nextStep: self.pollingSession})
-    })
-
+    var self = this
+    createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self)
   },
   pollingSession: function(session){
     debug("\n\n1 - Polling Session")
-
-    var flag = false
-    var departureMoments
-    if (session.data.withMoment)
-      departureMoments = ['M', 'A', 'E']
-    else
-      departureMoments = ['M;A;E']
-
-    for (var i = 0; i < departureMoments.length; i++){
-      if (flag) break
-      for (var j = 0; j < departureMoments.length; j++){
-        var path = session.data.location.split("http://partners.api.skyscanner.net")[1]
-        path += `&outbounddeparttime=${departureMoments[i]}`
-        path += `&inbounddeparttime=${departureMoments[j]}`
-        path += "&sortype=price"
-
-        var options = {
-          hostname: "partners.api.skyscanner.net",
-          path: path,
-          method: "GET",
-          headers: {
-            'Content-Type': "application/x-www-form-urlencoded"
-          },
-          outboundMoment: departureMoments[i],
-          inboundMoment: departureMoments[j]
-        }
-
-
-          limiterPollSession.submit(function(options, cb){
-            // debug("============OPTIONS============", options.outboundMoment)
-            // debug("============OPTIONS============", options.inboundMoment)
-            var status
-            var req = http.get(options, function(res) {
-              var body = ""
-              status = res.statusCode
-              res.setEncoding('utf8')
-              //response is too long so we need to concatenate it
-              res.on('data', (chunk) => {
-                body += chunk.toString('utf-8')
-              })
-              res.on('end', () => {
-                try{
-                  cb(JSON.parse(body), status, "", options.outboundMoment, options.inboundMoment)
-                }
-                catch(err){
-                  debug("\n\n\n====================================2 - FAT BUG===============================")
-                  flag = true
-                  cb('', 422)
-                  // self.pollingSession(session)
-                  // cb({data: {body: "error while pulling deal"}}, 422, err, '', '')
-                }
-              })
-            })
-
-            req.on('error', (e) => {
-              debug("REQUEST ",`problem with request: ${e.message}`);
-              debug("CALLBACK CALLING ON ERROR")
-              cb({data: {body: "error"}}, status, e.message, '', '')
-            })
-
-            req.end()
-
-          }, options, (data, status, error, outboundMoment, inboundMoment) => {
-            if (flag) self.pollingSession(session)
-            error = error || ''
-            debug('3 - POLING STATUS', status)
-            if (emptyCheck(data))
-              self.checkErrors({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: outboundMoment, inboundMoment: inboundMoment, res: session.data.res, nextStep: self.createDealFinalReturn})
-            else{
-              debug("4 - __________EMPTY__________")
-              flag = true
-              self.pollingSession(session)
-            }
-          })
-
-      }
-    }
+    var self = this
+    pollingSession(session, self)
+  },
+  curlPollSession: function(session, outboundMoment, inboundMoment){
+    var self = this
+    curlPollSession(session, outboundMoment, inboundMoment, self)
   },
   selectBestDeal: function(deal){
     // algorithm to select best deal among skyscanner return
@@ -249,12 +114,7 @@ module.exports = {
     return {data:{newPrice: "142,21"}, status: 200}
   },
   createDeal: function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res){
-    // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
-    internalCall = internalCall || false
-    if (departureDay == "createError")
-      return {data: {error: "Front created voluntarily an error to simulate skyscanner api down"}, status: 422}
-
-    self = this
-    this.createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res)
+    var self = this
+    createDeal(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self)
   }
 }

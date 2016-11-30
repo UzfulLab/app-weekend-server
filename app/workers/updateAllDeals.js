@@ -174,6 +174,7 @@ module.exports = {
             req.on('error', function(e) {
               //our counter to know how many request were sent
               counter++
+              debug("\n\n\n\n\n=========ERROR ON SEEKING===========")
               //callback function of limiter
               cb()
             })
@@ -192,13 +193,21 @@ module.exports = {
                   for (var k = 0; k < inbound.length; k++){
                     //Fourth loop for number of passengers
                     for (var l = 1; l <= MAXPASSENGERS; l++){
+                      debug("I VALUE", i)
+                      debug("J VALUE", j)
+                      debug("K VALUE", k)
+                      debug("L VALUE", l)
                       var departureDay = outbound[j]
                       var returnDay = inbound[j][k]
-                      var destinationCity = finalDeals[i][j][k].id
-                      var skyCountry = finalDeals[i][j][k].country
+                      var destinationCity =
+                        finalDeals[i][j][k] ? finalDeals[i][j][k].id : "BERL-sky"
+                      var skyCountry =
+                        finalDeals[i][j][k] ? finalDeals[i][j][k].country : "DE-sky"
                       var passengers = l
-                      var cityFR = finalDeals[i][j][k].dest
-                      var cityEN = finalDeals[i][j][k].dest
+                      var cityFR =
+                        finalDeals[i][j][k] ? finalDeals[i][j][k].dest : "Berlin"
+                      var cityEN =
+                        finalDeals[i][j][k] ? finalDeals[i][j][k].dest : "Berlin"
                       var internalCall = true
                       var withMoment = true
                       var withPicture = true

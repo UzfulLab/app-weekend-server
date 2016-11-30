@@ -163,6 +163,8 @@ var Bottleneck = require("bottleneck");
 limiter = new Bottleneck(1, 100);
 limiterPollSession = new Bottleneck(5, 100);
 
+http = require("http")
+
 debug = require('debug')('worker');
 
 mongoose = require('mongoose');
