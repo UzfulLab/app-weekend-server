@@ -174,7 +174,7 @@ module.exports = {
             req.on('error', function(e) {
               //our counter to know how many request were sent
               counter++
-              debug("\n\n\n\n\n=========ERROR ON SEEKING===========")
+              debug("==================ERROR ON SEEKING===================  -  ", options.skyEuCountry)
               //callback function of limiter
               cb()
             })

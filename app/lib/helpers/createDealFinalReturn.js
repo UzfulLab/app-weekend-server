@@ -60,11 +60,10 @@ var createDealFinalReturn = function(sessionData){
       else{
         // var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
         // query.exec()
-        debug("5 - DEAL SAVED", deal.countryFR)
-        debug("6 - INTERN CALL ?", sessionData.internalCall)
+        debug("DEAL SAVED", deal.countryFR + ` - ${deal.cityFR} - ${deal.outboundMoment} - ${deal.inboundMoment}`)
         // Deal.remove({outboundLegId: outboundLegId, inboundLegId: inboundLegId})
         if (!sessionData.internalCall){
-          debug("7 - RESPONSE", "External Response")
+          debug("6- RESPONSE", "External Response")
           statusHandler.autoStatus(sessionData.res, Object.assign({data: deal}, {status: 200}))
         }
       }

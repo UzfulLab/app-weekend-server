@@ -1,23 +1,47 @@
 // var skyscannerApi = require("../js")
 
+var deepLook = function(data){
+  for (itinerary of data.Itineraries){
+    if (itinerary.PricingOptions[0].DeeplinkUrl){
+      data.Itineraries[0] = itinerary
+      debug("====EMPTY CHECK RESOLVED !====")
+      return true
+    }
+  }
+  return false
+}
+
 var emptyCheck = function(data){
-  if (!data)
+  if (!data){
+    debug("\n\n\nEMPTY CHECK !!!!", "data")
     return false
-  if (!data.Itineraries)
+  }
+  if (!data.Itineraries){
+    debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries")
     return false
-  if (!data.Itineraries[0])
+  }
+  if (!data.Itineraries[0]){
+    debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0]")
     return false
-  if (!data.Itineraries[0].PricingOptions)
+  }
+  if (!data.Itineraries[0].PricingOptions){
+    debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions")
     return false
-  if (!data.Itineraries[0].PricingOptions[0])
+  }
+  if (!data.Itineraries[0].PricingOptions[0]){
+    debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions[0]")
     return false
-  if (!data.Itineraries[0].PricingOptions[0].DeeplinkUrl)
-    return false
+  }
+  if (!data.Itineraries[0].PricingOptions[0].DeeplinkUrl){
+    debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions[0].DeeplinkUrl")
+    //function deep look
+    // return false
+    return deepLook(data)
+  }
   return true
 }
 
 var curlPollSession = function(session, outboundMoment, inboundMoment, self){
-  debug("FUNCTION NAME ==> curlPollSession")
   var flag = false
   var path = session.data.location.split("http://partners.api.skyscanner.net")[1]
   path += `&outbounddeparttime=${outboundMoment}`
@@ -70,7 +94,6 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
       self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
     else {
       error = error || ''
-      debug('3 - POLING STATUS', status)
       if (emptyCheck(data)){
         self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
       }

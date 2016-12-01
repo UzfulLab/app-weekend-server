@@ -1,5 +1,4 @@
 var createDeal = function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self){
-  debug("FUNCTION NAME ==> createDeal")
   // ONLY FOR DEV - SIMULATE SKYSCANNER API DOWN
   internalCall = internalCall || false
   if (departureDay == "createError")

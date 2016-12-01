@@ -30,7 +30,6 @@ module.exports = {
     createSession(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self)
   },
   pollingSession: function(session){
-    debug("\n\n1 - Polling Session")
     var self = this
     pollingSession(session, self)
   },
