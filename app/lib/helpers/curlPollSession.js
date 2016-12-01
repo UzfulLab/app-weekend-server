@@ -36,8 +36,6 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
   }
 
   limiterPollSession.submit(function(options, cb){
-    // debug("============OPTIONS============", options.outboundMoment)
-    // debug("============OPTIONS============", options.inboundMoment)
     var status
     var req = http.get(options, function(res) {
       var body = ""
@@ -52,10 +50,8 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
           body = JSON.parse(body)
         }
         catch(err){
-          debug("\n\n\n====================================2 - FAT BUG===============================", err)
+          debug("\n\n\n====================================2 - JSON PARSE BUG===============================", err)
           flag = true
-          // pollingSession(session)
-          // cb({data: {body: "error while pulling deal"}}, 422, err, '', '')
         }
         flag ? cb('', 422) : cb(body, status, "", options.outboundMoment, options.inboundMoment)
       })
@@ -80,13 +76,11 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
       debug("4 - __________EMPTY__________", session.data.cityFR)
       flag = true
       if (status == 410 || new Date() - session.data.when > 180000){
-        debug("\n\n\n\n!!!!!!!!!!!! GOIGN BACK TO NEW SESSION !!!!!!!!!!!!!")
+        debug("\n\n\n\n!!!!!!!!!!!! ERROR: TIME OUT / URL IS DEAD -- CREATING NEW SESSION... !!!!!!!!!!!!!")
         self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], session.data.oldArgs[2], session.data.oldArgs[3], session.data.oldArgs[4], session.data.oldArgs[5], session.data.oldArgs[6], session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], session.data.oldArgs[10], session.data.oldArgs[11], session.data.oldArgs[12], session.data.oldArgs[13])
       }
       else{
-        debug("OUTBOUNDMOMENT ====>", options.outboundMoment)
-        debug("INBOUNDMOMENT ====>", options.inboundMoment)
-        debug("\n\n\n\n--------- PULLING AGAIN -----------", session.data.cityFR)
+        debug("\n\n\n\n--------- EMPTY RESULTS FOR SESSION: PULLING SESSION AGAIN -----------", session.data.cityFR)
         self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
       }
     }
