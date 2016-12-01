@@ -14,8 +14,7 @@ module.exports = {
     if (rep.status >= 200 && rep.status < 300){
       debug("\n\nNO ERRORS")
       var object =  {data: rep, status: rep.status}
-      debug(rep.nextStep.toString().substr('function '.length).substr(0, 20))
-      rep.nextStep(object)
+      this[rep.nextStep](object)
     }
     else{
       debug("\n\nERRORS\n\n", rep)
@@ -24,17 +23,19 @@ module.exports = {
     }
   },
   createDealFinalReturn: function(sessionData){
-    var skyData = sessionData.data.data
+    var skyData = sessionData.data
     var bestQuote = skyData.Itineraries[0]
+    // statusHandler.autoStatus(sessionData.res, Object.assign({data: sessionData.cityFR}, {status: 200}))
+    // return
     if (!sessionData.data.internalCall && typeof(bestQuote) === 'undefined')
       statusHandler.autoStatus(sessionData.data.res, Object.assign({data: {error: "NO deals found"}}, {status: 422}))
     if (typeof(bestQuote) !== 'undefined'){
       var price = String(bestQuote.PricingOptions[0].Price).replace('.', ',')
-      var cityFR = sessionData.data.cityFR
-      var cityEN = sessionData.data.cityEN
-      var outboundMoment = sessionData.data.outboundMoment
-      var inboundMoment = sessionData.data.inboundMoment
-      var destinationCountry = sessionData.data.destinationCountry
+      var cityFR = sessionData.cityFR
+      var cityEN = sessionData.cityEN
+      var outboundMoment = sessionData.outboundMoment
+      var inboundMoment = sessionData.inboundMoment
+      var destinationCountry = skyData.Query.Country + "-sky"
       var countryFR = UECountries[destinationCountry]
       var countryEN = UECountries[destinationCountry]
       var passengers = skyData.Query.Adults
@@ -74,7 +75,7 @@ module.exports = {
         if (err){
           debug("\n\n\n==========================ERROR DEAL SAVE===================================", err)
           if (!sessionData.data.internalCall)
-            statusHandler.autoStatus(sessionData.data.res, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
+            statusHandler.autoStatus(sessionData.res, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
         }
         else{
           // var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
@@ -82,9 +83,9 @@ module.exports = {
           debug("5 - DEAL SAVED", deal.countryFR)
           debug("6 - INTERN CALL ?", sessionData.data.internalCall)
           // Deal.remove({outboundLegId: outboundLegId, inboundLegId: inboundLegId})
-          if (!sessionData.data.internalCall){
+          if (!sessionData.internalCall){
             debug("7 - RESPONSE", "External Response")
-            statusHandler.autoStatus(sessionData.data.res, Object.assign({data: deal}, {status: 200}))
+            statusHandler.autoStatus(sessionData.res, Object.assign({data: deal}, {status: 200}))
           }
         }
       })

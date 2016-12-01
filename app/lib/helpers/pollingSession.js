@@ -6,7 +6,6 @@ var pollingSession = function(session, self){
     departureMoments = ['M;A;E']
   for (var i = 0; i < departureMoments.length; i++){
     for (var j = 0; j < departureMoments.length; j++){
-      debug("WHAT IS ?", self)
       self.curlPollSession(session, departureMoments[i], departureMoments[j])
     }
   }

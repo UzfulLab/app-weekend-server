@@ -70,12 +70,11 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
     req.end()
 
   }, options, (data, status, error, outboundMoment, inboundMoment) => {
-    if (flag) curlPollSession(session, options.outboundMoment, options.inboundMoment, checkErrors)
-    debug("HEllo ?????????????")
+    if (flag) this.curlPollSession(session, options.outboundMoment, options.inboundMoment)
     error = error || ''
     debug('3 - POLING STATUS', status)
     if (emptyCheck(data)){
-      self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res, nextStep: createDealFinalReturn})
+      self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
     }
     else{
       debug("4 - __________EMPTY__________", session.data.cityFR)

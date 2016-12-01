@@ -49,7 +49,8 @@ var createSession = function(departureDay, returnDay, destinationCity, passenger
     error = error || ''
     debug("createSession status", status)
     var oldArgs = [departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res]
-    self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, res: res, oldArgs: oldArgs, when: new Date(), nextStep: self.pollingSession})
+    // self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, res: res, oldArgs: oldArgs, when: new Date(), nextStep: self.pollingSession})
+    self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, res: res, oldArgs: oldArgs, when: new Date(), nextStep: "pollingSession"})
   })
 }
 
