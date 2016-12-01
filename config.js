@@ -160,8 +160,8 @@ countryPictures = {
 SkyScannerApiKey = "uz497893624968959685836267896543"
 
 var Bottleneck = require("bottleneck");
-limiter = new Bottleneck(1, 100);
-limiterPollSession = new Bottleneck(5, 100);
+limiter = new Bottleneck(50, 100);
+limiterPollSession = new Bottleneck(50, 100);
 
 http = require("http")
 

@@ -193,10 +193,7 @@ module.exports = {
                   for (var k = 0; k < inbound.length; k++){
                     //Fourth loop for number of passengers
                     for (var l = 1; l <= MAXPASSENGERS; l++){
-                      debug("I VALUE", i)
-                      debug("J VALUE", j)
-                      debug("K VALUE", k)
-                      debug("L VALUE", l)
+
                       var departureDay = outbound[j]
                       var returnDay = inbound[j][k]
                       var destinationCity =

@@ -11,12 +11,12 @@ module.exports = {
   checkErrors: function(rep){
     //algorithm to check if no errors had been found
     if (rep.status >= 200 && rep.status < 300){
-      debug("\n\nNO ERRORS")
+      debug("CHECK ERRORS: none")
       var object =  {data: rep, status: rep.status}
       this[rep.nextStep](object)
     }
     else{
-      debug("\n\nERRORS\n\n", rep)
+      debug("CHECK ERRORS: /!\\error found/!\\", rep)
       if (typeof(rep.res) !== 'undefined' )
         statusHandler.autoStatus(rep.res, {data: {error: rep.error}, status: 422})
     }

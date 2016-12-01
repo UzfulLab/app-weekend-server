@@ -15,7 +15,7 @@ var createDealFinalReturn = function(sessionData){
     var cityEN = sessionData.cityEN
     var outboundMoment = sessionData.outboundMoment
     var inboundMoment = sessionData.inboundMoment
-    var destinationCountry = skyData.Query.Country + "-sky"
+    var destinationCountry = sessionData.destinationCountry
     var countryFR = UECountries[destinationCountry]
     var countryEN = UECountries[destinationCountry]
     var passengers = skyData.Query.Adults
@@ -61,7 +61,7 @@ var createDealFinalReturn = function(sessionData){
         // var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
         // query.exec()
         debug("5 - DEAL SAVED", deal.countryFR)
-        debug("6 - INTERN CALL ?", sessionData.data.internalCall)
+        debug("6 - INTERN CALL ?", sessionData.internalCall)
         // Deal.remove({outboundLegId: outboundLegId, inboundLegId: inboundLegId})
         if (!sessionData.internalCall){
           debug("7 - RESPONSE", "External Response")

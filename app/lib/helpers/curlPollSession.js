@@ -66,22 +66,25 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
     req.end()
 
   }, options, (data, status, error, outboundMoment, inboundMoment) => {
-    if (flag) this.curlPollSession(session, options.outboundMoment, options.inboundMoment)
-    error = error || ''
-    debug('3 - POLING STATUS', status)
-    if (emptyCheck(data)){
-      self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
-    }
-    else{
-      debug("4 - __________EMPTY__________", session.data.cityFR)
-      flag = true
-      if (status == 410 || new Date() - session.data.when > 180000){
-        debug("\n\n\n\n!!!!!!!!!!!! ERROR: TIME OUT / URL IS DEAD -- CREATING NEW SESSION... !!!!!!!!!!!!!")
-        self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], session.data.oldArgs[2], session.data.oldArgs[3], session.data.oldArgs[4], session.data.oldArgs[5], session.data.oldArgs[6], session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], session.data.oldArgs[10], session.data.oldArgs[11], session.data.oldArgs[12], session.data.oldArgs[13])
+    if (flag)
+      self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
+    else {
+      error = error || ''
+      debug('3 - POLING STATUS', status)
+      if (emptyCheck(data)){
+        self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
       }
       else{
-        debug("\n\n\n\n--------- EMPTY RESULTS FOR SESSION: PULLING SESSION AGAIN -----------", session.data.cityFR)
-        self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
+        debug("4 - __________EMPTY__________", session.data.cityFR)
+        flag = true
+        if (status == 410 || new Date() - session.data.when > 180000){
+          debug("\n\n\n\n!!!!!!!!!!!! ERROR: TIME OUT / URL IS DEAD -- CREATING NEW SESSION... !!!!!!!!!!!!!")
+          self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], session.data.oldArgs[2], session.data.oldArgs[3], session.data.oldArgs[4], session.data.oldArgs[5], session.data.oldArgs[6], session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], options.outboundMoment, options.inboundMoment, session.data.oldArgs[12], session.data.oldArgs[13])
+        }
+        else{
+          debug("\n\n\n\n--------- EMPTY RESULTS FOR SESSION: PULLING SESSION AGAIN -----------", session.data.cityFR)
+          self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
+        }
       }
     }
   })
