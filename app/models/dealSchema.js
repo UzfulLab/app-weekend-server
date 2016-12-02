@@ -17,6 +17,7 @@ var dealStruct = {
 	"countryFR": {type: String, required: true},
 	"countryEN": {type: String, required: true},
 	"destinationCountry": {type: String, required: true},
+	"destinationCity": {type: String, required: true},
   "passengers": {type: Number, required: true},
   "inboundDate": {type: Date, required: true},
   "inboundDay": {type: Number, required: true},

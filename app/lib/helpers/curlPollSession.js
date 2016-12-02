@@ -115,7 +115,7 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
       error = error || ''
       //If deal is not empty, polling session again
       if (emptyCheck(data)){
-        self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
+        self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, destinationCity: session.data.destinationCity,internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
       }
       //If fatal error, creating generic deal in berlin
       else if (data.finishDeal){

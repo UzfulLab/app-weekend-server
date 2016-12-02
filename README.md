@@ -109,6 +109,7 @@ All routes begin with `/api/v0`
                 "countryEN": "Allemagne",
                 "countryFR": "Allemagne",
                 "destinationCountry": "DE-sky",
+                "destinationCity": "BERL-sky",
                 "cityEN": "Berlin",
                 "cityFR": "Berlin",
                 "_id": "58417ea4e2f2e50651d756fd"
@@ -193,6 +194,7 @@ A json is returned
   "countryEN": "Allemagne",
   "countryFR": "Allemagne",
   "destinationCountry": "DE-sky",
+  "destinationCity": "BERL-sky",
   "cityEN": "Berlin",
   "cityFR": "Berlin",
   "_id": "58417ea4e2f2e50651d756fd"
