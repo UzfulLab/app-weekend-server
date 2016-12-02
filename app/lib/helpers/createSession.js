@@ -1,6 +1,10 @@
+//Function to create a skyscanner session.
+//This session will be pulled to get deals infos.
 var createSession = function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self){
   debug("FUNCTION NAME ==> createSession")
   var querystring = require('querystring');
+
+  //Preparing post request
   var postData = querystring.stringify({
     'apiKey' : SkyScannerApiKey,
     'country': 'FR',
@@ -23,7 +27,9 @@ var createSession = function(departureDay, returnDay, destinationCity, passenger
       'Content-Length': Buffer.byteLength(postData)
     }
   }
+  //end of preparation
 
+  //Post request into a limiter so we won't call too many times Skyscanner API
   limiter.submit(function(options, cb){
     var location
     var status
@@ -48,8 +54,8 @@ var createSession = function(departureDay, returnDay, destinationCity, passenger
   }, options, function(location, status, error){
     error = error || ''
     debug("createSession status", status)
+    //Stocking current arguments so if next step has a problem, we can create a new session
     var oldArgs = [departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res]
-    // self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, res: res, oldArgs: oldArgs, when: new Date(), nextStep: self.pollingSession})
     self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, departureMoment: departureMoment, returnMoment: returnMoment, res: res, oldArgs: oldArgs, when: new Date(), nextStep: "pollingSession"})
   })
 }

@@ -1,3 +1,6 @@
+//Final function for deal creation, will save in database and give (or not)
+//an answer to a request
+
 var Deal = require("../../models/dealSchema.js")
 var moment = require('moment')
 var statusHandler = require("../statusHandler.js")
@@ -5,8 +8,6 @@ var statusHandler = require("../statusHandler.js")
 var createDealFinalReturn = function(sessionData){
   var skyData = sessionData.data
   var bestQuote = skyData.Itineraries[0]
-  // statusHandler.autoStatus(sessionData.res, Object.assign({data: sessionData.cityFR}, {status: 200}))
-  // return
   if (!sessionData.data.internalCall && typeof(bestQuote) === 'undefined')
     statusHandler.autoStatus(sessionData.data.res, Object.assign({data: {error: "NO deals found"}}, {status: 422}))
   if (typeof(bestQuote) !== 'undefined'){

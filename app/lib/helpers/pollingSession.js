@@ -1,8 +1,9 @@
+//Function to prepare the polling(s) of a session
 var pollingSession = function(session, self){
   var departureMoments
   var returnMoments
 
-  // /!\ ajouter la condition ici pour voir si il y a un departureMoment /!\
+  //Checking if a specific moment is requested, all moments or none
   if (session.data.departureMoment){
     departureMoments = [session.data.departureMoment]
     returnMoments = [session.data.returnMoment]
@@ -17,6 +18,7 @@ var pollingSession = function(session, self){
   }
   for (var i = 0; i < departureMoments.length; i++){
     for (var j = 0; j < departureMoments.length; j++){
+      //Pulling session for a specific moment (all moments is a specific moment)
       self.curlPollSession(session, departureMoments[i], returnMoments[j])
     }
   }

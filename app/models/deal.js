@@ -68,7 +68,7 @@ var sortByPassengers = function(tab){
 				one.push(entrie)
 		}
 	}
-	return ({one: sortByOutboundMoment(one), two: sortByOutboundMoment(two), thr: sortByOutboundMoment(thr), fou: sortByInboundMoment(fou)})
+	return ({one: sortByOutboundMoment(one), two: sortByOutboundMoment(two), thr: sortByOutboundMoment(thr), fou: sortByOutboundMoment(fou)})
 }
 
 module.exports = {
