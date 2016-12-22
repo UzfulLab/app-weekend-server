@@ -1,7 +1,8 @@
 //Function to create a skyscanner session.
 //This session will be pulled to get deals infos.
-var createSession = function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, self){
-  debug("FUNCTION NAME ==> createSession")
+var createSession = function(departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, attempts, self){
+  typeof(attempts) !== "undefined" ? attempts += 1 : attempts = 0 //how many sessions were created
+  debug("FUNCTION NAME ==> createSession after " + attempts + " attempts")
   var querystring = require('querystring');
 
   //Preparing post request
@@ -52,11 +53,11 @@ var createSession = function(departureDay, returnDay, destinationCity, passenger
     req.end(postData)
 
   }, options, function(location, status, error){
-    error = error || ''
+    error ? error = error : error = ""
     debug("createSession status", status)
     //Stocking current arguments so if next step has a problem, we can create a new session
-    var oldArgs = [departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res]
-    self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCity: destinationCity, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, departureMoment: departureMoment, returnMoment: returnMoment, res: res, oldArgs: oldArgs, when: new Date(), nextStep: "pollingSession"})
+    var oldArgs = [departureDay, returnDay, destinationCity, passengers, cityFR, cityEN, destinationCountry, internalCall, withMoment, withPicture, departureMoment, returnMoment, originCity, res, attempts]
+    self.checkErrors({location: location, status: status, error: error, cityFR: cityFR, cityEN: cityEN, destinationCity: destinationCity, destinationCountry: destinationCountry, internalCall: internalCall, withMoment: withMoment, withPicture: withPicture, departureMoment: departureMoment, returnMoment: returnMoment, res: res, oldArgs: oldArgs, when: new Date(), attempts: attempts, nextStep: "pollingSession"})
   })
 }
 

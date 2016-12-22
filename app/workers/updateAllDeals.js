@@ -26,6 +26,7 @@ module.exports = {
       var month = momentDate.month() + 1
       var year = momentDate.year()
       if (String(day).length == 1) day = '0'+String(day)
+      if (String(month).length == 1) month = '0'+String(month)
       return year+'-'+month+'-'+day
     }
 
@@ -134,35 +135,41 @@ module.exports = {
               })
               res.on('end', function() {
                 //when request is over, we get useful informations
-                var currentQuotes = JSON.parse(body)["Quotes"]
-                var places = JSON.parse(body)["Places"]
-                //If skyscanner gave us quotes, we can proceed
-                //Sorting the quotes by price
-                if (currentQuotes.length > 0){
-                  currentQuotes.sort(function(a,b){
-                    return a.MinPrice - b.MinPrice
-                  })
-                  //If the request gave us imperative infos, we can proceed
-                  if (typeof(currentQuotes[0].OutboundLeg) !== "undefined" && typeof(currentQuotes[0].OutboundLeg.DestinationId) !== "undefined"){
-                    //Setting variables for sorting algorithm
-                    var prices = bestDeals.prices[options.outboundDay][options.inboundDay]
-                    var destinations = bestDeals.destinations[options.outboundDay][options.inboundDay]
-                    var destinationName = currentQuotes[0].OutboundLeg.DestinationId
-                    var valuePrice = currentQuotes[0].MinPrice
-                    var ids = bestDeals.ids[options.outboundDay][options.inboundDay]
-                    var countries = bestDeals.countries[options.outboundDay][options.inboundDay]
-                    var country = options.skyEuCountry
-                    var id
-                    for (place in places){
-                      if (places[place]["PlaceId"] == destinationName){
-                        id = places[place]["SkyscannerCode"] + '-sky'
-                        destinationName = places[place]['CityName']
-                        break
+                //TODO Add a try/catch if JSON.parse crashes
+                try{
+                  var currentQuotes = JSON.parse(body)["Quotes"]
+                  var places = JSON.parse(body)["Places"]
+                  //If skyscanner gave us quotes, we can proceed
+                  //Sorting the quotes by price
+                  if (currentQuotes.length > 0){
+                    currentQuotes.sort(function(a,b){
+                      return a.MinPrice - b.MinPrice
+                    })
+                    //If the request gave us imperative infos, we can proceed
+                    if (typeof(currentQuotes[0].OutboundLeg) !== "undefined" && typeof(currentQuotes[0].OutboundLeg.DestinationId) !== "undefined"){
+                      //Setting variables for sorting algorithm
+                      var prices = bestDeals.prices[options.outboundDay][options.inboundDay]
+                      var destinations = bestDeals.destinations[options.outboundDay][options.inboundDay]
+                      var destinationName = currentQuotes[0].OutboundLeg.DestinationId
+                      var valuePrice = currentQuotes[0].MinPrice
+                      var ids = bestDeals.ids[options.outboundDay][options.inboundDay]
+                      var countries = bestDeals.countries[options.outboundDay][options.inboundDay]
+                      var country = options.skyEuCountry
+                      var id
+                      for (place in places){
+                        if (places[place]["PlaceId"] == destinationName){
+                          id = places[place]["SkyscannerCode"] + '-sky'
+                          destinationName = places[place]['CityName']
+                          break
+                        }
                       }
+                      //Sorting algorithm
+                      finalDeals[options.outboundDay][options.inboundDay] = sortValues(prices, destinations, ids, countries, destinationName, valuePrice, id, country)
                     }
-                    //Sorting algorithm
-                    finalDeals[options.outboundDay][options.inboundDay] = sortValues(prices, destinations, ids, countries, destinationName, valuePrice, id, country)
                   }
+                }
+                catch(err){
+                  debug("ERROR", "Parsing infos error" + err)
                 }
                 //our counter to know how many request were sent
                 counter++

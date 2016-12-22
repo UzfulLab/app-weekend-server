@@ -25,33 +25,6 @@ var emptyCheck = function(data){
     return false
   }
   return deepLook(data)
-
-  //TODO Remove function ?
-
-  // if (!data.Itineraries){
-  //   debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries")
-  //   return deepLook(data)
-  // }
-  // if (!data.Itineraries[0]){
-  //   debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0]")
-  //   return deepLook(data)
-  // }
-  // if (!data.Itineraries[0].PricingOptions){
-  //   debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions")
-  //   return deepLook(data)
-  // }
-  // if (!data.Itineraries[0].PricingOptions[0]){
-  //   debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions[0]")
-  //   return deepLook(data)
-  // }
-  // if (!data.Itineraries[0].PricingOptions[0].DeeplinkUrl){
-  //   debug("\n\n\nEMPTY CHECK !!!!", "data.Itineraries[0].PricingOptions[0].DeeplinkUrl")
-  //   //function deep look
-  //   // return false
-  //   return deepLook(data)
-  // }
-  // return true
-
 }
 
 var curlPollSession = function(session, outboundMoment, inboundMoment, self){
@@ -109,6 +82,8 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
 
   }, options, (data, status, error, outboundMoment, inboundMoment) => {
     //If a problem occured, polling session again
+
+    //TODO mettre autres vérifications car peut tourner à l'infini
     if (flag)
       self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
     else {
@@ -118,18 +93,19 @@ var curlPollSession = function(session, outboundMoment, inboundMoment, self){
         self.createDealFinalReturn({data, status: status, cityFR: session.data.cityFR, cityEN: session.data.cityEN, destinationCity: session.data.destinationCity,internalCall: session.data.internalCall, destinationCountry: session.data.destinationCountry, outboundMoment: options.outboundMoment, inboundMoment: options.inboundMoment, res: session.data.res})
       }
       //If fatal error, creating generic deal in berlin
-      else if (data.finishDeal){
-        self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], "BERL-sky", session.data.oldArgs[3], "Berlin", "Berlin", "DE-sky", session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], options.outboundMoment, options.inboundMoment, session.data.oldArgs[12], session.data.oldArgs[13])
+      else if (data.finishDeal || session.data.attempts > 10){
+        debug("GENRIC DEAL AFTER", session.data.attempts + " attemps")
+        self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], "BERL-sky", session.data.oldArgs[3], "Berlin", "Berlin", "DE-sky", session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], options.outboundMoment, options.inboundMoment, session.data.oldArgs[12], session.data.oldArgs[13], session.data.oldArgs[14])
       }
       else{
         debug("4 - __________EMPTY__________", session.data.cityFR)
         flag = true
         if (status == 410 || new Date() - session.data.when > 180000){
           debug("\n\n\n\n!!!!!!!!!!!! ERROR: TIME OUT / URL IS DEAD -- CREATING NEW SESSION FOR - !!!!!!!!!!!!!",  session.data.destinationCountry, ' - ', session.data.cityFR)
-          self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], session.data.oldArgs[2], session.data.oldArgs[3], session.data.oldArgs[4], session.data.oldArgs[5], session.data.oldArgs[6], session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], options.outboundMoment, options.inboundMoment, session.data.oldArgs[12], session.data.oldArgs[13])
+          self.createSession(session.data.oldArgs[0], session.data.oldArgs[1], session.data.oldArgs[2], session.data.oldArgs[3], session.data.oldArgs[4], session.data.oldArgs[5], session.data.oldArgs[6], session.data.oldArgs[7], session.data.oldArgs[8], session.data.oldArgs[9], options.outboundMoment, options.inboundMoment, session.data.oldArgs[12], session.data.oldArgs[13], session.data.oldArgs[14])
         }
         else{
-          debug("\n\n\n\n--------- EMPTY RESULTS FOR SESSION: PULLING SESSION AGAIN -----------", session.data.cityFR)
+          debug("\n\n\n\n--------- EMPTY RESULTS FOR SESSION: PULLING SESSION AGAIN AFTER -----------", new Date() - session.data.when, " milli seconds for ", session.data.cityFR)
           self.curlPollSession(session, options.outboundMoment, options.inboundMoment)
         }
       }

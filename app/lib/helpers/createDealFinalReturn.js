@@ -32,6 +32,7 @@ var createDealFinalReturn = function(sessionData){
     var sessionKey = skyData.SessionKey
     var created_at = new Date()
     var deal = new Deal()
+    var initialDeal = sessionData.internalCall
     deal.cityFR = cityFR
     deal.cityEN = cityEN
     deal.destinationCountry = destinationCountry
@@ -54,6 +55,7 @@ var createDealFinalReturn = function(sessionData){
     deal.outboundLegId = outboundLegId
     deal.sessionKey = sessionKey
     deal.created_at = created_at
+    deal.initialDeal = initialDeal
     deal.save((err) =>{
       if (err){
         debug("\n\n\n==========================ERROR DEAL SAVE===================================", err)
@@ -61,10 +63,9 @@ var createDealFinalReturn = function(sessionData){
           statusHandler.autoStatus(sessionData.res, Object.assign({data: {error: "Database save problem"}}, {status: 422}))
       }
       else{
-        // var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
-        // query.exec()
+        var query = Deal.remove( { inboundLegId: String(inboundLegId), outboundLegId: String(outboundLegId), passengers: passengers, inboundDate: inboundDate, outboundDate: outboundDate, outboundMoment: outboundMoment, inboundMoment: inboundMoment, price: price } ).where("created_at").ne(created_at)
+        query.exec()
         debug("DEAL SAVED", deal.countryFR + ` - ${deal.cityFR} - ${deal.outboundMoment} - ${deal.inboundMoment}`)
-        // Deal.remove({outboundLegId: outboundLegId, inboundLegId: inboundLegId})
         if (!sessionData.internalCall){
           debug("6- RESPONSE", "External Response")
           statusHandler.autoStatus(sessionData.res, Object.assign({data: deal}, {status: 200}))

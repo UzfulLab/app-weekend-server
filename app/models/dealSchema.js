@@ -23,6 +23,7 @@ var dealStruct = {
   "inboundDay": {type: Number, required: true},
   "outboundDate": {type: Date, required: true},
   "outboundDay": {type: Number, required: true},
+	"initialDeal": {type: Boolean, required: true},
 	"created_at": Date
 };
 
