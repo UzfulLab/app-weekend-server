@@ -1,5 +1,5 @@
 var deal = require("../models/deal.js")
-var skyscannerAPI = require("../lib/skyscannerAPI.js")
+var skyscannerAPI = require("../lib/skyscannerApi.js")
 
 module.exports = {
 	listDeals: function(res){

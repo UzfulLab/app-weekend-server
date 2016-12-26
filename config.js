@@ -188,4 +188,5 @@ DB = {
 }
 
 mongoose = require('mongoose');
+console.log(DB[ENV].uri)
 mongoose.connect(DB[ENV].uri)
