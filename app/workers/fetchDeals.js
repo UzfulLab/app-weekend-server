@@ -105,8 +105,6 @@ var UECountries = {
 }
 
 var apiKey = "uz497893624968959685836267896543"
-// var apiKey = "prtl6749387986743898559646983194"
-// var apiKey = "uz497893624968959685836267896543"
 
 var http = require('http');
 var moment = require('moment');
@@ -157,8 +155,6 @@ debug("toto ", toto)
 
 var reqDealData = function(options, cb){
   var req = http.get(options, function(res) {
-    // debug('STATUS: ' + res.statusCode);
-    // debug('HEADERS: ' + JSON.stringify(res.headers));
 
     // Buffer the body entirely for processing as a whole.
     var bodyChunks = "";
@@ -166,12 +162,8 @@ var reqDealData = function(options, cb){
       // You can process streamed parts here...
       bodyChunks += chunk.toString('utf-8');
     }).on('end', function() {
-      // var body = Buffer.concat(bodyChunks);
       var body = bodyChunks
-      // debug(body)
       var currentQuotes = JSON.parse(body)["Quotes"];
-      // debug(body)
-      // debug('BODY: ' + body);
       quotes.push(currentQuotes);
 
       var deal = new Deal();
@@ -214,34 +206,24 @@ var refreshDeals = function(){
 
   //First loop for all destinations
   for (var i = 0; i < SkyUECountries.length; i++){
-  // for (var i = 0; i < 1; i++){
     jsonString[i] = '';
     //Second loop for inbound days
     for (var j = 0; j < inbound.length; j++){
-    // for (var j = 0; j < 1; j++){
       //Third loop for outbound days
       for (var k = 0; k < outbound.length; k++){
-      // for (var k = 0; k < 2; k++){
         //preparing API call
         var options = {
           hostname: 'partners.api.skyscanner.net',
           path: "/apiservices/browseroutes/v1.0/FR/EUR/fr-FR/PARI-sky/"+SkyUECountries[i]+"/"+inbound[j]+"/"+outbound[k]+"?apiKey="+apiKey,
-          // method: 'GET',
           timeout: 2000
         }
-        // debug("limiter.nbRunning ", limiter.nbRunning())
         var l = limiter.submit(reqDealData, options, function(){
           debug("reqDealData limited callback")
         })
-        // var l = limiter.submit(dummyFunc, options, function(){
-        //   debug("reqDealData limited callback")
-        // })
 
         debug('submitted to limiter, has strategy been executed ? ', l);
       }
     }
-    //Second loop for departures day
-    //Verification to know what day it is and if travel needs to be on next week
   }
   limiter.on('empty', function () {
     debug("limiter has launched all its queued tasks")

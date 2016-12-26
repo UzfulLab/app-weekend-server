@@ -29,13 +29,6 @@ var dealStruct = {
 
 var DealSchema = new Schema(dealStruct);
 
-// DealSchema.methods.fetchDealsByDate = function fetchDealsByDate(inbound, outbound, callback){
-// 	return this.model('Deal').find({
-// 		inboundDate: inbound,
-// 		outboundDate: outbound
-// 	}, callback)
-// }
-
 DealSchema.query.byInbound = function(inbound){
 	return this.find({ inboundDate: inbound})
 }

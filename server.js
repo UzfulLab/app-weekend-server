@@ -26,10 +26,12 @@ var whitelist = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://0.0.0.1:3000',
+    'http://0.0.0.0:3000'
 ];
 var corsOptions = {
     origin: function(origin, callback){
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        originIsWhitelisted = true; //TODO Remove when real securityChecks
         callback(null, originIsWhitelisted);
     },
     credentials: true

@@ -11,7 +11,6 @@ module.exports = function(router) {
 
 	// middleware to use for all requests
 	router.use(function(req, res, next) {
-			// response = res
 			//checking if a good authToken was sent in header during request.
 			if (!securityChecks.validAuthToken(req.get("authToken"))){
 				status.unauthorized(res)
