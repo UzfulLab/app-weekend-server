@@ -159,6 +159,8 @@ countryPictures = {
 
 SkyScannerApiKey = "uz497893624968959685836267896543"
 
+ENV = process.env.APPWEEKEND_ENV || "dev"
+
 var Bottleneck = require("bottleneck");
 limiter = new Bottleneck(50, 100);
 limiterPollSession = new Bottleneck(50, 100);
@@ -167,11 +169,23 @@ http = require("http")
 
 debug = require('debug')('worker');
 
-mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/app-weekend')
-
 schedule = require('node-schedule');
 
 TOTALDEALS = 3
 
 MAXPASSENGERS = 4
+
+DB = {
+  prod: {
+    password: "7]65X5s59!7871F",
+    user: 'kevin@uzful.fr',
+    uri: "mongodb://kevin@uzful.fr:7]65X5s59!7871F@waffle.modulusmongo.net:27017/ud7yrIgi",
+    console: "mongo waffle.modulusmongo.net:27017/ud7yrIgi -u <user> -p <pass>"
+  },
+  dev: {
+    uri: "mongodb://localhost/app-weekend"
+  }
+}
+
+mongoose = require('mongoose');
+mongoose.connect(DB[ENV].uri)
