@@ -4,7 +4,7 @@
   "description": "API to find best deals for trips on week-ends",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/nodemon/bin/nodemon.js server.js"
   },
   "repository": {
     "type": "git",
@@ -21,16 +21,17 @@
     "url": "https://github.com/UzfulLab/app-weekend/issues"
   },
   "homepage": "https://github.com/UzfulLab/app-weekend#readme",
-  "scripts": {
-    "start": "node_modules/nodemon/bin/nodemon.js server.js"
-  },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bottleneck": "^1.15.0",
     "cors": "^2.8.1",
+    "debug": "^2.2.0",
     "express": "^4.14.0",
+    "moment": "^2.15.2",
     "mongoose": "^4.6.3"
   },
   "devDependencies": {
+    "node-schedule": "^1.2.0",
     "nodemon": "^1.11.0"
   }
 }

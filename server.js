@@ -8,16 +8,30 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var config = require('./config.js')
+
+var fetchAllDeals = require('./app/workers/updateAllDeals.js')
+
+// var j = schedule.scheduleJob('01 * * * * *', function(){
+//   fetchAllDeals.fetchDeals();
+// });
+// fetchAllDeals.fetchDeals()
+// Database setup
+//Will need to be changed when in production
 
 // ====== Cors module config - Fix to accept request from localhost,
 // seems to only be needed when developing from localhost in the front, and not useful when app is deploy as an extension
 // probably needs improvements when production deployment =====
 var whitelist = [
     'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://0.0.0.1:3000',
+    'http://0.0.0.0:3000'
 ];
 var corsOptions = {
     origin: function(origin, callback){
         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        originIsWhitelisted = true; //TODO Remove when real securityChecks
         callback(null, originIsWhitelisted);
     },
     credentials: true

@@ -15,5 +15,8 @@ module.exports = {
     if (!flickrApi.checkErrors(flickrPhotos) && !this.checkEmpty(flickrPhotos))
       return flickrApi.selectPhoto(flickrPhotos)
     return default_photo //
+  },
+  findDefaultPicture: function(rep){
+    
   }
 }

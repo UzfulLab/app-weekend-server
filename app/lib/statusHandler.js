@@ -17,7 +17,7 @@ module.exports = {
   unprocessable: function(res, data){
     res
       .header("status", ["422"])
-      .json(data)
+      .json({error: "Unprocessable Request", data})
   },
   fatalError: function(res){
     res
@@ -27,6 +27,9 @@ module.exports = {
   autoStatus: function(res, rep){
     switch (rep.status){
       case 200:
+        this.success(res, rep.data)
+        break
+      case 201:
         this.success(res, rep.data)
         break
       case 401:

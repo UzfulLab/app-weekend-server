@@ -4,6 +4,8 @@ var securityChecks = require("./app/lib/securityChecks.js")
 
 //Importing our controllers
 var deals = require("./app/controllers/dealsController.js")
+var Deal = require('./app/models/dealSchema.js')
+var dealWorker = require('./app/workers/updateAllDeals.js')
 
 module.exports = function(router) {
 
@@ -26,13 +28,31 @@ module.exports = function(router) {
 	})
 
 	router.get('/deals', function(req, res){
-		rep = deals.listDeals();
-		status.autoStatus(res, rep)
+		deals.listDeals(res);
+	})
+
+	router.post('/deals', function(req, res){
+		var dropDB = req.body.dropDB || false
+		if (typeof(dropDB) !== 'undefined') dropDB = JSON.parse(dropDB)
+		var databaseMessage = "Database was not dropped"
+		var statusCode = 200
+		dealWorker.fetchDeals()
+		if (dropDB){
+			databaseMessage = "Database was dropped"
+			Deal.remove({}, function(err){
+				if (!err)
+					databaseMessage = "Database was dropped"
+				else{
+					databaseMessage = "ERROR while dropping database"
+					statusCode = 422
+				}
+			})
+		}
+		status.autoStatus(res, {status: statusCode, data: {message: "Deals are updating now", database: databaseMessage}})
 	})
 
 	router.post('/deal', function(req, res){
-		rep = deals.customDeal(req.body.departureDay, req.body.departureMoment, req.body.returnDay, req.body.returnMoment, req.body.destinationCity, req.body.originCity, req.body.withPicture);
-		status.autoStatus(res, rep)
+		deals.customDeal(req.body.departureDay, req.body.returnDay, req.body.destinationCity, req.body.passengers, req.body.cityFR, req.body.cityEN, req.body.destinationCountry, false, req.body.withMoment, req.body.withPicture, req.body.departureMoment, req.body.returnMoment, req.body.originCity, res)
 	})
 
 	router.put('/deal/:id', function(req, res){
