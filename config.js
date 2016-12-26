@@ -178,8 +178,8 @@ MAXPASSENGERS = 4
 DB = {
   production: {
     password: "7]65X5s59!7871F",
-    user: 'kevin@uzful.fr',
-    uri: "mongodb://kevin@uzful.fr:7]65X5s59!7871F@waffle.modulusmongo.net:27017/ud7yrIgi",
+    user: 'root',
+    uri: "mongodb://root:7]65X5s59!7871F@waffle.modulusmongo.net:27017/ud7yrIgi",
     console: "mongo waffle.modulusmongo.net:27017/ud7yrIgi -u <user> -p <pass>"
   },
   dev: {
