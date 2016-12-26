@@ -90,6 +90,7 @@ All routes begin with `/api/v0`
           [
              {
                 "__v": 0,
+                "initialDeal": true,
                 "created_at": "2016-12-02T14:01:08.462Z",
                 "sessionKey": "cd73984bbfc64501b653890e4b89d4b1_ecilpojl_6018A518E0CDF21FE7650887AAB29FC7",
                 "outboundLegId": "15083-1612041815--32356-0-16668-1612041955",
@@ -175,6 +176,7 @@ A json is returned
 ```json
 {
   "__v": 0,
+  "initialDeal": true,
   "created_at": "2016-12-02T14:01:08.462Z",
   "sessionKey": "cd73984bbfc64501b653890e4b89d4b1_ecilpojl_6018A518E0CDF21FE7650887AAB29FC7",
   "outboundLegId": "15083-1612041815--32356-0-16668-1612041955",
