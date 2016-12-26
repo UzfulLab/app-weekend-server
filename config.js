@@ -159,7 +159,7 @@ countryPictures = {
 
 SkyScannerApiKey = "uz497893624968959685836267896543"
 
-ENV = process.env.APPWEEKEND_ENV || "dev"
+ENV = process.env.NODE_ENV || "dev"
 
 var Bottleneck = require("bottleneck");
 limiter = new Bottleneck(50, 100);
@@ -176,7 +176,7 @@ TOTALDEALS = 3
 MAXPASSENGERS = 4
 
 DB = {
-  prod: {
+  production: {
     password: "7]65X5s59!7871F",
     user: 'kevin@uzful.fr',
     uri: "mongodb://kevin@uzful.fr:7]65X5s59!7871F@waffle.modulusmongo.net:27017/ud7yrIgi",
