@@ -9,15 +9,11 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var config = require('./config.js')
-
+var dealModel = require('./app/models/deal.js')
 var fetchAllDeals = require('./app/workers/updateAllDeals.js')
 
-// var j = schedule.scheduleJob('01 * * * * *', function(){
-//   fetchAllDeals.fetchDeals();
-// });
-// fetchAllDeals.fetchDeals()
-// Database setup
-//Will need to be changed when in production
+//Programming a deal refresh at 03:00 AM
+fetchAllDeals.scheduleFetch();
 
 // ====== Cors module config - Fix to accept request from localhost,
 // seems to only be needed when developing from localhost in the front, and not useful when app is deploy as an extension
@@ -38,8 +34,6 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 // ====== End cors module config
-
-var time = new Date();
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -63,4 +57,7 @@ app.use('/api/v0', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
+
+// Log for user
+var time = new Date();
 console.log(time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + ' API Ready on port ' + port);

@@ -1,6 +1,7 @@
 var Deal = require('./dealSchema.js');
 var status = require("../lib/statusHandler.js")
 
+
 var sortByOutboundMoment = function(deals){
 	var mor = []
 	var aft = []
@@ -72,6 +73,18 @@ var sortByPassengers = function(tab){
 }
 
 module.exports = {
+
+	dropDeals: function(res){
+		Deal.remove({}, function(err){
+			if (typeof(res) !== "undefined"){
+				if (!err)
+					status.autoStatus(res, {status: 200, data: {message: "Deals are updating now", database: "Database was dropped"}})
+				else
+					status.autoStatus(res, {status: 422, data: {message: "Deals are updating now", database: "ERROR while dropping database"}})
+			}
+		})
+	},
+
 	getAllDeals: function(res){
 		deals = require("./deals.json")
 		Deal.find().byThuSun().exec(function(err, deals){

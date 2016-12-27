@@ -171,6 +171,8 @@ debug = require('debug')('worker');
 
 schedule = require('node-schedule');
 
+fetchDealsDate = new Date()
+
 TOTALDEALS = 3
 
 MAXPASSENGERS = 4

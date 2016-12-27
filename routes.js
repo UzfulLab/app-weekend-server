@@ -5,6 +5,7 @@ var securityChecks = require("./app/lib/securityChecks.js")
 //Importing our controllers
 var deals = require("./app/controllers/dealsController.js")
 var Deal = require('./app/models/dealSchema.js')
+var dealModel = require('./app/models/deal.js')
 var dealWorker = require('./app/workers/updateAllDeals.js')
 
 module.exports = function(router) {
@@ -37,18 +38,10 @@ module.exports = function(router) {
 		var databaseMessage = "Database was not dropped"
 		var statusCode = 200
 		dealWorker.fetchDeals()
-		if (dropDB){
-			databaseMessage = "Database was dropped"
-			Deal.remove({}, function(err){
-				if (!err)
-					databaseMessage = "Database was dropped"
-				else{
-					databaseMessage = "ERROR while dropping database"
-					statusCode = 422
-				}
-			})
-		}
-		status.autoStatus(res, {status: statusCode, data: {message: "Deals are updating now", database: databaseMessage}})
+		if (dropDB)
+			dealModel.dropDeals(res)
+		else
+			status.autoStatus(res, {status: statusCode, data: {message: "Deals are updating now", database: databaseMessage}})
 	})
 
 	router.post('/deal', function(req, res){

@@ -1,6 +1,9 @@
 var skyscannerAPI = require("../lib/skyscannerApi.js")
+var Deal = require('../models/dealSchema.js')
+var dealModel = require('../models/deal.js')
 
 module.exports = {
+
   fetchDeals: function(){
 
     var http = require('http')
@@ -237,5 +240,15 @@ module.exports = {
         }
       }
     }
+  },
+
+  scheduleFetch: function(){
+    var self = this
+    var j = schedule.scheduleJob("0 3 * * *", function(){
+      dealModel.dropDeals();
+      fetchDealsDate = new Date()
+      self.fetchDeals()
+    })
   }
+
 }
