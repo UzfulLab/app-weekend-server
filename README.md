@@ -225,6 +225,21 @@ A json is returned with the new price
 
 ***
 
+`GET /fetchdealsdate` => returns the date of last deals fetch
+
+###### RETURN
+
+A json is returned with the date of last deals fetch
+
+```json
+{
+  "fetchDealsDate": "2016-12-27T17:35:50.079Z"
+}
+
+```
+
+***
+
 ##### App structure :
 
 - app/ (contains all code logic)

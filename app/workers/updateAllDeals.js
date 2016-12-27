@@ -6,6 +6,7 @@ module.exports = {
 
   fetchDeals: function(){
 
+    fetchDealsDate = new Date()
     var http = require('http')
     var moment = require('moment')
 
@@ -246,7 +247,6 @@ module.exports = {
     var self = this
     var j = schedule.scheduleJob("0 3 * * *", function(){
       dealModel.dropDeals();
-      fetchDealsDate = new Date()
       self.fetchDeals()
     })
   }

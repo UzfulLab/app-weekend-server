@@ -32,6 +32,10 @@ module.exports = function(router) {
 		deals.listDeals(res);
 	})
 
+	router.get('/fetchdealsdate', function(req, res){
+		status.success(res, {fetchDealsDate: fetchDealsDate})
+	})
+
 	router.post('/deals', function(req, res){
 		var dropDB = req.body.dropDB || false
 		if (typeof(dropDB) !== 'undefined') dropDB = JSON.parse(dropDB)
