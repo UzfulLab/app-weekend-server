@@ -1,5 +1,4 @@
 var skyscannerAPI = require("../lib/skyscannerApi.js")
-var Deal = require('../models/dealSchema.js')
 var dealModel = require('../models/deal.js')
 
 module.exports = {
@@ -21,8 +20,6 @@ module.exports = {
 
     // fetching infos about current day to know what date to choose for deals
     var today = {dayNumber: moment().day(), hour: moment().hour()}
-
-    var Deal = require('../models/dealSchema.js')
 
     //function to find if inbound/outbound date is on current week or next week
     var findGoodDate = function(){
