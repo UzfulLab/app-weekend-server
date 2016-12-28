@@ -25,6 +25,11 @@ Create the default /data/db directory :
   mkdir -p /data/db
 ```
 
+Lunch mongod :
+```shell
+sudo mongod
+```
+
 Access mongo shell :
 ```shell
   mongo
@@ -38,11 +43,6 @@ Then create database :
 Now to populate datas on the database, you need to make a POST request on this endpoint (using postman for example) :
 ```
  http://localhost:4242/api/v0/deals
-```
-
-Exit mongo shell and run mongod (might needs sudo) :
-```shell
-  mongod
 ```
 
 Open an other terminal and run :
@@ -123,8 +123,34 @@ All routes begin with `/api/v0`
   }
 
 ```
+##### corresponding values: 
 
-*returns the day of inbound(thu => thursday), day of outbound(sun => sunday), number of passenger(one => deal for 1 passenger), outbound moment (mor => morning), inbound moment (mor => morning) and deal corresponding*
+|      ARGUMENT      |  TYPE  |                                            Description                                            |
+|:------------------:|:------:|:-------------------------------------------------------------------------------------------------:|
+|     initialDeal    |  Bool  |           A boolean to indicate if this deal was created by auto deal fetch or by a user          |
+|     created_at     |  Date  |                                     Date when deal was created                                    |
+|     sessionKey     | String |                    A skyscanner token to pass if you need to update deal infos                    |
+|    outboundLegId   | String |                  A skyscanner token to pass if you need to update outbound infos                  |
+|     outboundDay    | Number |               Day of outbound (0,7 => Sunday ; 1 => Monday ; [...] ; Saturday => 6)               |
+|    outboundDate    |  Date  |                                          Date of outbound                                         |
+|    inboundLegId    | String |                  A skyscanner token to pass if you need to update outbound infos                  |
+|     inboundDay     | Number |                Day of inbound (0,7 => Sunday ; 1 => Monday ; [...] ; Saturday => 6)               |
+|     inboundDate    |  Date  |                                          Date of inbound                                          |
+|     passengers     | Number |                                        Number of passengers                                       |
+|      deal_url      | String |                                        Url leading to deal                                        |
+|     author_link    | String |                                 Url leading to picture owner page                                 |
+|     author_name    | String |                                         Picture owner name                                        |
+|     picture_url    | String |                                    Url of destination's picture                                   |
+|        price       | String |                                   Price for ONE PERSON in euros                                   |
+|    inboundMoment   | String |  Letter corresponding to inbound's moment of the day (M => Morning, A => Afternoon, E => Evening) |
+|   outboundMoment   | String | Letter corresponding to outbound's moment of the day (M => Morning, A => Afternoon, E => Evening) |
+|      countryEN     | String |        Name of destinations's country in English (in prototype, name is usually in french)        |
+|      countryFR     | String |        Name of destinations's country in English (in prototype, name is usually in french)        |
+| destinationCountry | String |                              SkyScanner code of destination's country                             |
+|   destinationCity  | String |                               SkyScanner code of destination's city                               |
+|       cityEN       |        |          Name of destinations's city in English (in prototype, name is usually in french)         |
+|       cityFR       |        |          Name of destinations's city in French (in prototype, name is usually in french)          |
+|         _id        |        |                                     id of Deal in our database                                    |
 
 ***
 
@@ -204,6 +230,35 @@ A json is returned
 
 ```
 
+##### corresponding values:
+
+|      ARGUMENT      |  TYPE  |                                            Description                                            |
+|:------------------:|:------:|:-------------------------------------------------------------------------------------------------:|
+|     initialDeal    |  Bool  |           A boolean to indicate if this deal was created by auto deal fetch or by a user          |
+|     created_at     |  Date  |                                     Date when deal was created                                    |
+|     sessionKey     | String |                    A skyscanner token to pass if you need to update deal infos                    |
+|    outboundLegId   | String |                  A skyscanner token to pass if you need to update outbound infos                  |
+|     outboundDay    | Number |               Day of outbound (0,7 => Sunday ; 1 => Monday ; [...] ; Saturday => 6)               |
+|    outboundDate    |  Date  |                                          Date of outbound                                         |
+|    inboundLegId    | String |                  A skyscanner token to pass if you need to update outbound infos                  |
+|     inboundDay     | Number |                Day of inbound (0,7 => Sunday ; 1 => Monday ; [...] ; Saturday => 6)               |
+|     inboundDate    |  Date  |                                          Date of inbound                                          |
+|     passengers     | Number |                                        Number of passengers                                       |
+|      deal_url      | String |                                        Url leading to deal                                        |
+|     author_link    | String |                                 Url leading to picture owner page                                 |
+|     author_name    | String |                                         Picture owner name                                        |
+|     picture_url    | String |                                    Url of destination's picture                                   |
+|        price       | String |                                   Price for ONE PERSON in euros                                   |
+|    inboundMoment   | String |  Letter corresponding to inbound's moment of the day (M => Morning, A => Afternoon, E => Evening) |
+|   outboundMoment   | String | Letter corresponding to outbound's moment of the day (M => Morning, A => Afternoon, E => Evening) |
+|      countryEN     | String |        Name of destinations's country in English (in prototype, name is usually in french)        |
+|      countryFR     | String |        Name of destinations's country in English (in prototype, name is usually in french)        |
+| destinationCountry | String |                              SkyScanner code of destination's country                             |
+|   destinationCity  | String |                               SkyScanner code of destination's city                               |
+|       cityEN       |        |          Name of destinations's city in English (in prototype, name is usually in french)         |
+|       cityFR       |        |          Name of destinations's city in French (in prototype, name is usually in french)          |
+|         _id        |        |                                     id of Deal in our database                                    |
+
 ###### DEV -> TEST ERRORS
 
 If you need to simulate a skyscanner API down, you can pass `departureDay = 'createError'`
@@ -240,15 +295,17 @@ A json is returned with the date of last deals fetch
 
 ***
 
-##### App structure :
+### App structure
 
 - app/ (contains all code logic)
-  - controllers/ (logic corresponding to pages)
+  - controllers/ (logic corresponding to views)
   - lib/ (Useful functions used across the API)
   - models/ (database objects, contains a lot of algorithms)
   - workers/ (contains tasks that need to be lunched daily)
 - server.js (initalizes the API and listens to events)
 - routes.js (Routing of our API, calls corresponding controllers)
+
+***
 
 ### Calling the API
 
