@@ -1,4 +1,4 @@
-SkyUECountries = [
+/*SkyUECountriesOLD = [
   "RU-sky", //Russie
   "UA-sky", //Ukraine
   "FR-sky", //France
@@ -49,9 +49,9 @@ SkyUECountries = [
   "CY-sky", //Chypre
   "AZ-sky", //Azerbaidjan
   "GE-sky" //Georgie
-]
+]*/
 
-UECountries = {
+/*UECountries = {
   "RU-sky": "Russie",
   "UA-sky": "Ukraine",
   "FR-sky": "France",
@@ -101,10 +101,12 @@ UECountries = {
   "AM-sky": "Armenie",
   "CY-sky": "Chypre",
   "AZ-sky": "Azerbaidjan",
-  "GE-sky": "Georgie"
-}
+  "GE-sky": "Georgie",
+  "IL-sky": "Israel"
+}*/
 
-countryPictures = {
+/*
+countryPicturesOLD = {
   "RU-sky": {pictureUrl: "https://images.unsplash.com/photo-1478095062770-b2e8f2af3ed1?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Artem Sapegin", authorLink: "https://unsplash.com/@sapegin"},
   "UA-sky": {pictureUrl: "https://images.unsplash.com/photo-1463331100952-5a05df40993c?dpr=1&auto=format&fit=crop&w=1500&h=999&q=80&cs=tinysrgb&crop=", authorName: "Skeeze", authorLink: "https://pixabay.com/fr/users/skeeze-272447/"},
   "FR-sky": {pictureUrl: "https://images.unsplash.com/photo-1470470558828-e00ad9dbbc13?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Bruno Abatti", authorLink: "https://unsplash.com/@brunoabatti"},
@@ -156,6 +158,179 @@ countryPictures = {
   "AZ-sky": {pictureUrl: "https://images.unsplash.com/photo-1467560433578-7b5198ea9cbf?dpr=1&auto=format&fit=crop&w=1500&h=844&q=80&cs=tinysrgb&crop=", authorName: "Teymur Gahramanov", authorLink: "https://unsplash.com/@gahramanovteymur"},
   "GE-sky": {pictureUrl: "https://images.unsplash.com/photo-1444418582978-8c887a9d1997?dpr=1&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=", authorName: "Jordan Sanchez", authorLink: "https://unsplash.com/@jordaneil"}
 }
+*/
+
+// SkyUECountries = [
+//   "PARI-sky",
+//   "LOND-sky",
+//   "AJA-sky",
+//   "DUB-sky",
+//   "BRUS-sky",
+//   "TELA-sky",
+//   "BCN-sky",
+//   "FRAN-sky",
+//   "ROME-sky"
+// ]
+
+SkyUECountries = [
+  "LOND-sky",
+  // "REYK-sky",
+  "OSLO-sky",
+  "STOC-sky",
+  "HELS-sky",
+  "MOSC-sky",
+  "TALL-sky",
+  "RIGA-sky",
+  "VILN-sky",
+  "WARS-sky",
+  "KRAK-sky",
+  "PRAG-sky",
+  "BERL-sky",
+  "HAMB-sky",
+  "MUNI-sky",
+  "FRAN-sky",
+  "COPE-sky",
+  "AMST-sky",
+  "BRUS-sky",
+  "EDIN-sky",
+  "GLAS-sky",
+  "BELF-sky",
+  "DUBL-sky",
+  "MARS-sky",
+  "BAST-sky",
+  "MADR-sky",
+  "BARC-sky",
+  "VALE-sky",
+  "SEVI-sky",
+  "LISB-sky",
+  "PORT-sky",
+  "CAGL-sky",
+  "PALE-sky",
+  "CATA-sky",
+  "NAPL-sky",
+  "ROME-sky",
+  "FLORE-sky",
+  "VENI-sky",
+  "ATHE-sky"
+]
+
+// UECountries = {
+//   "PARI-sky": 'France',
+//   "LOND-sky": 'Angleterre',
+//   "AJA-sky": 'France',
+//   "DUB-sky": 'Irlande',
+//   "BRUS-sky": 'Belgique',
+//   "TELA-sky": 'Israel',
+//   "BCN-sky": 'Espagne',
+//   "FRAN-sky": 'Allemagne',
+//   "ROME-sky": 'Italie',
+//   "DE-sky": 'Allemagne'
+// }
+
+UECountries = {
+  "LOND-sky": "Angleterre",
+  // "REYK-sky": "Islande",
+  "OSLO-sky": "Norvège",
+  "STOC-sky": "Suède",
+  "HELS-sky": "Finlande",
+  "MOSC-sky": "Russie",
+  "TALL-sky": "Estonie",
+  "RIGA-sky": "Lettonie",
+  "VILN-sky": "Lituanie",
+  "WARS-sky": "Pologne",
+  "KRAK-sky": "Pologne",
+  "PRAG-sky": "Tchéquie",
+  "BERL-sky": "Allemagne",
+  "HAMB-sky": "Allemagne",
+  "MUNI-sky": "Allemagne",
+  "FRAN-sky": "Allemagne",
+  "COPE-sky": "Danemark",
+  "AMST-sky": "Pays-Bas",
+  "BRUS-sky": "Belgique",
+  "EDIN-sky": "Écosse",
+  "GLAS-sky": "Écosse",
+  "BELF-sky": "Irlande du Nord",
+  "DUBL-sky": "Irlande",
+  "MARS-sky": "France",
+  "BAST-sky": "Corse",
+  "MADR-sky": "Espagne",
+  "BARC-sky": "Espagne",
+  "VALE-sky": "Espagne",
+  "SEVI-sky": "Espagne",
+  "LISB-sky": "Portugal",
+  "PORT-sky": "Portugal",
+  "CAGL-sky": "Sardaigne",
+  "PALE-sky": "Sicile",
+  "CATA-sky": "Sicile",
+  "NAPL-sky": "Italie",
+  "ROME-sky": "Italie",
+  "FLORE-sky": "Italie",
+  "VENI-sky": "Italie",
+  "ATHE-sky": "Grèce",
+  "DE-sky": 'Allemagne'
+}
+
+// countryPictures = {
+//   "Paris": {pictureUrl: "http://www.parisinfo.com/bundles/otcpotcp/images/paris_380x244.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Londres": {pictureUrl: "http://cdn.londonandpartners.com/l-and-p/assets/media/60972-640x360-tech_ns.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Ajaccio": {pictureUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Aiacciu.jpg/280px-Aiacciu.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Dublin": {pictureUrl: "https://lonelyplanetimages.imgix.net/mastheads/stock-photo-temple-bar-district-in-dublin-at-night-100904953%20.jpg?sharp=10&vib=20&w=1200", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Bruxelles": {pictureUrl: "https://images.unsplash.com/photo-1462364513050-bf030947cce2?dpr=1&auto=format&fit=crop&w=1500&h=864&q=80&cs=tinysrgb&crop=", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Tel-Aviv-Jaffa": {pictureUrl: "https://images.unsplash.com/photo-1462364513050-bf030947cce2?dpr=1&auto=format&fit=crop&w=1500&h=864&q=80&cs=tinysrgb&crop=", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Barcelone": {pictureUrl: "https://images.unsplash.com/photo-1462364513050-bf030947cce2?dpr=1&auto=format&fit=crop&w=1500&h=864&q=80&cs=tinysrgb&crop=", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Francfort-sur-le-Main": {pictureUrl: "https://images.unsplash.com/photo-1462364513050-bf030947cce2?dpr=1&auto=format&fit=crop&w=1500&h=864&q=80&cs=tinysrgb&crop=", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   "Rome": {pictureUrl: "https://images.unsplash.com/photo-1462364513050-bf030947cce2?dpr=1&auto=format&fit=crop&w=1500&h=864&q=80&cs=tinysrgb&crop=", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   'BERL-sky': {pictureUrl: "http://www.easyjet.com/fr/vacances/shared/images/guides/germany/berlin.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   'Berlin': {pictureUrl: "http://www.easyjet.com/fr/vacances/shared/images/guides/germany/berlin.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"},
+//   'DE-sky': {pictureUrl: "http://www.easyjet.com/fr/vacances/shared/images/guides/germany/berlin.jpg", authorName: "Mahir Uysal", authorLink: "https://unsplash.com/@mahiruysal"}
+// }
+
+countryPictures = {
+  "Cagliari": {pictureUrl: "https://images.unsplash.com/photo-1472806215488-02c49f97bb5a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Roman Kraft", authorLink: "https://unsplash.com/@romankraft"},
+  "Palerme": {pictureUrl: "https://images.unsplash.com/photo-1482273779211-53c48e1a92be?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Alessio Rinella", authorLink: "https://unsplash.com/@mumbojumbo"},
+  "Catane": {pictureUrl: "https://images.unsplash.com/photo-1432672301844-a3619c197980?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Fré Sonneveld", authorLink: "https://unsplash.com/@fredonneveld"},
+  "Naples": {pictureUrl: "https://images.unsplash.com/photo-1465461907033-f27efa4fee63?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Montse Monmo", authorLink: "https://unsplash.com/@monmo"},
+  "Rome": {pictureUrl: "https://images.unsplash.com/photo-1471247459295-11a8043b2f12?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Ludwig Thalheimer", authorLink: "https://unsplash.com/@ludwigthalheimer"},
+  "Florence": {pictureUrl: "https://images.unsplash.com/photo-1476362174823-3a23f4aa6d76?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Jonathan Körner", authorLink: "https://unsplash.com/@jonko"},
+  "Venise": {pictureUrl: "https://images.unsplash.com/photo-1482042519045-a51ea0cfb61d?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Jace Grandinettiy", authorLink: "https://unsplash.com/@jacegrandinetti"},
+  "Athènes": {pictureUrl: "https://images.unsplash.com/photo-1469796466635-455ede028aca?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Alexandre Chambon", authorLink: "https://unsplash.com/@goodspleen"},
+  "Bastia": {pictureUrl: "https://images.unsplash.com/photo-1417300449344-81fc2cba39bf?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Joren Frielink", authorLink: "https://unsplash.com/@jorenfrielink"},
+  "Madrid": {pictureUrl: "https://images.unsplash.com/photo-1468412526475-8cc70299f66f?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Greta Schölderle Møller", authorLink: "https://unsplash.com/@scholderle"},
+  "Barcelone": {pictureUrl: "https://images.unsplash.com/photo-1456132311779-ca4ff6130510?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Tyler Hendy", authorLink: "https://unsplash.com/@tylerhendy"},
+  "Séville": {pictureUrl: "https://images.unsplash.com/photo-1489266933734-9ad498e83609?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Ángel Fernández Alonso", authorLink: "https://unsplash.com/@angelfernandezalonso"},
+  "Valence": {pictureUrl: "https://images.unsplash.com/photo-1476785046483-fbc6273ad272?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Igor Ovsyannykov", authorLink: "https://unsplash.com/@igorovsyannykov"},
+  "Lisbonne": {pictureUrl: "https://images.unsplash.com/photo-1475584295643-2d5b3ebec2a8?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Tiago Aguiar", authorLink: "https://unsplash.com/@tiagoaguiari"},
+  "Porto": {pictureUrl: "https://images.unsplash.com/photo-1460667159118-4194867909d7?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Samuel Zeller", authorLink: "https://unsplash.com/@samuelzeller"},
+  "Amsterdam": {pictureUrl: "https://images.unsplash.com/photo-1468436385273-8abca6dfd8d3?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Jace Grandinettiy", authorLink: "https://unsplash.com/@jacegrandinetti"},
+  "Bruxelles": {pictureUrl: "https://images.unsplash.com/photo-1485617167460-272209469c67?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "David Bruyndonckx", authorLink: "https://unsplash.com/@david_bxl"},
+  "Édimbourg": {pictureUrl: "https://images.unsplash.com/photo-1455817018006-81cc45a803f8?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Omar Yassen", authorLink: "https://unsplash.com/@oy"},
+  "Glasgow": {pictureUrl: "https://images.unsplash.com/photo-1475427857625-76001139250d?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Asa Rodger", authorLink: "https://unsplash.com/@asarodger"},
+  "Belfast": {pictureUrl: "https://images.unsplash.com/photo-1443792074828-38fccce9e428?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Wynand van Poortvliet", authorLink: "https://unsplash.com/@wwwynand"},
+  "Dublin": {pictureUrl: "https://images.unsplash.com/photo-1485617698980-9bdd50acca0a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Hugues Adamo", authorLink: "https://unsplash.com/@hugheshh"},
+  "Marseille": {pictureUrl: "https://images.unsplash.com/photo-1465401180489-ceb5a34d8a63?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Alexey Topolyanskiy", authorLink: "https://unsplash.com/@devilcoders"},
+  "Varsovie": {pictureUrl: "https://images.unsplash.com/photo-1464520460796-5d98a3e5b296?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Alexey Topolyanskiy", authorLink: "https://unsplash.com/@devilcoders"},
+  "Cracovie": {pictureUrl: "https://images.unsplash.com/photo-1473587184616-a3095989df0a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Sylwia Bartyzel", authorLink: "https://unsplash.com/@sylwiabartyzel"},
+  "Prague": {pictureUrl: "https://images.unsplash.com/photo-1458150945447-7fb764c11a92?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Rodrigo Ardilha", authorLink: "https://unsplash.com/@rodrigoardilha"},
+  "Berlin": {pictureUrl: "https://images.unsplash.com/photo-1470394056006-130bc90c012b?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Roman Kraft", authorLink: "https://unsplash.com/@romankraft"},
+  // Debug Values
+  'BERL-sky': {pictureUrl: "https://images.unsplash.com/photo-1470394056006-130bc90c012b?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Roman Kraft", authorLink: "https://unsplash.com/@romankraft"},
+  'DE-sky': {pictureUrl: "https://images.unsplash.com/photo-1470394056006-130bc90c012b?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Roman Kraft", authorLink: "https://unsplash.com/@romankraft"},
+  // End of debug values
+  "Hambourg": {pictureUrl: "https://images.unsplash.com/photo-1473615695634-d284ec918736?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Claudio Testa", authorLink: "https://unsplash.com/@claudiotesta"},
+  "Munich": {pictureUrl: "https://images.unsplash.com/photo-1452729944771-911f9df85ef3?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Kai Oberhäuser", authorLink: "https://unsplash.com/@memoryonsounds"},
+  "Francfort-sur-le-Main": {pictureUrl: "https://images.unsplash.com/photo-1490084058443-6b6c099b6d68?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Dmitri Popov", authorLink: "https://unsplash.com/@dmpop"},
+  "Copenhague": {pictureUrl: "https://images.unsplash.com/photo-1464518983192-0de439b5d517?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Johan Mouchet", authorLink: "https://unsplash.com/@johanmouchet"},
+  "Londres": {pictureUrl: "https://images.unsplash.com/photo-1470215645605-f2afbb72eedb?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Tamara Menzi", authorLink: "https://unsplash.com/@itstamaramenzi"},
+  // "Reykjavik": {pictureUrl: "https://images.unsplash.com/photo-1462993340984-49bd9e0f32dd?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Frank Denney", authorLink: "https://unsplash.com/@frnkdnny"},
+  "Oslo": {pictureUrl: "https://images.unsplash.com/photo-1468930830753-6699377de411?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Oliver Cole", authorLink: "https://unsplash.com/@o_j_cole"},
+  "Stockholm": {pictureUrl: "https://images.unsplash.com/photo-1484037832928-afe345637f55?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Jon Flobrant", authorLink: "https://unsplash.com/@jonflobrant"},
+  "Helsinki": {pictureUrl: "https://images.unsplash.com/photo-1486566362229-a027336eabea?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Rucksack Magazine", authorLink: "https://unsplash.com/@rucksackmag"},
+  "Moscou": {pictureUrl: "https://images.unsplash.com/photo-1485596811645-33056dc9c562?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Marina Khrapova", authorLink: "https://unsplash.com/@mimiori"},
+  "Tallin": {pictureUrl: "https://images.unsplash.com/photo-1465802954450-8fcef6708c35?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Ivars Krutainis", authorLink: "https://unsplash.com/@krutainis"},
+  "Riga": {pictureUrl: "https://images.unsplash.com/photo-1484853225930-33d965038bdc?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Gatis Vilaks", authorLink: "https://unsplash.com/@gatisv"},
+  "Vilnius": {pictureUrl: "https://images.unsplash.com/photo-1485030238357-06a7606cf0ba?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=", authorName: "Modesta Žemgulytė", authorLink: "https://unsplash.com/@modeze"},
+}
+
 
 SkyScannerApiKey = "uz497893624968959685836267896543"
 
