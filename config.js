@@ -356,8 +356,8 @@ DB = {
   production: {
     password: "7]65X5s59!7871F",
     user: 'root',
-    uri: "mongodb://root:7]65X5s59!7871F@waffle.modulusmongo.net:27017/ud7yrIgi",
-    console: "mongo waffle.modulusmongo.net:27017/ud7yrIgi -u <user> -p <pass>"
+    uri: "mongodb://root:7]65X5s59!7871F@ds049864.mlab.com:49864/heroku_054v5j0f",
+    console: "mongo ds049864.mlab.com:49864/heroku_054v5j0f -u root -p 7]65X5s59!7871F"
   },
   dev: {
     uri: "mongodb://localhost/app-weekend"
